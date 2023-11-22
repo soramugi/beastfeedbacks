@@ -16,6 +16,7 @@ class BeastFeedbacks_Block
 	protected function __construct()
 	{
 		add_action('init', array($this, 'register_block_type'));
+		add_filter('block_categories_all', array($this, 'block_categories_all'), 10, 2);
 	}
 
 	/**
@@ -27,12 +28,26 @@ class BeastFeedbacks_Block
 	 */
 	public function register_block_type()
 	{
-		/**
-		 * TODO: カスタムカテゴリに対応
-		 * https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
-		 * https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#block_categories_all
-		 */
-
 		register_block_type(BEASTFEEDBACKS_PLUGIN_PATH . 'blocks/build/vote/');
+	}
+
+	/**
+	 * カスタムカテゴリに対応
+	 *
+	 * https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#block_categories_all
+	 */
+	public function block_categories_all($block_categories, $editor_context)
+	{
+		if (!empty($editor_context->post)) {
+			array_push(
+				$block_categories,
+				array(
+					'slug'  => 'beastfeedbacks',
+					'title' => __('BeastFeedbacks', 'beastfeedbacks'),
+					'icon'  => null,
+				)
+			);
+		}
+		return $block_categories;
 	}
 }

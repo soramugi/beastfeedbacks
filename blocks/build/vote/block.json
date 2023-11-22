@@ -4,7 +4,7 @@
   "name": "beastfeedbacks/vote",
   "version": "0.1.0",
   "title": "vote",
-  "category": "widgets",
+  "category": "beastfeedbacks",
   "icon": "smiley",
   "description": "Example block scaffolded with Create Block tool.",
   "example": {},
