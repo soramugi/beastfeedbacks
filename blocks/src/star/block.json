@@ -1,0 +1,19 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "beastfeedbacks/star",
+	"version": "0.1.0",
+	"title": "star",
+	"category": "beastfeedbacks",
+	"icon": "star-filled",
+	"description": "Submit your rating by number of stars",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "beastfeedbacks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}

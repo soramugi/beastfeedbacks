@@ -28,7 +28,9 @@ class BeastFeedbacks_Block
 	 */
 	public function register_block_type()
 	{
-		register_block_type(BEASTFEEDBACKS_PLUGIN_PATH . 'blocks/build/vote/');
+		register_block_type(BEASTFEEDBACKS_PLUGIN_PATH . 'blocks/build/like/');
+		register_block_type(BEASTFEEDBACKS_PLUGIN_PATH . 'blocks/build/form/');
+		register_block_type(BEASTFEEDBACKS_PLUGIN_PATH . 'blocks/build/star/');
 	}
 
 	/**
