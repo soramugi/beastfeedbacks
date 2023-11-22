@@ -21,6 +21,8 @@ import { useBlockProps } from '@wordpress/block-editor';
  */
 import './editor.scss';
 
+import { Placeholder, TextControl } from '@wordpress/components';
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -29,13 +31,18 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
+export default function Edit( { attributes, className, setAttributes } ) {
 	return (
-		<p { ...useBlockProps() }>
-			{ __(
-				'Beastfeedbacks – hello from the editor!!',
-				'beastfeedbacks'
-			) }
-		</p>
+		<div { ...useBlockProps() }>
+			<Placeholder
+				label={ __( 'Gutenpride Block', 'gutenpride' ) }
+				instructions={ __( 'Add your message', 'gutenpride' ) }
+			>
+				<TextControl
+					value={ attributes.content }
+					onChange={ ( val ) => setAttributes( { message: val } ) }
+				/>
+			</Placeholder>
+		</div>
 	);
 }

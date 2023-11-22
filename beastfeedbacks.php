@@ -33,4 +33,10 @@ function beastfeedbacks_beastfeedbacks_block_init()
 }
 add_action('init', 'beastfeedbacks_beastfeedbacks_block_init');
 
+/**
+ * TODO: カスタムカテゴリに対応
+ * https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
+ * https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#block_categories_all
+ */
+
 require_once BEASTFEEDBACKS_PLUGIN_PATH . 'includes/auto-load.php';
