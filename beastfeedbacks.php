@@ -14,10 +14,33 @@
  * @package           create-block
  */
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly.
+// If this file is called directly, abort.
+if (!defined('WPINC')) {
+	die;
 }
 
-define('BEASTFEEDBACKS_PLUGIN_PATH', plugin_dir_path(__FILE__));
+define('BEASTFEEDBACKS_VERSION', '0.1.0');
 
-require_once BEASTFEEDBACKS_PLUGIN_PATH . 'includes/auto-load.php';
+function activate_beastfeedbacks()
+{
+	require_once plugin_dir_path(__FILE__) . 'includes/class-beastfeedbacks-activator.php';
+	BeastFeedbacks_Activator::activate();
+}
+
+function deactivate_beastfeedbacks()
+{
+	require_once plugin_dir_path(__FILE__) . 'includes/class-beastfeedbacks-deactivator.php';
+	BeastFeedbacks_Deactivator::deactivate();
+}
+
+register_activation_hook(__FILE__, 'activate_beastfeedbacks');
+register_deactivation_hook(__FILE__, 'deactivate_beastfeedbacks');
+
+require plugin_dir_path(__FILE__) . 'includes/class-beastfeedbacks.php';
+
+function run_beastfeedbacks()
+{
+	$plugin = new BeastFeedbacks();
+	$plugin->run();
+}
+run_beastfeedbacks();
