@@ -17,6 +17,7 @@ class BeastFeedbacks_Block
 	{
 		add_action('init', array($this, 'register_block_type'));
 		add_filter('block_categories_all', array($this, 'block_categories_all'), 10, 2);
+		add_action('rest_api_init', array($this, 'register_rest_route'));
 	}
 
 	/**
@@ -51,5 +52,19 @@ class BeastFeedbacks_Block
 			);
 		}
 		return $block_categories;
+	}
+
+	public function register_rest_route()
+	{
+		register_rest_route('beastfeedbacks/v1', '/like', array(
+			'methods' => 'POST',
+			'callback' => array($this, 'handle_like')
+		));
+	}
+
+	public function handle_like($request)
+	{
+		// ここに「いいね」をデータベースに保存する処理を書く
+		return new WP_REST_Response('Liked', 200);
 	}
 }
