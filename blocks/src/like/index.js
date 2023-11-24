@@ -10,6 +10,10 @@ registerBlockType(metadata.name, {
 	edit: () => {
 		const blockProps = useBlockProps();
 
-		return <Button {...blockProps}>Like</Button>;
+		return (
+			<div {...blockProps}>
+				<Button>Like</Button>
+			</div>
+		);
 	},
 });

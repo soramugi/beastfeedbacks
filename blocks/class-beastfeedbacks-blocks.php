@@ -65,26 +65,37 @@ class BeastFeedbacks_Blocks
 
 	public function render_callback_like()
 	{
-		return '<button ' . get_block_wrapper_attributes() . '>' . 'Click Me!!' . '</button>';
+		$count = 0;
+		return vsprintf(
+			'<div %s data-nonce="%s"><button>%s</button></div>',
+			[
+				get_block_wrapper_attributes(),
+				wp_create_nonce('beastfeedbacks_nonce'),
+				'Like: ' . $count
+			]
+		);
 	}
 
-	/**
-	 * Like用の登録エンドポイント作成
-	 *
-	 * TODO: Like専用というよりも、全て共有の方がいいかも?
-	 */
 	public function register_rest_route()
 	{
-		register_rest_route('beastfeedbacks/v1', '/like', array(
+		register_rest_route('beastfeedbacks/v1', '/register', array(
 			'methods' => 'POST',
-			'callback' => array($this, 'handle_like')
+			'callback' => array($this, 'handle_register')
 		));
 	}
 
-	public function handle_like($request)
+	public function handle_register(WP_REST_Request $request)
 	{
-		// ここに「いいね」をデータベースに保存する処理を書く
-		return new WP_REST_Response('Liked', 200);
-	}
+		$params = $request->get_json_params();
+		if (!isset($params['beastfeedbacks']) || !isset($params['nonce'])) {
+			return new WP_Error();
+		}
+		if (!wp_verify_nonce($params['nonce'], 'beastfeedbacks_nonce')) {
+			return new WP_Error(404, 'Security check');
+		}
 
+		return new WP_REST_Response([
+			'success' => 1,
+		], 200);
+	}
 }

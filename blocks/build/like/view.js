@@ -1,1 +1,28 @@
-(()=>{"use strict";var e={n:t=>{var o=t&&t.__esModule?()=>t.default:()=>t;return e.d(o,{a:o}),o},d:(t,o)=>{for(var a in o)e.o(o,a)&&!e.o(t,a)&&Object.defineProperty(t,a,{enumerable:!0,get:o[a]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t)};const t=window.wp.apiFetch;var o=e.n(t);document.querySelectorAll(".wp-block-beastfeedbacks-like").forEach((e=>{e.onclick=e=>{o()({path:"/beastfeedbacks/v1/like",method:"POST",data:{title:"New Post Title"}}).then((e=>{console.log(e)}))}}))})();
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!*********************************!*\
+  !*** ./blocks/src/like/view.js ***!
+  \*********************************/
+const elements = document.querySelectorAll(".wp-block-beastfeedbacks-like");
+elements.forEach(element => {
+  const nonce = element.dataset.nonce;
+  const buttons = element.getElementsByTagName("button");
+  for (const button of buttons) {
+    button.onclick = event => {
+      button.setAttribute("disabled", true);
+      fetch("/wp-json/beastfeedbacks/v1/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          beastfeedbacks: 1,
+          nonce
+        })
+      }).then(response => response.json()).then(data => console.log(data));
+    };
+  }
+});
+/******/ })()
+;
+//# sourceMappingURL=view.js.map

@@ -1,25 +1,25 @@
-import apiFetch from "@wordpress/api-fetch";
-
 const elements = document.querySelectorAll(".wp-block-beastfeedbacks-like");
 
 elements.forEach((element) => {
-	element.onclick = (event) => {
-		apiFetch({
-			path: "/beastfeedbacks/v1/like",
-			method: "POST",
-			data: { title: "New Post Title" },
-		}).then((res) => {
-			console.log(res);
-		});
+	const nonce = element.dataset.nonce;
+	const buttons = element.getElementsByTagName("button");
 
-		// fetch("/wp-json/beastfeedbacks/v1/like", {
-		// 	method: "POST",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// 	// body: JSON.stringify({ postID: props.clientId }),
-		// })
-		// 	.then((response) => response.json())
-		// 	.then((data) => console.log(data));
-	};
+	for (const button of buttons) {
+		button.onclick = (event) => {
+			button.setAttribute("disabled", true);
+
+			fetch("/wp-json/beastfeedbacks/v1/register", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					beastfeedbacks: 1,
+					nonce,
+				}),
+			})
+				.then((response) => response.json())
+				.then((data) => console.log(data));
+		};
+	}
 });
