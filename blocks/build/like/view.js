@@ -18,10 +18,13 @@ elements.forEach(element => {
         },
 
         body: JSON.stringify({
-          beastfeedbacks: 1,
+          beastfeedbacks_type: 'like',
           nonce
         })
       }).then(response => response.json()).then(data => {
+        if (!data.success) {
+          return;
+        }
         const elems = button.getElementsByClassName("count");
         for (const elem of elems) {
           elem.textContent = data.count;

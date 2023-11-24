@@ -15,7 +15,7 @@ elements.forEach((element) => {
 					// "X-WP-Nonce": nonce,
 				},
 				body: JSON.stringify({
-					beastfeedbacks: 1,
+					beastfeedbacks_type: 'like',
 					nonce,
 				}),
 			})

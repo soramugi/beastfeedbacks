@@ -63,9 +63,31 @@ class BeastFeedbacks_Blocks
 		register_block_type(plugin_dir_path(__FILE__) . 'build/star/');
 	}
 
+	public function get_like_count($referer = null)
+	{
+		$args = array(
+			'post_type' => 'beastfeedbacks',
+			'meta_query' => array(
+				array(
+					'key' => 'beastfeedbacks_type',
+					'value' => 'like',
+				),
+				array(
+					// TODO: URLではなく記事のIDを基本的に判別するのに変更
+					'key' => 'referer',
+					'value' => $referer,
+				)
+			),
+			'post_status' => 'publish',
+		);
+		$query = new WP_Query($args);
+		return $query->post_count;
+	}
+
 	public function render_callback_like()
 	{
-		$count = 0;
+		$count = $this->get_like_count(get_permalink());
+
 		return vsprintf(
 			'<div %s data-nonce="%s">%s%s</div>',
 			[
@@ -88,12 +110,14 @@ class BeastFeedbacks_Blocks
 	public function handle_register(WP_REST_Request $request)
 	{
 		$params = $request->get_json_params();
-		if (!isset($params['beastfeedbacks']) || !isset($params['nonce'])) {
+		if (!isset($params['beastfeedbacks_type']) || !isset($params['nonce'])) {
 			return new WP_Error();
 		}
 		if (!wp_verify_nonce($params['nonce'], 'beastfeedbacks_nonce')) {
 			return new WP_Error(404, 'Security check');
 		}
+
+		$beastfeedbacks_type = $params['beastfeedbacks_type'];
 
 		$comment_author = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : null;
 
@@ -115,10 +139,14 @@ class BeastFeedbacks_Blocks
 				'post_name'    => $feedback_id,
 			)
 		);
+		update_post_meta($post_id, 'beastfeedbacks_type', $beastfeedbacks_type);
+		update_post_meta($post_id, 'referer', $referer);
+
+		$count = $this->get_like_count($referer);
 
 		return new WP_REST_Response([
 			'success' => 1,
-			'count' => 3,
+			'count' => $count,
 		], 200);
 	}
 }
