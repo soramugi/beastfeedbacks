@@ -21,6 +21,9 @@ elements.forEach((element) => {
 			})
 				.then((response) => response.json())
 				.then((data) => {
+					if (!data.success) {
+						return;
+					}
 					const elems = button.getElementsByClassName("count");
 					for (const elem of elems) {
 						elem.textContent = data.count;

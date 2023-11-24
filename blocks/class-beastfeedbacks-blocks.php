@@ -95,6 +95,27 @@ class BeastFeedbacks_Blocks
 			return new WP_Error(404, 'Security check');
 		}
 
+		$comment_author = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : null;
+
+		$feedback_time  = current_time('mysql');
+		$feedback_status = 'publish';
+		$feedback_title = "{$comment_author} - {$feedback_time}";
+		$feedback_id    = md5($feedback_title);
+		$referer = wp_get_referer();
+
+		$post_id = wp_insert_post(
+			array(
+				'post_date'    => addslashes($feedback_time),
+				'post_type'    => 'beastfeedbacks',
+				'post_status'  => addslashes($feedback_status),
+				'post_title'   => addslashes(wp_kses($feedback_title, array())),
+				'post_content' => addslashes(
+					wp_kses(@wp_json_encode(['referer' => $referer], true), array())
+				), // so that search will pick up this data
+				'post_name'    => $feedback_id,
+			)
+		);
+
 		return new WP_REST_Response([
 			'success' => 1,
 			'count' => 3,
