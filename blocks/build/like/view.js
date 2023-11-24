@@ -14,12 +14,23 @@ elements.forEach(element => {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
+          // "X-WP-Nonce": nonce,
         },
+
         body: JSON.stringify({
           beastfeedbacks: 1,
           nonce
         })
-      }).then(response => response.json()).then(data => console.log(data));
+      }).then(response => response.json()).then(data => {
+        const elems = button.getElementsByClassName("count");
+        for (const elem of elems) {
+          elem.textContent = data.count;
+        }
+        const messages = button.parentElement.getElementsByClassName("message");
+        for (const message of messages) {
+          message.style.display = "block";
+        }
+      });
     };
   }
 });
