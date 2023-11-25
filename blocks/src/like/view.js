@@ -15,24 +15,25 @@ elements.forEach((element) => {
 					// "X-WP-Nonce": nonce,
 				},
 				body: JSON.stringify({
-					beastfeedbacks_type: 'like',
+					beastfeedbacks_type: "like",
 					nonce,
 				}),
 			})
 				.then((response) => response.json())
 				.then((data) => {
-					if (!data.success) {
-						return;
+					if (data.count) {
+						const likeCounts = element.getElementsByClassName("like-count");
+						for (const likeCount of likeCounts) {
+							likeCount.textContent = data.count;
+						}
 					}
-					const elems = button.getElementsByClassName("count");
-					for (const elem of elems) {
-						elem.textContent = data.count;
-					}
-					const messages =
-						button.parentElement.getElementsByClassName("message");
-					for (const message of messages) {
-						message.style.display = "block";
-					}
+
+					const messageElement = document.createElement("span");
+					messageElement.textContent = data.message;
+					element.parentElement.insertBefore(
+						messageElement,
+						element.nextSibling,
+					);
 				});
 		};
 	}

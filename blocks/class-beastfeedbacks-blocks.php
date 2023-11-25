@@ -89,12 +89,11 @@ class BeastFeedbacks_Blocks
 		$count = $this->get_like_count(get_permalink());
 
 		return vsprintf(
-			'<div %s data-nonce="%s">%s%s</div>',
+			'<div %s data-nonce="%s">%s</div>',
 			[
 				get_block_wrapper_attributes(),
 				wp_create_nonce('beastfeedbacks_nonce'),
-				sprintf('<button>Like: <span class="count">%s</span></button>', $count),
-				sprintf('<span style="display:none;" class="message">投票ありがとうございました</span>'),
+				sprintf('<button>Like <span class="like-count">%s</span></button>', $count),
 			]
 		);
 	}
@@ -147,6 +146,7 @@ class BeastFeedbacks_Blocks
 		return new WP_REST_Response([
 			'success' => 1,
 			'count' => $count,
+			'message' => '投票ありがとうございました。',
 		], 200);
 	}
 }

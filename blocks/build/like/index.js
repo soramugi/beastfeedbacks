@@ -28,6 +28,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+/**
+ * Likeボタンの実装
+ *
+ * ダイナミックブロックとして実装、表示部分は以下で設定
+ * @see BeastFeedbacks_Blocks::render_callback_like
+ */
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_5__.name, {
   edit: () => {
     const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)();
