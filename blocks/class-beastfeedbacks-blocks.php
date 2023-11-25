@@ -63,7 +63,7 @@ class BeastFeedbacks_Blocks
 		register_block_type(plugin_dir_path(__FILE__) . 'build/star/');
 	}
 
-	public function get_like_count($referer = null)
+	public function get_like_count($guid)
 	{
 		$args = array(
 			'post_type' => 'beastfeedbacks',
@@ -73,9 +73,8 @@ class BeastFeedbacks_Blocks
 					'value' => 'like',
 				),
 				array(
-					// TODO: URLではなく記事のIDを基本的に判別するのに変更
-					'key' => 'referer',
-					'value' => $referer,
+					'key' => 'beastfeedbacks_like_guid',
+					'value' => $guid,
 				)
 			),
 			'post_status' => 'publish',
@@ -86,13 +85,18 @@ class BeastFeedbacks_Blocks
 
 	public function render_callback_like()
 	{
-		$count = $this->get_like_count(get_permalink());
+		$post_id = get_the_ID();
+		$post = get_post($post_id);
+		$guid = $post->guid;
+
+		$count = $this->get_like_count($guid);
 
 		return vsprintf(
-			'<div %s data-nonce="%s">%s</div>',
+			'<div %s data-nonce="%s" data-guid="%s">%s</div>',
 			[
 				get_block_wrapper_attributes(),
 				wp_create_nonce('beastfeedbacks_nonce'),
+				esc_html($guid),
 				sprintf('<button>Like <span class="like-count">%s</span></button>', $count),
 			]
 		);
@@ -100,10 +104,28 @@ class BeastFeedbacks_Blocks
 
 	public function register_rest_route()
 	{
+		register_rest_route('beastfeedbacks/v1', '/like-count', array(
+			'methods' => 'GET',
+			'callback' => array($this, 'handle_like_count')
+		));
+
 		register_rest_route('beastfeedbacks/v1', '/register', array(
 			'methods' => 'POST',
 			'callback' => array($this, 'handle_register')
 		));
+	}
+
+	public function handle_like_count(WP_REST_Request $request)
+	{
+		if (!isset($request['guid'])) {
+			return new WP_Error();
+		}
+
+		$count = $this->get_like_count($request['guid']);
+
+		return new WP_REST_Response([
+			'count' => $count,
+		], 200);
 	}
 
 	public function handle_register(WP_REST_Request $request)
@@ -117,6 +139,7 @@ class BeastFeedbacks_Blocks
 		}
 
 		$beastfeedbacks_type = $params['beastfeedbacks_type'];
+		$guid = $params['guid'];
 
 		$comment_author = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : null;
 
@@ -124,7 +147,6 @@ class BeastFeedbacks_Blocks
 		$feedback_status = 'publish';
 		$feedback_title = "{$comment_author} - {$feedback_time}";
 		$feedback_id    = md5($feedback_title);
-		$referer = wp_get_referer();
 
 		$post_id = wp_insert_post(
 			array(
@@ -132,16 +154,13 @@ class BeastFeedbacks_Blocks
 				'post_type'    => 'beastfeedbacks',
 				'post_status'  => addslashes($feedback_status),
 				'post_title'   => addslashes(wp_kses($feedback_title, array())),
-				'post_content' => addslashes(
-					wp_kses(@wp_json_encode(['referer' => $referer], true), array())
-				), // so that search will pick up this data
 				'post_name'    => $feedback_id,
 			)
 		);
 		update_post_meta($post_id, 'beastfeedbacks_type', $beastfeedbacks_type);
-		update_post_meta($post_id, 'referer', $referer);
+		update_post_meta($post_id, 'beastfeedbacks_like_guid', $guid);
 
-		$count = $this->get_like_count($referer);
+		$count = $this->get_like_count($guid);
 
 		return new WP_REST_Response([
 			'success' => 1,

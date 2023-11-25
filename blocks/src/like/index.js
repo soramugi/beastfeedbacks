@@ -2,6 +2,8 @@ import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
 import { useBlockProps } from "@wordpress/block-editor";
 import { Button } from "@wordpress/components";
+import { select, useSelect } from "@wordpress/data";
+import apiFetch from "@wordpress/api-fetch";
 import metadata from "./block.json";
 
 import "./style.scss";
@@ -15,6 +17,9 @@ import "./style.scss";
 registerBlockType(metadata.name, {
 	edit: () => {
 		const blockProps = useBlockProps();
+
+		const post = select("core/editor").getCurrentPost();
+		console.log(post.guid);
 
 		return (
 			<div {...blockProps}>
