@@ -57,7 +57,7 @@ class BeastFeedbacks_Blocks
 	public function register_block_type()
 	{
 		register_block_type(plugin_dir_path(__FILE__) . 'build/like/', array(
-			'render_callback' => array($this, 'render_callback_like'),
+			// 'render_callback' => array($this, 'render_callback_like'),
 		));
 		register_block_type(plugin_dir_path(__FILE__) . 'build/form/');
 		register_block_type(plugin_dir_path(__FILE__) . 'build/star/');

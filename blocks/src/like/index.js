@@ -1,29 +1,57 @@
 import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
-import { useBlockProps } from "@wordpress/block-editor";
-import { Button } from "@wordpress/components";
-import { select, useSelect } from "@wordpress/data";
-import apiFetch from "@wordpress/api-fetch";
+import {
+	useBlockProps,
+	InnerBlocks,
+} from "@wordpress/block-editor";
 import metadata from "./block.json";
 
 import "./style.scss";
 
+const TEMPLATE = [
+	[
+		"core/button",
+		{
+			text: "いいね",
+			tagName: "button",
+			type: "submit",
+		},
+	],
+];
+
 /**
- * Likeボタンの実装
- *
- * ダイナミックブロックとして実装、表示部分は以下で設定
- * @see BeastFeedbacks_Blocks::render_callback_like
+ * Likeボタン
  */
 registerBlockType(metadata.name, {
 	edit: () => {
 		const blockProps = useBlockProps();
 
+		return (
+			<div className="wp-block-beastfeedback-like-wrapper" {...blockProps}>
+				<div className="wp-block-beastfeedback-like-balloon">
+					<p className="like-count">0</p>
+				</div>
+				<InnerBlocks
+					allowedBlocks={TEMPLATE}
+					template={TEMPLATE}
+					templateLock="all"
+				/>
+			</div>
+		);
+	},
+	save: () => {
+		const blockProps = useBlockProps.save();
+
 		const post = select("core/editor").getCurrentPost();
 		console.log(post.guid);
 
 		return (
-			<div {...blockProps}>
-				<Button>Like</Button>
+			<div className="wp-block-beastfeedback-like-wrapper" {...blockProps}>
+				<div className="wp-block-beastfeedback-like-balloon">
+					<p className="like-count">0</p>
+				</div>
+
+				<InnerBlocks.Content />
 			</div>
 		);
 	},

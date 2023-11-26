@@ -10,3 +10,42 @@
 	color: #fff;
 	padding: 2px;
 }
+
+.wp-block-beastfeedback-like-balloon {
+	position: relative;
+	display: inline-block;
+	margin-bottom: 1.5rem;
+	padding: 7px 10px;
+	min-width: 120px;
+	max-width: 100%;
+	color: #555;
+	font-size: 16px;
+	background: #fff;
+	border: solid #ccc;
+
+	&:before {
+		content: "";
+		position: absolute;
+		left: calc(50% - 15px);
+		bottom: -15px;
+		border-style: solid;
+		border-color: #ccc transparent transparent transparent;
+		border-width: 15px 15px 0 15px;
+	}
+
+	&:after {
+		content: "";
+		position: absolute;
+		left: calc(50% - 13px);
+		bottom: -13px;
+		border-style: solid;
+		border-color: #fff transparent transparent transparent;
+		border-width: 13px 13px 0 13px;
+	}
+
+	p {
+		text-align: center;
+		margin: 0;
+		padding: 0;
+	}
+}
