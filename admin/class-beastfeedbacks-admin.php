@@ -23,6 +23,8 @@
 class BeastFeedbacks_Admin
 {
 
+	public $postType = 'beastfeedbacks';
+
 	/**
 	 * The ID of this plugin.
 	 *
@@ -100,58 +102,95 @@ class BeastFeedbacks_Admin
 
 	public function add_menu_page()
 	{
-		$slug = 'beastfeedbacks';
-
 		add_menu_page(
 			"BeastFeedbacks",
 			"BeastFeedbacks",
 			'edit_pages',
-			'edit.php?post_type=beastfeedbacks',
+			'edit.php?post_type=' . $this->postType,
 			'',
 			'dashicons-feedback'
 		);
 
-		$labels = array(
-			'name'               => 'Beastfeedbacks',
-			'singular_name'      => 'Beastfeedback',
-			'add_new'            => 'Add New',
-			'add_new_item'       => 'Add New Beastfeedback',
-			'edit_item'          => 'Edit Beastfeedback',
-			'new_item'           => 'New Beastfeedback',
-			'all_items'          => 'All Beastfeedbacks',
-			'view_item'          => 'View Beastfeedback',
-			'search_items'       => 'Search Beastfeedbacks',
-			'not_found'          => 'No beastfeedbacks found',
-			'not_found_in_trash' => 'No beastfeedbacks found in Trash',
-			'parent_item_colon'  => '',
-			'menu_name'          => 'Beastfeedbacks'
-		);
-
-		$args = array(
-			'labels'             => $labels,
-			'show_ui'               => true,
-			'show_in_menu'          => false,
-			'show_in_admin_bar'     => false,
-			'public'                => false,
-			'rewrite'               => false,
-			'query_var'             => false,
-			'capability_type'       => 'page',
-			'show_in_rest'          => true,
-			'capabilities'          => array(
-				'create_posts'        => 'do_not_allow',
-				'publish_posts'       => 'publish_pages',
-				'edit_posts'          => 'edit_pages',
-				'edit_others_posts'   => 'edit_others_pages',
-				'delete_posts'        => 'delete_pages',
-				'delete_others_posts' => 'delete_others_pages',
-				'read_private_posts'  => 'read_private_pages',
-				'edit_post'           => 'edit_page',
-				'delete_post'         => 'delete_page',
-				'read_post'           => 'read_page',
+		register_post_type($this->postType, array(
+			'labels' => array(
+				'name' => 'Beastfeedbacks',
 			),
-			'map_meta_cap'          => true,
-		);
 
-		register_post_type('beastfeedbacks', $args);
+			'public' => false,
+			'show_ui' => true,
+			'show_in_menu' => false,
+			'show_in_admin_bar' => false,
+			'show_in_rest' => false,
+
+			'rewrite' => false,
+			'query_var' => false,
+
+			'rest_controller_class' => '',
+
+			'map_meta_cap' => true,
+			'capability_type' => 'page',
+			'capabilities' => array(
+				'create_posts' => 'do_not_allow',
+
+				// 'delete_posts' => 'do_not_allow',
+				// 'publish_posts'       => 'do_not_allow',
+				// 'edit_post'           => 'do_not_allow',
+				// 'edit_others_posts'   => 'edit_others_pages',
+				// 'read_private_posts'  => 'read_private_pages',
+				// 'read_post'           => 'read_page',
+			),
+		));
+	}
+
+	/**
+	 * 一覧で表示するカラム
+	 */
+	public function manage_posts_columns()
+	{
+		return array(
+			'cb' => '<input type="checkbox" />',
+			'beastfeedbacks_from' => __('From', 'beastfeedbacks'),
+			'beastfeedbacks_source' => __('Source', 'beastfeedbacks'),
+			'beastfeedbacks_type' => __('Type', 'beastfeedbacks'),
+			'beastfeedbacks_date' => __('Date', 'beastfeedbacks'),
+			'beastfeedbacks_response' => __('Response Data', 'beastfeedbacks'),
+		);
+	}
+
+	public function manage_posts_custom_column($col, $post_id)
+	{
+		$post = get_post($post_id);
+
+		$list = [
+			'beastfeedbacks_from',
+			'beastfeedbacks_source',
+			'beastfeedbacks_type',
+			'beastfeedbacks_date',
+			'beastfeedbacks_response',
+		];
+
+		if (!in_array($col, $list, true)) {
+			return;
+		}
+
+		switch ($col) {
+			case 'beastfeedbacks_date':
+				echo esc_html(date_i18n('Y/m/d', get_the_time('U')));
+				return;
+			case 'beastfeedbacks_from':
+				echo 'TODO';
+				// $this->grunion_manage_post_column_from($post);
+				return;
+			case 'beastfeedbacks_response':
+				// $this->grunion_manage_post_column_response($post);
+				return;
+			case 'beastfeedbacks_source':
+				// $this->grunion_manage_post_column_source($post);
+				return;
+			case 'beastfeedbacks_type':
+				$metas = get_post_meta($post_id, 'beastfeedbacks_type');
+				echo $metas[0];
+				return;
+		}
 	}
 }
