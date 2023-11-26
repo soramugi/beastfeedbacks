@@ -57,7 +57,7 @@ class BeastFeedbacks_Blocks
 	public function register_block_type()
 	{
 		register_block_type(plugin_dir_path(__FILE__) . 'build/like/', array(
-			// 'render_callback' => array($this, 'render_callback_like'),
+			'render_callback' => array($this, 'render_callback_like'),
 		));
 		register_block_type(plugin_dir_path(__FILE__) . 'build/form/');
 		register_block_type(plugin_dir_path(__FILE__) . 'build/star/');
@@ -83,23 +83,23 @@ class BeastFeedbacks_Blocks
 		return $query->post_count;
 	}
 
-	public function render_callback_like()
+	public function render_callback_like($attributes, $content)
 	{
 		$post_id = get_the_ID();
 		$post = get_post($post_id);
 		$guid = $post->guid;
-
 		$count = $this->get_like_count($guid);
 
-		return vsprintf(
-			'<div %s data-nonce="%s" data-guid="%s">%s</div>',
-			[
-				get_block_wrapper_attributes(),
-				wp_create_nonce('beastfeedbacks_nonce'),
-				esc_html($guid),
-				sprintf('<button>Like <span class="like-count">%s</span></button>', $count),
-			]
-		);
+		return vsprintf('<div class="wp-block-beastfeedback-like-wrapper" %s data-nonce="%s" data-guid="%s">%s</div>', [
+			get_block_wrapper_attributes(),
+			wp_create_nonce('beastfeedbacks_nonce'),
+			esc_html($guid),
+			vsprintf('<div class="wp-block-beastfeedback-like-balloon"><p class="like-count">%s</p></div>%s', [
+				$count,
+				$content
+			])
+
+		]);
 	}
 
 	public function register_rest_route()

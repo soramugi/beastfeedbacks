@@ -39,20 +39,7 @@ registerBlockType(metadata.name, {
 			</div>
 		);
 	},
-	save: () => {
-		const blockProps = useBlockProps.save();
-
-		const post = select("core/editor").getCurrentPost();
-		console.log(post.guid);
-
-		return (
-			<div className="wp-block-beastfeedback-like-wrapper" {...blockProps}>
-				<div className="wp-block-beastfeedback-like-balloon">
-					<p className="like-count">0</p>
-				</div>
-
-				<InnerBlocks.Content />
-			</div>
-		);
-	},
+	save: props => {
+		return <InnerBlocks.Content />
+	}
 });

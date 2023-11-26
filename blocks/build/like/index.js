@@ -50,18 +50,8 @@ const TEMPLATE = [["core/button", {
       templateLock: "all"
     }));
   },
-  save: () => {
-    const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps.save();
-    const post = select("core/editor").getCurrentPost();
-    console.log(post.guid);
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "wp-block-beastfeedback-like-wrapper",
-      ...blockProps
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "wp-block-beastfeedback-like-balloon"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
-      className: "like-count"
-    }, "0")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InnerBlocks.Content, null));
+  save: props => {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InnerBlocks.Content, null);
   }
 });
 

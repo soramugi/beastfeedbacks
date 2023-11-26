@@ -3,7 +3,7 @@ var __webpack_exports__ = {};
 /*!*********************************!*\
   !*** ./blocks/src/like/view.js ***!
   \*********************************/
-const elements = document.querySelectorAll(".wp-block-beastfeedbacks-like");
+const elements = document.querySelectorAll(".wp-block-beastfeedback-like-wrapper");
 elements.forEach(element => {
   const nonce = element.dataset.nonce;
   const guid = element.dataset.guid;
@@ -25,7 +25,7 @@ elements.forEach(element => {
         })
       }).then(response => response.json()).then(data => {
         if (data.count) {
-          const likeCounts = element.getElementsByClassName("like-count");
+          const likeCounts = element.querySelectorAll(".like-count");
           for (const likeCount of likeCounts) {
             likeCount.textContent = data.count;
           }
