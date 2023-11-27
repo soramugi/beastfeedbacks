@@ -143,40 +143,11 @@ class BeastFeedbacks_Blocks {
 	public function register_rest_route() {
 		register_rest_route(
 			'beastfeedbacks/v1',
-			'/like-count',
-			array(
-				'methods'  => 'GET',
-				'callback' => array( $this, 'handle_like_count' ),
-			)
-		);
-
-		register_rest_route(
-			'beastfeedbacks/v1',
 			'/register',
 			array(
 				'methods'  => 'POST',
 				'callback' => array( $this, 'handle_register' ),
 			)
-		);
-	}
-
-	/**
-	 * Like数の取得
-	 *
-	 * @param WP_REST_Request $request リクエスト.
-	 */
-	public function handle_like_count( WP_REST_Request $request ) {
-		if ( ! isset( $request['guid'] ) ) {
-			return new WP_Error();
-		}
-
-		$count = $this->get_like_count( $request['guid'] );
-
-		return new WP_REST_Response(
-			array(
-				'count' => $count,
-			),
-			200
 		);
 	}
 

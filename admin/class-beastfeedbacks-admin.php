@@ -278,5 +278,4 @@ class BeastFeedbacks_Admin {
 		}
 		return $current_status;
 	}
-
 }
