@@ -201,8 +201,6 @@ class BeastFeedbacks_Admin {
 	 * @param int    $post_id     The current post ID.
 	 */
 	public function manage_posts_custom_column( $column_name, $post_id ) {
-		$post = get_post( $post_id );
-
 		$list = array(
 			'beastfeedbacks_from',
 			'beastfeedbacks_source',
@@ -220,18 +218,30 @@ class BeastFeedbacks_Admin {
 				echo esc_html( date_i18n( 'Y/m/d', get_the_time( 'U' ) ) );
 				return;
 			case 'beastfeedbacks_from':
-				echo 'TODO';
-				// $this->grunion_manage_post_column_from($post);
+				$meta = get_post_meta( $post_id, 'beastfeedbacks_from', true );
+				echo esc_html( $meta );
 				return;
 			case 'beastfeedbacks_response':
-				// $this->grunion_manage_post_column_response($post);
+				$post = get_post( $post_id );
+				echo esc_html( $post->post_content );
 				return;
 			case 'beastfeedbacks_source':
-				// $this->grunion_manage_post_column_source($post);
+				$post = get_post( $post_id );
+				if ( ! isset( $post->post_parent ) ) {
+					return;
+				}
+
+				$form_url   = get_permalink( $post->post_parent );
+				$parsed_url = wp_parse_url( $form_url );
+
+				printf(
+					'<a href="%s" target="_blank" rel="noopener noreferrer">/%s</a>',
+					esc_url( $form_url ),
+					esc_html( basename( $parsed_url['path'] ) )
+				);
 				return;
 			case 'beastfeedbacks_type':
-				$metas = get_post_meta( $post_id, 'beastfeedbacks_type' );
-				$meta = is_array( $metas ) ? (string) $metas[0] : '';
+				$meta = get_post_meta( $post_id, 'beastfeedbacks_type', true );
 				echo esc_html( $meta );
 				return;
 		}
