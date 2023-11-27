@@ -294,7 +294,7 @@ class BeastFeedbacks_Admin {
 			return;
 		}
 
-		$selected_type = intval( isset( $_GET['beastfeedbacks_type'] ) ? $_GET['beastfeedbacks_type'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$selected_type = isset( $_GET['beastfeedbacks_type'] ) ? sanitize_key( $_GET['beastfeedbacks_type'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 		$parent_types = array(
 			'like',
@@ -315,9 +315,38 @@ class BeastFeedbacks_Admin {
 
 		?>
 		<select name="beastfeedbacks_type">
-			<option value="all"><?php esc_html_e( 'All Types', 'beastfeedbacks' ); ?></option>
+			<option value=""><?php esc_html_e( 'All Types', 'beastfeedbacks' ); ?></option>
 			<?php echo $options; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML is escaped in the function. ?>
 		</select>
 		<?php
+	}
+
+	/**
+	 * Type フィルターの表示に対応
+	 *
+	 * @param WP_Query $query Current query.
+	 *
+	 * @return void
+	 */
+	public function type_filter_result( $query ) {
+		$selected_type = isset( $_GET['beastfeedbacks_type'] ) ? sanitize_key( $_GET['beastfeedbacks_type'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		if ( ! $selected_type || 'beastfeedbacks' !== $query->query_vars['post_type'] ) {
+			return;
+		}
+
+		$meta_query = array(
+			array(
+				'key'   => 'beastfeedbacks_type',
+				'value' => $selected_type,
+			),
+		);
+
+		$old_meta_query = $query->get( 'meta_query' );
+		if ( $old_meta_query ) {
+			$meta_query[] = $old_meta_query;
+		}
+
+		$query->set( 'meta_query', $meta_query );
 	}
 }
