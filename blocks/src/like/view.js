@@ -4,7 +4,7 @@ const elements = document.querySelectorAll(
 
 elements.forEach((element) => {
 	const nonce = element.dataset.nonce;
-	const guid = element.dataset.guid;
+	const id = element.dataset.id;
 	const buttons = element.getElementsByTagName("button");
 
 	for (const button of buttons) {
@@ -20,7 +20,7 @@ elements.forEach((element) => {
 				body: JSON.stringify({
 					beastfeedbacks_type: "like",
 					nonce,
-					guid,
+					id,
 				}),
 			})
 				.then((response) => response.json())

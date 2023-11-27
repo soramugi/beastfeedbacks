@@ -23,7 +23,7 @@
   color: #555;
   font-size: 16px;
   background: #fff;
-  border: solid #ccc;
+  border: 2px solid #ccc;
 }
 .wp-block-beastfeedback-like-balloon:before {
   content: "";

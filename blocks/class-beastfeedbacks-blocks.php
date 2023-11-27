@@ -14,8 +14,6 @@
  */
 class BeastFeedbacks_Blocks {
 
-
-
 	/**
 	 * The ID of this plugin.
 	 *
@@ -84,19 +82,16 @@ class BeastFeedbacks_Blocks {
 	/**
 	 * Like数の取得
 	 *
-	 * @param string $guid Like登録に使用したguidを渡す.
+	 * @param integer $post_id Like登録に使用したpostを渡す.
 	 */
-	public function get_like_count( $guid ) {
+	public function get_like_count( $post_id ) {
 		$args  = array(
 			'post_type'   => 'beastfeedbacks',
+			'post_parent' => $post_id,
 			'meta_query'  => array(
 				array(
 					'key'   => 'beastfeedbacks_type',
 					'value' => 'like',
-				),
-				array(
-					'key'   => 'beastfeedbacks_like_guid',
-					'value' => $guid,
 				),
 			),
 			'post_status' => 'publish',
@@ -115,16 +110,15 @@ class BeastFeedbacks_Blocks {
 	 */
 	public function render_callback_like( $attributes, $content ) {
 		$post_id = get_the_ID();
-		$post    = get_post( $post_id );
-		$guid    = $post->guid;
-		$count   = $this->get_like_count( $guid );
+		$count   = $this->get_like_count( $post_id );
+		$nonce   = wp_create_nonce( 'beastfeedbacks_' . $post_id . '_nonce' );
 
 		return vsprintf(
-			'<div class="wp-block-beastfeedback-like-wrapper" %s data-nonce="%s" data-guid="%s">%s</div>',
+			'<div class="wp-block-beastfeedback-like-wrapper" %s data-nonce="%s" data-id="%s">%s</div>',
 			array(
 				get_block_wrapper_attributes(),
-				wp_create_nonce( 'beastfeedbacks_nonce' ),
-				esc_html( $guid ),
+				$nonce,
+				$post_id,
 				vsprintf(
 					'<div class="wp-block-beastfeedback-like-balloon"><p class="like-count">%s</p></div>%s',
 					array(
@@ -158,44 +152,54 @@ class BeastFeedbacks_Blocks {
 	 */
 	public function handle_register( WP_REST_Request $request ) {
 		$params = $request->get_json_params();
-		if ( ! isset( $params['beastfeedbacks_type'] ) || ! isset( $params['nonce'] ) ) {
+		if (
+			! isset( $params['beastfeedbacks_type'] )
+			|| ! isset( $params['nonce'] )
+			|| ! isset( $params['id'] )
+		) {
 			return new WP_Error();
 		}
-		if ( ! wp_verify_nonce( $params['nonce'], 'beastfeedbacks_nonce' ) ) {
+
+		$id  = esc_attr( $params['id'] );
+		$key = 'beastfeedbacks_' . esc_attr( $params['id'] ) . '_nonce';
+
+		if ( ! wp_verify_nonce( $params['nonce'], $key ) ) {
 			return new WP_Error( 404, 'Security check' );
 		}
 
-		$beastfeedbacks_type = $params['beastfeedbacks_type'];
-		$guid                = $params['guid'];
+		$post    = get_post( $id );
+		$post_id = $post ? (int) $post->ID : 0;
+		$type    = esc_attr( $params['beastfeedbacks_type'] );
+		$from    = isset( $_SERVER['REMOTE_ADDR'] )
+			? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) )
+			: null;
+		$time    = current_time( 'mysql' );
+		$title   = "{$from} - {$time}";
 
-		$comment_author = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : null;
-
-		$feedback_time   = current_time( 'mysql' );
-		$feedback_status = 'publish';
-		$feedback_title  = "{$comment_author} - {$feedback_time}";
-		$feedback_id     = md5( $feedback_title );
-
-		$post_id = wp_insert_post(
+		wp_insert_post(
 			array(
-				'post_date'   => addslashes( $feedback_time ),
+				'post_date'   => $time,
 				'post_type'   => 'beastfeedbacks',
-				'post_status' => addslashes( $feedback_status ),
-				'post_title'  => addslashes( wp_kses( $feedback_title, array() ) ),
-				'post_name'   => $feedback_id,
+				'post_status' => 'publish',
+				'post_parent' => $post_id,
+				'post_title'  => addslashes( wp_kses( $title, array() ) ),
+				'post_name'   => md5( $title ),
+				'meta_input'  => array(
+					'beastfeedbacks_from' => $from,
+					'beastfeedbacks_type' => $type,
+				),
 			)
 		);
-		update_post_meta( $post_id, 'beastfeedbacks_type', $beastfeedbacks_type );
-		update_post_meta( $post_id, 'beastfeedbacks_like_guid', $guid );
 
-		$count = $this->get_like_count( $guid );
-
-		return new WP_REST_Response(
-			array(
-				'success' => 1,
-				'count'   => $count,
-				'message' => '投票ありがとうございました。',
-			),
-			200
+		$response_data = array(
+			'success' => 1,
+			'message' => '投票ありがとうございました。',
 		);
+
+		if ( 'like' === $type ) {
+			$response_data['count'] = $this->get_like_count( $post_id );
+		}
+
+		return new WP_REST_Response( $response_data, 200 );
 	}
 }

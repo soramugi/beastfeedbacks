@@ -6,7 +6,7 @@ var __webpack_exports__ = {};
 const elements = document.querySelectorAll(".wp-block-beastfeedback-like-wrapper");
 elements.forEach(element => {
   const nonce = element.dataset.nonce;
-  const guid = element.dataset.guid;
+  const id = element.dataset.id;
   const buttons = element.getElementsByTagName("button");
   for (const button of buttons) {
     button.onclick = event => {
@@ -21,7 +21,7 @@ elements.forEach(element => {
         body: JSON.stringify({
           beastfeedbacks_type: "like",
           nonce,
-          guid
+          id
         })
       }).then(response => response.json()).then(data => {
         if (data.count) {
