@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Fired during plugin activation
  *
@@ -20,8 +19,8 @@
  * @subpackage BeastFeedbacks/includes
  * @author     Your Name <email@example.com>
  */
-class BeastFeedbacks_Activator
-{
+class BeastFeedbacks_Activator {
+
 
 	/**
 	 * Short Description. (use period)
@@ -30,7 +29,6 @@ class BeastFeedbacks_Activator
 	 *
 	 * @since    0.1.0
 	 */
-	public static function activate()
-	{
+	public static function activate() {
 	}
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name:       BeastFeedbacks
  * Description:       Example block scaffolded with Create Block tool.
@@ -15,31 +14,37 @@
  */
 
 // If this file is called directly, abort.
-if (!defined('WPINC')) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define('BEASTFEEDBACKS_VERSION', '0.1.0');
+define( 'BEASTFEEDBACKS_VERSION', '0.1.0' );
 
-function activate_beastfeedbacks()
-{
-	require_once plugin_dir_path(__FILE__) . 'includes/class-beastfeedbacks-activator.php';
+/**
+ * プラグイン有効化
+ */
+function activate_beastfeedbacks() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-beastfeedbacks-activator.php';
 	BeastFeedbacks_Activator::activate();
 }
 
-function deactivate_beastfeedbacks()
-{
-	require_once plugin_dir_path(__FILE__) . 'includes/class-beastfeedbacks-deactivator.php';
+/**
+ * プラグイン無効化
+ */
+function deactivate_beastfeedbacks() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-beastfeedbacks-deactivator.php';
 	BeastFeedbacks_Deactivator::deactivate();
 }
 
-register_activation_hook(__FILE__, 'activate_beastfeedbacks');
-register_deactivation_hook(__FILE__, 'deactivate_beastfeedbacks');
+register_activation_hook( __FILE__, 'activate_beastfeedbacks' );
+register_deactivation_hook( __FILE__, 'deactivate_beastfeedbacks' );
 
-require plugin_dir_path(__FILE__) . 'includes/class-beastfeedbacks.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-beastfeedbacks.php';
 
-function run_beastfeedbacks()
-{
+/**
+ * 初期化
+ */
+function run_beastfeedbacks() {
 	$plugin = new BeastFeedbacks();
 	$plugin->run();
 }

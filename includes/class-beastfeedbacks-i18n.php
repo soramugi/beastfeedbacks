@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Define the internationalization functionality
  *
@@ -24,19 +23,18 @@
  * @subpackage BeastFeedbacks/includes
  * @author     Your Name <email@example.com>
  */
-class BeastFeedbacks_i18n
-{
+class BeastFeedbacks_I18n {
+
 	/**
 	 * Load the plugin text domain for translation.
 	 *
 	 * @since    0.1.0
 	 */
-	public function load_plugin_textdomain()
-	{
+	public function load_plugin_textdomain() {
 		load_plugin_textdomain(
 			'beastfeedbacks',
 			false,
-			dirname(dirname(plugin_basename(__FILE__))) . '/languages/'
+			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
 	}
 }

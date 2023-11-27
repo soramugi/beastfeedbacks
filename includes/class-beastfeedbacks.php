@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
@@ -27,8 +26,8 @@
  * @subpackage BeastFeedbacks/includes
  * @author     Your Name <email@example.com>
  */
-class BeastFeedbacks
-{
+class BeastFeedbacks {
+
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -67,9 +66,8 @@ class BeastFeedbacks
 	 *
 	 * @since    0.1.0
 	 */
-	public function __construct()
-	{
-		if (defined('BEASTFEEDBACKS_VERSION')) {
+	public function __construct() {
+		if ( defined( 'BEASTFEEDBACKS_VERSION' ) ) {
 			$this->version = BEASTFEEDBACKS_VERSION;
 		} else {
 			$this->version = '1.0.0';
@@ -89,7 +87,7 @@ class BeastFeedbacks
 	 * Include the following files that make up the plugin:
 	 *
 	 * - BeastFeedbacks_Loader. Orchestrates the hooks of the plugin.
-	 * - BeastFeedbacks_i18n. Defines internationalization functionality.
+	 * - BeastFeedbacks_I18n. Defines internationalization functionality.
 	 * - BeastFeedbacks_Admin. Defines all hooks for the admin area.
 	 * - BeastFeedbacks_Public. Defines all hooks for the public side of the site.
 	 *
@@ -99,32 +97,31 @@ class BeastFeedbacks
 	 * @since    0.1.0
 	 * @access   private
 	 */
-	private function load_dependencies()
-	{
+	private function load_dependencies() {
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-beastfeedbacks-loader.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-beastfeedbacks-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-beastfeedbacks-i18n.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-beastfeedbacks-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-beastfeedbacks-admin.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/class-beastfeedbacks-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-beastfeedbacks-public.php';
+		require_once plugin_dir_path( __DIR__ ) . 'public/class-beastfeedbacks-public.php';
 
-		require_once plugin_dir_path(dirname(__FILE__)) . 'blocks/class-beastfeedbacks-blocks.php';
+		require_once plugin_dir_path( __DIR__ ) . 'blocks/class-beastfeedbacks-blocks.php';
 
 		$this->loader = new BeastFeedbacks_Loader();
 	}
@@ -132,17 +129,16 @@ class BeastFeedbacks
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the BeastFeedbacks_i18n class in order to set the domain and to register the hook
+	 * Uses the BeastFeedbacks_I18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    0.1.0
 	 * @access   private
 	 */
-	private function set_locale()
-	{
-		$plugin_i18n = new BeastFeedbacks_i18n();
+	private function set_locale() {
+		$plugin_i18n = new BeastFeedbacks_I18n();
 
-		$this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
+		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}
 
 	/**
@@ -152,19 +148,18 @@ class BeastFeedbacks
 	 * @since    0.1.0
 	 * @access   private
 	 */
-	private function define_admin_hooks()
-	{
-		$plugin_admin = new BeastFeedbacks_Admin($this->get_beastfeedbacks(), $this->get_version());
+	private function define_admin_hooks() {
+		$plugin_admin = new BeastFeedbacks_Admin( $this->get_beastfeedbacks(), $this->get_version() );
 
-		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
-		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
-		$this->loader->add_action('admin_menu', $plugin_admin, 'add_menu_page');
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_menu_page' );
 
-		// add_filter( 'bulk_actions-edit-' . $plugin_admin->postType, array( $this, 'grunion_admin_bulk_actions' ) );
-		// add_filter( 'views_edit-' . $plugin_admin->postType, array( $this, 'grunion_admin_view_tabs' ) );
-		$this->loader->add_filter('manage_' . $plugin_admin->postType . '_posts_columns', $plugin_admin, 'manage_posts_columns');
+		// add_filter( 'bulk_actions-edit-' . $plugin_admin->post_type, array( $this, 'grunion_admin_bulk_actions' ) );
+		// add_filter( 'views_edit-' . $plugin_admin->post_type, array( $this, 'grunion_admin_view_tabs' ) );
+		$this->loader->add_filter( 'manage_' . $plugin_admin->post_type . '_posts_columns', $plugin_admin, 'manage_posts_columns' );
 
-		$this->loader->add_action('manage_posts_custom_column', $plugin_admin, 'manage_posts_custom_column', 10, 2);
+		$this->loader->add_action( 'manage_posts_custom_column', $plugin_admin, 'manage_posts_custom_column', 10, 2 );
 		// $this->loader->add_action('restrict_manage_posts', array($this, 'grunion_source_filter'));
 		// $this->loader->add_action('pre_get_posts', array($this, 'grunion_source_filter_results'));
 
@@ -178,21 +173,22 @@ class BeastFeedbacks
 	 * @since    0.1.0
 	 * @access   private
 	 */
-	private function define_public_hooks()
-	{
-		$plugin_public = new BeastFeedbacks_Public($this->get_beastfeedbacks(), $this->get_version());
+	private function define_public_hooks() {
+		$plugin_public = new BeastFeedbacks_Public( $this->get_beastfeedbacks(), $this->get_version() );
 
-		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
-		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 	}
 
-	private function define_blocks_hooks()
-	{
-		$plugin_blocks = new BeastFeedbacks_Blocks($this->get_beastfeedbacks(), $this->get_version());
+	/**
+	 * Block
+	 */
+	private function define_blocks_hooks() {
+		$plugin_blocks = new BeastFeedbacks_Blocks( $this->get_beastfeedbacks(), $this->get_version() );
 
-		$this->loader->add_filter('block_categories_all', $plugin_blocks, 'block_categories_all', 10, 2);
-		$this->loader->add_action('rest_api_init', $plugin_blocks, 'register_rest_route');
-		$this->loader->add_action('init', $plugin_blocks, 'register_block_type');
+		$this->loader->add_filter( 'block_categories_all', $plugin_blocks, 'block_categories_all', 10, 2 );
+		$this->loader->add_action( 'rest_api_init', $plugin_blocks, 'register_rest_route' );
+		$this->loader->add_action( 'init', $plugin_blocks, 'register_block_type' );
 	}
 
 	/**
@@ -200,8 +196,7 @@ class BeastFeedbacks
 	 *
 	 * @since    0.1.0
 	 */
-	public function run()
-	{
+	public function run() {
 		$this->loader->run();
 	}
 
@@ -212,8 +207,7 @@ class BeastFeedbacks
 	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_beastfeedbacks()
-	{
+	public function get_beastfeedbacks() {
 		return $this->beastfeedbacks;
 	}
 
@@ -223,8 +217,7 @@ class BeastFeedbacks
 	 * @since     1.0.0
 	 * @return    BeastFeedbacks_Loader    Orchestrates the hooks of the plugin.
 	 */
-	public function get_loader()
-	{
+	public function get_loader() {
 		return $this->loader;
 	}
 
@@ -234,8 +227,7 @@ class BeastFeedbacks
 	 * @since     1.0.0
 	 * @return    string    The version number of the plugin.
 	 */
-	public function get_version()
-	{
+	public function get_version() {
 		return $this->version;
 	}
 }

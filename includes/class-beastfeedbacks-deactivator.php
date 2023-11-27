@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Fired during plugin deactivation
  *
@@ -20,8 +19,8 @@
  * @subpackage BeastFeedbacks/includes
  * @author     Your Name <email@example.com>
  */
-class BeastFeedbacks_Deactivator
-{
+class BeastFeedbacks_Deactivator {
+
 
 	/**
 	 * Short Description. (use period)
@@ -30,7 +29,6 @@ class BeastFeedbacks_Deactivator
 	 *
 	 * @since    0.1.0
 	 */
-	public static function deactivate()
-	{
+	public static function deactivate() {
 	}
 }

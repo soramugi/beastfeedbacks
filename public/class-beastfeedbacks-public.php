@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The public-facing functionality of the plugin.
  *
@@ -20,8 +19,8 @@
  * @subpackage BeastFeedbacks/public
  * @author     Your Name <email@example.com>
  */
-class BeastFeedbacks_Public
-{
+class BeastFeedbacks_Public {
+
 
 	/**
 	 * The ID of this plugin.
@@ -45,13 +44,12 @@ class BeastFeedbacks_Public
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    0.1.0
-	 * @param      string    $beastfeedbacks       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param      string $beastfeedbacks       The name of the plugin.
+	 * @param      string $version    The version of this plugin.
 	 */
-	public function __construct($beastfeedbacks, $version)
-	{
+	public function __construct( $beastfeedbacks, $version ) {
 		$this->beastfeedbacks = $beastfeedbacks;
-		$this->version = $version;
+		$this->version        = $version;
 	}
 
 	/**
@@ -59,8 +57,7 @@ class BeastFeedbacks_Public
 	 *
 	 * @since    0.1.0
 	 */
-	public function enqueue_styles()
-	{
+	public function enqueue_styles() {
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
@@ -73,7 +70,7 @@ class BeastFeedbacks_Public
 		 * class.
 		 */
 
-		wp_enqueue_style($this->beastfeedbacks, plugin_dir_url(__FILE__) . 'css/beastfeedbacks-public.css', array(), $this->version, 'all');
+		wp_enqueue_style( $this->beastfeedbacks, plugin_dir_url( __FILE__ ) . 'css/beastfeedbacks-public.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -81,8 +78,7 @@ class BeastFeedbacks_Public
 	 *
 	 * @since    0.1.0
 	 */
-	public function enqueue_scripts()
-	{
+	public function enqueue_scripts() {
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
@@ -95,6 +91,6 @@ class BeastFeedbacks_Public
 		 * class.
 		 */
 
-		wp_enqueue_script($this->beastfeedbacks, plugin_dir_url(__FILE__) . 'js/beastfeedbacks-public.js', array('jquery'), $this->version, false);
+		wp_enqueue_script( $this->beastfeedbacks, plugin_dir_url( __FILE__ ) . 'js/beastfeedbacks-public.js', array( 'jquery' ), $this->version, false );
 	}
 }
