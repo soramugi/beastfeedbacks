@@ -153,17 +153,20 @@ class BeastFeedbacks {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+
+		// フィードバックの管理ページの構築.
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_menu_page' );
+		$this->loader->add_filter( 'bulk_actions-edit-' . $plugin_admin->post_type, $plugin_admin, 'admin_bulk_actions' );
+		$this->loader->add_filter( 'views_edit-' . $plugin_admin->post_type, $plugin_admin, 'admin_view_tabs' );
 
-		// add_filter( 'bulk_actions-edit-' . $plugin_admin->post_type, array( $this, 'grunion_admin_bulk_actions' ) );
-		// add_filter( 'views_edit-' . $plugin_admin->post_type, array( $this, 'grunion_admin_view_tabs' ) );
+		$this->loader->add_filter( 'post_row_actions', $plugin_admin, 'manage_post_row_actions', 10, 2 );
+		$this->loader->add_filter( 'wp_untrash_post_status', $plugin_admin, 'untrash_beastfeedbacks_status_handler', 10, 3 );
+
 		$this->loader->add_filter( 'manage_' . $plugin_admin->post_type . '_posts_columns', $plugin_admin, 'manage_posts_columns' );
-
 		$this->loader->add_action( 'manage_posts_custom_column', $plugin_admin, 'manage_posts_custom_column', 10, 2 );
 		// $this->loader->add_action('restrict_manage_posts', array($this, 'grunion_source_filter'));
 		// $this->loader->add_action('pre_get_posts', array($this, 'grunion_source_filter_results'));
 
-		// $this->loader->add_filter('post_row_actions', array($this, 'grunion_manage_post_row_actions'), 10, 2);
 	}
 
 	/**

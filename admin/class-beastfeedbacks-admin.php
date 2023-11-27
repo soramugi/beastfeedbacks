@@ -148,6 +148,39 @@ class BeastFeedbacks_Admin {
 	}
 
 	/**
+	 * プルダウンの一括操作、編集を削除
+	 *
+	 * @param array $actions List of actions available.
+	 * @return array $actions
+	 */
+	public function admin_bulk_actions( $actions ) {
+		global $current_screen;
+		if ( 'edit-beastfeedbacks' !== $current_screen->id ) {
+			return $actions;
+		}
+
+		unset( $actions['edit'] );
+		return $actions;
+	}
+
+	/**
+	 * タブ表示の整形
+	 *
+	 * @param array $views List of post views.
+	 * @return array $views
+	 */
+	public function admin_view_tabs( $views ) {
+		global $current_screen;
+		if ( 'edit-beastfeedbacks' !== $current_screen->id ) {
+			return $views;
+		}
+
+		unset( $views['publish'] );
+
+		return $views;
+	}
+
+	/**
 	 * 一覧で表示するカラム
 	 */
 	public function manage_posts_columns() {
@@ -203,4 +236,47 @@ class BeastFeedbacks_Admin {
 				return;
 		}
 	}
+
+	/**
+	 * Add actions to beastfeedbacks response rows in WP Admin.
+	 *
+	 * @param string[] $actions Default actions.
+	 * @return string[]
+	 */
+	public function manage_post_row_actions( $actions ) {
+		global $post;
+
+		if ( 'beastfeedbacks' !== $post->post_type ) {
+			return $actions;
+		}
+
+		if ( 'publish' !== $post->post_status ) {
+			return $actions;
+		}
+
+		unset( $actions['inline hide-if-no-js'] );
+		unset( $actions['edit'] );
+
+		return $actions;
+	}
+
+	/**
+	 * Method untrash_beastfeedbacks_status_handler
+	 * wp_untrash_post filter handler.
+	 *
+	 * @param string $current_status   The status to be set.
+	 * @param int    $post_id          The post ID.
+	 * @param string $previous_status  The previous status.
+	 */
+	public function untrash_beastfeedbacks_status_handler( $current_status, $post_id, $previous_status ) {
+		$post = get_post( $post_id );
+		if ( 'beastfeedbacks' === $post->post_type ) {
+			if ( in_array( $previous_status, array( 'publish' ), true ) ) {
+				return $previous_status;
+			}
+			return 'publish';
+		}
+		return $current_status;
+	}
+
 }
