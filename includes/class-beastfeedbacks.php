@@ -164,7 +164,8 @@ class BeastFeedbacks {
 
 		$this->loader->add_filter( 'manage_' . $plugin_admin->post_type . '_posts_columns', $plugin_admin, 'manage_posts_columns' );
 		$this->loader->add_action( 'manage_posts_custom_column', $plugin_admin, 'manage_posts_custom_column', 10, 2 );
-		// $this->loader->add_action('restrict_manage_posts', array($this, 'grunion_source_filter'));
+
+		$this->loader->add_action( 'restrict_manage_posts', $plugin_admin, 'add_type_filter' );
 		// $this->loader->add_action('pre_get_posts', array($this, 'grunion_source_filter_results'));
 
 	}

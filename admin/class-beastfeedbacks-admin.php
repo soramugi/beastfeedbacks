@@ -135,13 +135,6 @@ class BeastFeedbacks_Admin {
 				'capability_type'       => 'page',
 				'capabilities'          => array(
 					'create_posts' => 'do_not_allow',
-
-					// 'delete_posts' => 'do_not_allow',
-					// 'publish_posts'       => 'do_not_allow',
-					// 'edit_post'           => 'do_not_allow',
-					// 'edit_others_posts'   => 'edit_others_pages',
-					// 'read_private_posts'  => 'read_private_pages',
-					// 'read_post'           => 'read_page',
 				),
 			)
 		);
@@ -287,5 +280,44 @@ class BeastFeedbacks_Admin {
 			return 'publish';
 		}
 		return $current_status;
+	}
+
+	/**
+	 * Add a post filter dropdown at the top of the admin page.
+	 *
+	 * @return void
+	 */
+	public function add_type_filter() {
+		$screen = get_current_screen();
+
+		if ( 'edit-beastfeedbacks' !== $screen->id ) {
+			return;
+		}
+
+		$selected_type = intval( isset( $_GET['beastfeedbacks_type'] ) ? $_GET['beastfeedbacks_type'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		$parent_types = array(
+			'like',
+			'form',
+			'select',
+		);
+
+		$options = '';
+		foreach ( $parent_types as $parent_type ) {
+
+			$options .= sprintf(
+				'<option value="%s" %s>%s</option>',
+				$parent_type,
+				$selected_type === $parent_type ? 'selected' : '',
+				$parent_type,
+			);
+		}
+
+		?>
+		<select name="beastfeedbacks_type">
+			<option value="all"><?php esc_html_e( 'All Types', 'beastfeedbacks' ); ?></option>
+			<?php echo $options; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML is escaped in the function. ?>
+		</select>
+		<?php
 	}
 }
