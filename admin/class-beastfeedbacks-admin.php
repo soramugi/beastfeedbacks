@@ -228,9 +228,9 @@ class BeastFeedbacks_Admin {
 				$parsed_url = wp_parse_url( $form_url );
 
 				printf(
-					'<a href="%s" target="_blank" rel="noopener noreferrer">/%s</a>',
+					'<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>',
 					esc_url( $form_url ),
-					esc_html( basename( $parsed_url['path'] ) )
+					esc_html( $parsed_url['path'] )
 				);
 				return;
 			case 'beastfeedbacks_type':
