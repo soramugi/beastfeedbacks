@@ -215,6 +215,17 @@ class BeastFeedbacks_Admin {
 					?>
 					<table>
 						<tbody>
+							<?php if ( isset( $json_data['selected'] ) ) : ?>
+							<tr>
+								<td>選択</td>
+								<td><?php echo esc_html( $json_data['selected'] ); ?></td>
+							</tr>
+							<?php endif ?>
+						</tbody>
+					</table>
+					<table>
+						<tbody>
+							<hr />
 							<tr>
 								<td>IP_Address</td>
 								<td><?php echo esc_html( isset( $json_data['ip_address'] ) ? $json_data['ip_address'] : '' ); ?></td>
@@ -306,20 +317,16 @@ class BeastFeedbacks_Admin {
 
 		$selected_type = isset( $_GET['beastfeedbacks_type'] ) ? sanitize_key( $_GET['beastfeedbacks_type'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-		$parent_types = array(
-			'like',
-			'form',
-			'select',
-		);
+		$select_types = BeastFeedbacks_Blocks::TYPES;
 
 		$options = '';
-		foreach ( $parent_types as $parent_type ) {
+		foreach ( $select_types as $select_type ) {
 
 			$options .= sprintf(
 				'<option value="%s" %s>%s</option>',
-				$parent_type,
-				$selected_type === $parent_type ? 'selected' : '',
-				$parent_type,
+				$select_type,
+				$selected_type === $select_type ? 'selected' : '',
+				$select_type,
 			);
 		}
 

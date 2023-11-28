@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "beastfeedbacks/star",
+	"name": "beastfeedbacks/vote",
 	"version": "0.1.0",
-	"title": "star",
+	"title": "vote",
 	"category": "beastfeedbacks",
-	"icon": "star-filled",
-	"description": "Submit your rating by number of stars",
+	"icon": "thumbs-up",
+	"description": "投票",
 	"example": {},
 	"supports": {
 		"html": false
@@ -15,5 +15,6 @@
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",
-	"viewScript": "file:./view.js"
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php"
 }

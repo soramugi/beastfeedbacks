@@ -15,6 +15,17 @@
 class BeastFeedbacks_Blocks {
 
 	/**
+	 * ブロックで提供するタイプリスト
+	 *
+	 * @var array[string]
+	 */
+	public const TYPES = array(
+		'like',
+		'vote',
+		'survey',
+	);
+
+	/**
 	 * The ID of this plugin.
 	 *
 	 * @since    0.1.0
@@ -75,8 +86,7 @@ class BeastFeedbacks_Blocks {
 				'render_callback' => array( $this, 'render_callback_like' ),
 			)
 		);
-		register_block_type( plugin_dir_path( __FILE__ ) . 'build/form/' );
-		register_block_type( plugin_dir_path( __FILE__ ) . 'build/star/' );
+		register_block_type( plugin_dir_path( __FILE__ ) . 'build/vote/' );
 	}
 
 	/**
@@ -174,6 +184,15 @@ class BeastFeedbacks_Blocks {
 		$type       = esc_attr( $params['beastfeedbacks_type'] );
 		$time       = current_time( 'mysql' );
 		$title      = "{$ip_address} - {$time}";
+		$content    = array(
+			'user_agent' => $user_agent,
+			'ip_address' => $ip_address,
+		);
+
+		if ( 'vote' === $type ) {
+			$content['select']   = $params['select'];
+			$content['selected'] = $params['selected'];
+		}
 
 		wp_insert_post(
 			array(
@@ -183,12 +202,7 @@ class BeastFeedbacks_Blocks {
 				'post_parent'  => $post_id,
 				'post_title'   => addslashes( wp_kses( $title, array() ) ),
 				'post_name'    => md5( $title ),
-				'post_content' => wp_json_encode(
-					array(
-						'user_agent' => $user_agent,
-						'ip_address' => $ip_address,
-					)
-				),
+				'post_content' => addslashes( wp_kses( wp_json_encode( $content, true ), array() ) ),
 				'meta_input'   => array(
 					'beastfeedbacks_type' => $type,
 				),
@@ -212,7 +226,7 @@ class BeastFeedbacks_Blocks {
 	 *
 	 * @return string
 	 */
-	private function get_user_agent() {
+	public function get_user_agent() {
 		return isset( $_SERVER['HTTP_USER_AGENT'] )
 			? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) )
 		   : ''; // @codingStandardsIgnoreLine
@@ -223,7 +237,7 @@ class BeastFeedbacks_Blocks {
 	 *
 	 * @return string
 	 */
-	private function get_ip_address() {
+	public function get_ip_address() {
 		return isset( $_SERVER['REMOTE_ADDR'] )
 		? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) )
 		: '';

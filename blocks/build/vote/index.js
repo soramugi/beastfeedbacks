@@ -2,9 +2,9 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./blocks/src/like/index.js":
+/***/ "./blocks/src/vote/index.js":
 /*!**********************************!*\
-  !*** ./blocks/src/like/index.js ***!
+  !*** ./blocks/src/vote/index.js ***!
   \**********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -17,37 +17,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./block.json */ "./blocks/src/like/block.json");
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./style.scss */ "./blocks/src/like/style.scss");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./block.json */ "./blocks/src/vote/block.json");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./style.scss */ "./blocks/src/vote/style.scss");
 
 
 
 
 
 
-const TEMPLATE = [["core/button", {
-  text: "いいね",
+
+// icon @see https://developer.wordpress.org/resource/dashicons/#calculator
+
+const TEMPLATE = [["core/heading", {
+  level: 3,
+  content: "記事の内容には満足しましたか?"
+}], ["core/buttons", {}, [["core/button", {
+  text: "はい",
   tagName: "button",
   type: "submit"
-}]];
+}], ["core/button", {
+  text: "いいえ",
+  tagName: "button",
+  type: "submit"
+}]]]];
 
 /**
- * Likeボタン
+ * 投票ボタン
  */
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_4__.name, {
   edit: () => {
     const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)();
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "wp-block-beastfeedback-like-wrapper",
       ...blockProps
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "wp-block-beastfeedback-like-balloon"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
-      className: "like-count"
-    }, "0")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InnerBlocks, {
-      allowedBlocks: TEMPLATE,
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InnerBlocks, {
       template: TEMPLATE,
-      templateLock: "all"
+      templateLock: false
     }));
   },
   save: props => {
@@ -57,9 +61,9 @@ const TEMPLATE = [["core/button", {
 
 /***/ }),
 
-/***/ "./blocks/src/like/style.scss":
+/***/ "./blocks/src/vote/style.scss":
 /*!************************************!*\
-  !*** ./blocks/src/like/style.scss ***!
+  !*** ./blocks/src/vote/style.scss ***!
   \************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -109,13 +113,13 @@ module.exports = window["wp"]["i18n"];
 
 /***/ }),
 
-/***/ "./blocks/src/like/block.json":
+/***/ "./blocks/src/vote/block.json":
 /*!************************************!*\
-  !*** ./blocks/src/like/block.json ***!
+  !*** ./blocks/src/vote/block.json ***!
   \************************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"beastfeedbacks/like","version":"0.1.0","title":"like","category":"beastfeedbacks","icon":"heart","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"textdomain":"beastfeedbacks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"beastfeedbacks/vote","version":"0.1.0","title":"vote","category":"beastfeedbacks","icon":"thumbs-up","description":"投票","example":{},"supports":{"html":false},"textdomain":"beastfeedbacks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","render":"file:./render.php"}');
 
 /***/ })
 
@@ -229,8 +233,8 @@ module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"like/index": 0,
-/******/ 			"like/style-index": 0
+/******/ 			"vote/index": 0,
+/******/ 			"vote/style-index": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -280,7 +284,7 @@ module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["like/style-index"], () => (__webpack_require__("./blocks/src/like/index.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["vote/style-index"], () => (__webpack_require__("./blocks/src/vote/index.js")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

@@ -12,7 +12,7 @@
  * @subpackage BeastFeedbacks/admin/partials
  */
 
-if (!defined('ABSPATH')) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 ?>
