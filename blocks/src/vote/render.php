@@ -13,11 +13,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $wrapper_attributes = get_block_wrapper_attributes();
-$_post_id = get_the_ID();
+$_post_id           = get_the_ID();
 $nonce              = wp_create_nonce( 'beastfeedbacks_' . $_post_id . '_nonce' );
 ?>
 
-<div <?php echo $wrapper_attributes; ?> data-nonce="<?php echo $nonce; ?>" data-id="<?php echo $_post_id; ?>">
-	<?php echo $content; ?>
+<div
+	<?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	data-nonce="<?php echo esc_html( $nonce ); ?>"
+	data-id="<?php echo esc_html( $_post_id ); ?>"
+>
+	<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 </div>
 

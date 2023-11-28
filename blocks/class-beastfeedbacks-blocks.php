@@ -56,7 +56,7 @@ class BeastFeedbacks_Blocks {
 	}
 
 	/**
-	 * カスタムカテゴリに対応
+	 * ブロックのカテゴリを追加
 	 *
 	 * @param array[]                 $block_categories     Array of categories for block types.
 	 * @param WP_Block_Editor_Context $block_editor_context The current block editor context.
@@ -80,43 +80,7 @@ class BeastFeedbacks_Blocks {
 	 * ブロックエディタの登録
 	 */
 	public function register_block_type() {
-		register_block_type(
-			plugin_dir_path( __FILE__ ) . 'build/like/',
-			array(
-				'render_callback' => array( $this, 'render_callback_like' ),
-			)
-		);
+		register_block_type( plugin_dir_path( __FILE__ ) . 'build/like/' );
 		register_block_type( plugin_dir_path( __FILE__ ) . 'build/vote/' );
-	}
-
-	/**
-	 * Likeの表示
-	 *
-	 * @param array  $attributes    Array containing the Jetpack AI Assistant block attributes.
-	 * @param string $content String containing the Jetpack AI Assistant block content.
-	 *
-	 * @return string
-	 */
-	public function render_callback_like( $attributes, $content ) {
-		$post_id = get_the_ID();
-		$count   = BeastFeedbacks::get_like_count( $post_id );
-		$nonce   = wp_create_nonce( 'beastfeedbacks_' . $post_id . '_nonce' );
-
-		return vsprintf(
-			'<div %s data-nonce="%s" data-id="%s">%s</div>',
-			array(
-				get_block_wrapper_attributes(),
-				$nonce,
-				$post_id,
-				vsprintf(
-					'<div class="wp-block-beastfeedbacks-like-balloon"><p class="like-count">%s</p></div>%s',
-					array(
-						$count,
-						$content,
-					)
-				),
-
-			)
-		);
 	}
 }
