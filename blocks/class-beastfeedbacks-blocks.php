@@ -88,7 +88,7 @@ class BeastFeedbacks_Blocks {
 		$args  = array(
 			'post_type'   => 'beastfeedbacks',
 			'post_parent' => $post_id,
-			'meta_query'  => array(
+			'meta_query'  => array( // TODO: クエリ効率化.
 				array(
 					'key'   => 'beastfeedbacks_type',
 					'value' => 'like',
@@ -169,11 +169,11 @@ class BeastFeedbacks_Blocks {
 
 		$post       = get_post( $id );
 		$post_id    = $post ? (int) $post->ID : 0; // 存在しているか確認.
-		$from       = $this->get_ip_address();
+		$ip_address = $this->get_ip_address();
 		$user_agent = $this->get_user_agent();
 		$type       = esc_attr( $params['beastfeedbacks_type'] );
 		$time       = current_time( 'mysql' );
-		$title      = "{$from} - {$time}";
+		$title      = "{$ip_address} - {$time}";
 
 		wp_insert_post(
 			array(
@@ -186,10 +186,10 @@ class BeastFeedbacks_Blocks {
 				'post_content' => wp_json_encode(
 					array(
 						'user_agent' => $user_agent,
+						'ip_address' => $ip_address,
 					)
 				),
 				'meta_input'   => array(
-					'beastfeedbacks_from' => $from,
 					'beastfeedbacks_type' => $type,
 				),
 			)

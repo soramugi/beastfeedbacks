@@ -179,7 +179,6 @@ class BeastFeedbacks_Admin {
 	public function manage_posts_columns() {
 		return array(
 			'cb'                      => '<input type="checkbox" />',
-			'beastfeedbacks_from'     => __( 'From', 'beastfeedbacks' ),
 			'beastfeedbacks_source'   => __( 'Source', 'beastfeedbacks' ),
 			'beastfeedbacks_type'     => __( 'Type', 'beastfeedbacks' ),
 			'beastfeedbacks_date'     => __( 'Date', 'beastfeedbacks' ),
@@ -195,7 +194,6 @@ class BeastFeedbacks_Admin {
 	 */
 	public function manage_posts_custom_column( $column_name, $post_id ) {
 		$list = array(
-			'beastfeedbacks_from',
 			'beastfeedbacks_source',
 			'beastfeedbacks_type',
 			'beastfeedbacks_date',
@@ -210,10 +208,6 @@ class BeastFeedbacks_Admin {
 			case 'beastfeedbacks_date':
 				echo esc_html( date_i18n( 'Y/m/d', get_the_time( 'U' ) ) );
 				return;
-			case 'beastfeedbacks_from':
-				$meta = get_post_meta( $post_id, 'beastfeedbacks_from', true );
-				echo esc_html( $meta );
-				return;
 			case 'beastfeedbacks_response':
 				$post      = get_post( $post_id );
 				$json_data = json_decode( $post->post_content, true );
@@ -222,8 +216,12 @@ class BeastFeedbacks_Admin {
 					<table>
 						<tbody>
 							<tr>
+								<td>IP_Address</td>
+								<td><?php echo esc_html( isset( $json_data['ip_address'] ) ? $json_data['ip_address'] : '' ); ?></td>
+							</tr>
+							<tr>
 								<td>UserAgent</td>
-								<td><?php echo esc_html( $json_data['user_agent'] ); ?></td>
+								<td><?php echo esc_html( isset( $json_data['user_agent'] ) ? $json_data['user_agent'] : '' ); ?></td>
 							</tr>
 						</tbody>
 					</table>
