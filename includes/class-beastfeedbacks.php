@@ -181,6 +181,7 @@ class BeastFeedbacks {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action( 'rest_api_init', $plugin_public, 'register_rest_route' );
 	}
 
 	/**
@@ -190,7 +191,6 @@ class BeastFeedbacks {
 		$plugin_blocks = new BeastFeedbacks_Blocks( $this->get_beastfeedbacks(), $this->get_version() );
 
 		$this->loader->add_filter( 'block_categories_all', $plugin_blocks, 'block_categories_all', 10, 2 );
-		$this->loader->add_action( 'rest_api_init', $plugin_blocks, 'register_rest_route' );
 		$this->loader->add_action( 'init', $plugin_blocks, 'register_block_type' );
 	}
 
@@ -232,5 +232,26 @@ class BeastFeedbacks {
 	 */
 	public function get_version() {
 		return $this->version;
+	}
+
+	/**
+	 * Like数の取得
+	 *
+	 * @param integer $post_id Like登録に使用したpostを渡す.
+	 */
+	public static function get_like_count( $post_id ) {
+		$args  = array(
+			'post_type'   => 'beastfeedbacks',
+			'post_parent' => $post_id,
+			'meta_query'  => array( // TODO: クエリ効率化.
+				array(
+					'key'   => 'beastfeedbacks_type',
+					'value' => 'like',
+				),
+			),
+			'post_status' => 'publish',
+		);
+		$query = new WP_Query( $args );
+		return $query->post_count;
 	}
 }

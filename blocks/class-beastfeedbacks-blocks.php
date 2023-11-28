@@ -90,27 +90,6 @@ class BeastFeedbacks_Blocks {
 	}
 
 	/**
-	 * Like数の取得
-	 *
-	 * @param integer $post_id Like登録に使用したpostを渡す.
-	 */
-	public function get_like_count( $post_id ) {
-		$args  = array(
-			'post_type'   => 'beastfeedbacks',
-			'post_parent' => $post_id,
-			'meta_query'  => array( // TODO: クエリ効率化.
-				array(
-					'key'   => 'beastfeedbacks_type',
-					'value' => 'like',
-				),
-			),
-			'post_status' => 'publish',
-		);
-		$query = new WP_Query( $args );
-		return $query->post_count;
-	}
-
-	/**
 	 * Likeの表示
 	 *
 	 * @param array  $attributes    Array containing the Jetpack AI Assistant block attributes.
@@ -120,7 +99,7 @@ class BeastFeedbacks_Blocks {
 	 */
 	public function render_callback_like( $attributes, $content ) {
 		$post_id = get_the_ID();
-		$count   = $this->get_like_count( $post_id );
+		$count   = BeastFeedbacks::get_like_count( $post_id );
 		$nonce   = wp_create_nonce( 'beastfeedbacks_' . $post_id . '_nonce' );
 
 		return vsprintf(
@@ -139,107 +118,5 @@ class BeastFeedbacks_Blocks {
 
 			)
 		);
-	}
-
-	/**
-	 * Wp-jsonとしてAPI登録
-	 */
-	public function register_rest_route() {
-		register_rest_route(
-			'beastfeedbacks/v1',
-			'/register',
-			array(
-				'methods'  => 'POST',
-				'callback' => array( $this, 'handle_register' ),
-			)
-		);
-	}
-
-	/**
-	 * フォーム実行の値格納
-	 *
-	 * @param WP_REST_Request $request リクエスト.
-	 */
-	public function handle_register( WP_REST_Request $request ) {
-		$params = $request->get_json_params();
-		if (
-			! isset( $params['beastfeedbacks_type'] )
-			|| ! isset( $params['nonce'] )
-			|| ! isset( $params['id'] )
-		) {
-			return new WP_Error();
-		}
-
-		$id  = esc_attr( $params['id'] );
-		$key = 'beastfeedbacks_' . $id . '_nonce';
-
-		if ( ! wp_verify_nonce( $params['nonce'], $key ) ) {
-			return new WP_Error( 404, 'Security check' );
-		}
-
-		$post       = get_post( $id );
-		$post_id    = $post ? (int) $post->ID : 0; // 存在しているか確認.
-		$ip_address = $this->get_ip_address();
-		$user_agent = $this->get_user_agent();
-		$type       = esc_attr( $params['beastfeedbacks_type'] );
-		$time       = current_time( 'mysql' );
-		$title      = "{$ip_address} - {$time}";
-		$content    = array(
-			'user_agent' => $user_agent,
-			'ip_address' => $ip_address,
-		);
-
-		if ( 'vote' === $type ) {
-			$content['select']   = $params['select'];
-			$content['selected'] = $params['selected'];
-		}
-
-		wp_insert_post(
-			array(
-				'post_date'    => $time,
-				'post_type'    => 'beastfeedbacks',
-				'post_status'  => 'publish',
-				'post_parent'  => $post_id,
-				'post_title'   => addslashes( wp_kses( $title, array() ) ),
-				'post_name'    => md5( $title ),
-				'post_content' => addslashes( wp_kses( wp_json_encode( $content, true ), array() ) ),
-				'meta_input'   => array(
-					'beastfeedbacks_type' => $type,
-				),
-			)
-		);
-
-		$response_data = array(
-			'success' => 1,
-			'message' => '投票ありがとうございました。',
-		);
-
-		if ( 'like' === $type ) {
-			$response_data['count'] = $this->get_like_count( $post_id );
-		}
-
-		return new WP_REST_Response( $response_data, 200 );
-	}
-
-	/**
-	 * ユーザーエージェントの取得
-	 *
-	 * @return string
-	 */
-	public function get_user_agent() {
-		return isset( $_SERVER['HTTP_USER_AGENT'] )
-			? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) )
-		   : ''; // @codingStandardsIgnoreLine
-	}
-
-	/**
-	 * IPアドレスの取得
-	 *
-	 * @return string
-	 */
-	public function get_ip_address() {
-		return isset( $_SERVER['REMOTE_ADDR'] )
-		? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) )
-		: '';
 	}
 }
