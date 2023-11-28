@@ -3,7 +3,7 @@ var __webpack_exports__ = {};
 /*!*********************************!*\
   !*** ./blocks/src/like/view.js ***!
   \*********************************/
-const elements = document.querySelectorAll(".wp-block-beastfeedback-like-wrapper");
+const elements = document.querySelectorAll(".wp-block-beastfeedbacks-like");
 elements.forEach(element => {
   const nonce = element.dataset.nonce;
   const id = element.dataset.id;

@@ -1,5 +1,5 @@
 const elements = document.querySelectorAll(
-	".wp-block-beastfeedback-like-wrapper",
+	".wp-block-beastfeedbacks-like",
 );
 
 elements.forEach((element) => {
