@@ -124,13 +124,13 @@ class BeastFeedbacks_Blocks {
 		$nonce   = wp_create_nonce( 'beastfeedbacks_' . $post_id . '_nonce' );
 
 		return vsprintf(
-			'<div class="wp-block-beastfeedback-like-wrapper" %s data-nonce="%s" data-id="%s">%s</div>',
+			'<div %s data-nonce="%s" data-id="%s">%s</div>',
 			array(
 				get_block_wrapper_attributes(),
 				$nonce,
 				$post_id,
 				vsprintf(
-					'<div class="wp-block-beastfeedback-like-balloon"><p class="like-count">%s</p></div>%s',
+					'<div class="wp-block-beastfeedbacks-like-balloon"><p class="like-count">%s</p></div>%s',
 					array(
 						$count,
 						$content,

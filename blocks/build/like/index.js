@@ -38,10 +38,9 @@ const TEMPLATE = [["core/button", {
   edit: () => {
     const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)();
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "wp-block-beastfeedback-like-wrapper",
       ...blockProps
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "wp-block-beastfeedback-like-balloon"
+      className: "wp-block-beastfeedbacks-like-balloon"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
       className: "like-count"
     }, "0")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InnerBlocks, {

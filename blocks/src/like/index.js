@@ -27,8 +27,8 @@ registerBlockType(metadata.name, {
 		const blockProps = useBlockProps();
 
 		return (
-			<div className="wp-block-beastfeedback-like-wrapper" {...blockProps}>
-				<div className="wp-block-beastfeedback-like-balloon">
+			<div {...blockProps}>
+				<div className="wp-block-beastfeedbacks-like-balloon">
 					<p className="like-count">0</p>
 				</div>
 				<InnerBlocks

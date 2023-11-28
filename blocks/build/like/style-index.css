@@ -7,13 +7,7 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
-.wp-block-beastfeedbacks-like > button {
-  background-color: #21759b;
-  color: #fff;
-  padding: 2px;
-}
-
-.wp-block-beastfeedback-like-balloon {
+.wp-block-beastfeedbacks-like-balloon {
   position: relative;
   display: inline-block;
   margin-bottom: 1.5rem;
@@ -25,7 +19,7 @@
   background: #fff;
   border: 2px solid #ccc;
 }
-.wp-block-beastfeedback-like-balloon:before {
+.wp-block-beastfeedbacks-like-balloon:before {
   content: "";
   position: absolute;
   left: calc(50% - 15px);
@@ -34,7 +28,7 @@
   border-color: #ccc transparent transparent transparent;
   border-width: 15px 15px 0 15px;
 }
-.wp-block-beastfeedback-like-balloon:after {
+.wp-block-beastfeedbacks-like-balloon:after {
   content: "";
   position: absolute;
   left: calc(50% - 13px);
@@ -43,7 +37,7 @@
   border-color: #fff transparent transparent transparent;
   border-width: 13px 13px 0 13px;
 }
-.wp-block-beastfeedback-like-balloon p {
+.wp-block-beastfeedbacks-like-balloon p {
   text-align: center;
   margin: 0;
   padding: 0;
