@@ -171,7 +171,7 @@ class BeastFeedbacks_Blocks {
 		}
 
 		$id  = esc_attr( $params['id'] );
-		$key = 'beastfeedbacks_' . esc_attr( $params['id'] ) . '_nonce';
+		$key = 'beastfeedbacks_' . $id . '_nonce';
 
 		if ( ! wp_verify_nonce( $params['nonce'], $key ) ) {
 			return new WP_Error( 404, 'Security check' );

@@ -1,3 +1,5 @@
+import apiFetch from "@wordpress/api-fetch";
+
 const elements = document.querySelectorAll(".wp-block-beastfeedbacks-vote");
 
 elements.forEach((element) => {
@@ -13,29 +15,21 @@ elements.forEach((element) => {
 				list.push(b.textContent);
 			}
 
-			fetch("/wp-json/beastfeedbacks/v1/register", {
+			apiFetch({
+				path: "/beastfeedbacks/v1/register",
 				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					// "X-WP-Nonce": nonce,
-				},
-				body: JSON.stringify({
+				data: {
 					beastfeedbacks_type: "vote",
 					nonce,
 					id,
 					select: list,
 					selected: button.textContent,
-				}),
-			})
-				.then((response) => response.json())
-				.then((data) => {
-					const messageElement = document.createElement("span");
-					messageElement.textContent = data.message;
-					element.parentElement.insertBefore(
-						messageElement,
-						element.nextSibling,
-					);
-				});
+				},
+			}).then((data) => {
+				const messageElement = document.createElement("span");
+				messageElement.textContent = data.message;
+				element.parentElement.insertBefore(messageElement, element.nextSibling);
+			});
 		};
 	}
 });
