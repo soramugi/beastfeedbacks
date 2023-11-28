@@ -167,24 +167,28 @@ class BeastFeedbacks_Blocks {
 			return new WP_Error( 404, 'Security check' );
 		}
 
-		$post    = get_post( $id );
-		$post_id = $post ? (int) $post->ID : 0;
-		$type    = esc_attr( $params['beastfeedbacks_type'] );
-		$from    = isset( $_SERVER['REMOTE_ADDR'] )
-			? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) )
-			: null;
-		$time    = current_time( 'mysql' );
-		$title   = "{$from} - {$time}";
+		$post       = get_post( $id );
+		$post_id    = $post ? (int) $post->ID : 0; // 存在しているか確認.
+		$from       = $this->get_ip_address();
+		$user_agent = $this->get_user_agent();
+		$type       = esc_attr( $params['beastfeedbacks_type'] );
+		$time       = current_time( 'mysql' );
+		$title      = "{$from} - {$time}";
 
 		wp_insert_post(
 			array(
-				'post_date'   => $time,
-				'post_type'   => 'beastfeedbacks',
-				'post_status' => 'publish',
-				'post_parent' => $post_id,
-				'post_title'  => addslashes( wp_kses( $title, array() ) ),
-				'post_name'   => md5( $title ),
-				'meta_input'  => array(
+				'post_date'    => $time,
+				'post_type'    => 'beastfeedbacks',
+				'post_status'  => 'publish',
+				'post_parent'  => $post_id,
+				'post_title'   => addslashes( wp_kses( $title, array() ) ),
+				'post_name'    => md5( $title ),
+				'post_content' => wp_json_encode(
+					array(
+						'user_agent' => $user_agent,
+					)
+				),
+				'meta_input'   => array(
 					'beastfeedbacks_from' => $from,
 					'beastfeedbacks_type' => $type,
 				),
@@ -201,5 +205,27 @@ class BeastFeedbacks_Blocks {
 		}
 
 		return new WP_REST_Response( $response_data, 200 );
+	}
+
+	/**
+	 * ユーザーエージェントの取得
+	 *
+	 * @return string
+	 */
+	private function get_user_agent() {
+		return isset( $_SERVER['HTTP_USER_AGENT'] )
+			? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) )
+		   : ''; // @codingStandardsIgnoreLine
+	}
+
+	/**
+	 * IPアドレスの取得
+	 *
+	 * @return string
+	 */
+	private function get_ip_address() {
+		return isset( $_SERVER['REMOTE_ADDR'] )
+		? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) )
+		: '';
 	}
 }

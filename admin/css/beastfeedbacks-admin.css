@@ -2,3 +2,19 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+
+.widefat .column-beastfeedbacks_from {
+	width: 4em;
+}
+.widefat .column-beastfeedbacks_date {
+	width: 5em;
+}
+.widefat .column-beastfeedbacks_type {
+	width: 3em;
+}
+.widefat .column-beastfeedbacks_source {
+	width: 10em;
+}
+.widefat .column-beastfeedbacks_response {
+	width: 100%;
+}

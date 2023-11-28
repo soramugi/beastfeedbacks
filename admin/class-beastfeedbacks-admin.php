@@ -215,8 +215,20 @@ class BeastFeedbacks_Admin {
 				echo esc_html( $meta );
 				return;
 			case 'beastfeedbacks_response':
-				$post = get_post( $post_id );
-				echo esc_html( $post->post_content );
+				$post      = get_post( $post_id );
+				$json_data = json_decode( $post->post_content, true );
+				if ( is_array( $json_data ) ) {
+					?>
+					<table>
+						<tbody>
+							<tr>
+								<td>UserAgent</td>
+								<td><?php echo esc_html( $json_data['user_agent'] ); ?></td>
+							</tr>
+						</tbody>
+					</table>
+					<?php
+				}
 				return;
 			case 'beastfeedbacks_source':
 				$post = get_post( $post_id );
