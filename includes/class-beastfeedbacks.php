@@ -40,8 +40,11 @@ class BeastFeedbacks {
 		$this->load_dependencies();
 
 		BeastFeedbacks_I18n::get_instance()->init();
-		BeastFeedbacks_Admin::get_instance()->init();
-		BeastFeedbacks_Public::get_instance()->init();
+		if ( is_admin() ) {
+			BeastFeedbacks_Admin::get_instance()->init();
+		} else {
+			BeastFeedbacks_Public::get_instance()->init();
+		}
 		BeastFeedbacks_Block::get_instance()->init();
 	}
 
