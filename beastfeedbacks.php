@@ -19,6 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'BEASTFEEDBACKS_VERSION', '0.1.0' );
+define( 'BEASTFEEDBACKS_DOMAIN', 'beastfeedbacks' );
 
 /**
  * プラグイン有効化
@@ -40,12 +41,4 @@ register_activation_hook( __FILE__, 'activate_beastfeedbacks' );
 register_deactivation_hook( __FILE__, 'deactivate_beastfeedbacks' );
 
 require plugin_dir_path( __FILE__ ) . 'includes/class-beastfeedbacks.php';
-
-/**
- * 初期化
- */
-function run_beastfeedbacks() {
-	$plugin = new BeastFeedbacks();
-	$plugin->run();
-}
-run_beastfeedbacks();
+BeastFeedbacks::get_instance()->init();

@@ -26,33 +26,30 @@ class BeastFeedbacks_Blocks {
 	);
 
 	/**
-	 * The ID of this plugin.
+	 * Self class
 	 *
-	 * @since    0.1.0
-	 * @access   private
-	 * @var      string    $beastfeedbacks    The ID of this plugin.
+	 * @var self|null
 	 */
-	private $beastfeedbacks;
+	private static $instance = null;
 
 	/**
-	 * The version of this plugin.
+	 * Instance
 	 *
-	 * @since    0.1.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
+	 * @return self
 	 */
-	private $version;
+	public static function get_instance() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
 
 	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    0.1.0
-	 * @param      string $beastfeedbacks       The name of this plugin.
-	 * @param      string $version    The version of this plugin.
+	 * Init
 	 */
-	public function __construct( $beastfeedbacks, $version ) {
-		$this->beastfeedbacks = $beastfeedbacks;
-		$this->version        = $version;
+	public function init() {
+		add_filter( 'block_categories_all', array( $this, 'block_categories_all' ), 10, 2 );
+		add_action( 'init', array( $this, 'register_block_type' ) );
 	}
 
 	/**

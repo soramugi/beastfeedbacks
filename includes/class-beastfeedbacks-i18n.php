@@ -1,9 +1,6 @@
 <?php
 /**
- * Define the internationalization functionality
- *
- * Loads and defines the internationalization files for this plugin
- * so that it is ready for translation.
+ * 翻訳
  *
  * @link       http://example.com
  * @since      0.1.0
@@ -13,17 +10,35 @@
  */
 
 /**
- * Define the internationalization functionality.
- *
- * Loads and defines the internationalization files for this plugin
- * so that it is ready for translation.
- *
- * @since      0.1.0
- * @package    BeastFeedbacks
- * @subpackage BeastFeedbacks/includes
- * @author     Your Name <email@example.com>
+ * 翻訳
  */
 class BeastFeedbacks_I18n {
+
+	/**
+	 * Self class
+	 *
+	 * @var self|null
+	 */
+	private static $instance = null;
+
+	/**
+	 * Instance
+	 *
+	 * @return self
+	 */
+	public static function get_instance() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
+
+	/**
+	 * Init
+	 */
+	public function init() {
+		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
+	}
 
 	/**
 	 * Load the plugin text domain for translation.
@@ -32,7 +47,7 @@ class BeastFeedbacks_I18n {
 	 */
 	public function load_plugin_textdomain() {
 		load_plugin_textdomain(
-			'beastfeedbacks',
+			BEASTFEEDBACKS_DOMAIN,
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
