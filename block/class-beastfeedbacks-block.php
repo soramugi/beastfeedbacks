@@ -6,13 +6,13 @@
  * @since      0.1.0
  *
  * @package    BeastFeedbacks
- * @subpackage BeastFeedbacks/blocks
+ * @subpackage BeastFeedbacks/block
  */
 
 /**
  * Block
  */
-class BeastFeedbacks_Blocks {
+class BeastFeedbacks_Block {
 
 	/**
 	 * ブロックで提供するタイプリスト

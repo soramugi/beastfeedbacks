@@ -293,7 +293,7 @@ class BeastFeedbacks_Admin {
 
 		$selected_type = isset( $_GET['beastfeedbacks_type'] ) ? sanitize_key( $_GET['beastfeedbacks_type'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-		$select_types = BeastFeedbacks_Blocks::TYPES;
+		$select_types = BeastFeedbacks_Block::TYPES;
 
 		$options = '';
 		foreach ( $select_types as $select_type ) {
