@@ -14,7 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $wrapper_attributes = get_block_wrapper_attributes();
 $_post_id           = get_the_ID();
-$nonce              = wp_create_nonce( 'beastfeedbacks_' . $_post_id . '_nonce' );
+$nonce_key          = BeastFeedbacks_Block::get_instance()->get_rest_api_nonce_key( $_post_id );
+$nonce              = wp_create_nonce( $nonce_key );
 $like_count         = BeastFeedbacks::get_instance()->get_like_count( $_post_id );
 ?>
 

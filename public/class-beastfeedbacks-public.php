@@ -87,7 +87,7 @@ class BeastFeedbacks_Public {
 		}
 
 		$id  = esc_attr( $params['id'] );
-		$key = 'beastfeedbacks_' . $id . '_nonce';
+		$key = BeastFeedbacks_Block::get_instance()->get_rest_api_nonce_key( $id );
 
 		if ( ! wp_verify_nonce( $params['nonce'], $key ) ) {
 			return new WP_Error( 404, 'Security check' );
