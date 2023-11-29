@@ -79,6 +79,9 @@ class BeastFeedbacks_Block {
 	public function register_block_type() {
 		register_block_type( plugin_dir_path( __FILE__ ) . 'build/like/' );
 		register_block_type( plugin_dir_path( __FILE__ ) . 'build/vote/' );
+		register_block_type( plugin_dir_path( __FILE__ ) . 'build/survey-form/' );
+		register_block_type( plugin_dir_path( __FILE__ ) . 'build/survey-input/' );
+		register_block_type( plugin_dir_path( __FILE__ ) . 'build/survey-select/' );
 	}
 
 	/**
