@@ -1,27 +1,31 @@
 const form = document.forms["beastfeedbacks_survey_form"];
 
+const addMessage = (message) => {
+	const messageElement = document.createElement("span");
+	messageElement.textContent = message;
+	form.parentElement.insertBefore(messageElement, form.nextSibling);
+};
+
 form.addEventListener("submit", (e) => {
 	e.preventDefault();
+	e.submitter.setAttribute("disabled", true);
 
-	const action = form.getAttribute('action');
+	const action = form.getAttribute("action");
 	fetch(action, {
 		method: form.method,
 		body: new FormData(form),
 	})
 		.then((response) => {
 			if (!response.ok) {
-				console.error(response);
-				throw new Error();
+				throw new Error(response);
 			}
 			return response.json();
 		})
 		.then((data) => {
-			console.log(data);
-			// document.getElementById("message").innerHTML = text;
-			// document.forms["enquiry"].style.display = "none";
+			addMessage(data.message);
 		})
 		.catch((error) => {
 			console.error(error);
-			// document.getElementById("message").innerHTML = "送信できませんでした";
+			addMessage('おっと！なにか問題が発生しました。');
 		});
 });
