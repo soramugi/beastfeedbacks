@@ -54,19 +54,16 @@ class BeastFeedbacks_Public {
 		);
 		*/
 
-		// TODO: like,vote、ajaxでの保存に変更する
-		add_action( 'rest_api_init', array( $this, 'register_rest_route' ) );
-
-		$form_action = 'beastfeedbacks_survey_form';
-		add_action( 'wp_ajax_' . $form_action, array( $this, 'beastfeedbacks_survey_form' ) );
-		add_action( 'wp_ajax_nopriv_' . $form_action, array( $this, 'beastfeedbacks_survey_form' ) );
+		$form_action = 'register_beastfeedbacks_form';
+		add_action( 'wp_ajax_' . $form_action, array( $this, 'register_beastfeedbacks_form' ) );
+		add_action( 'wp_ajax_nopriv_' . $form_action, array( $this, 'register_beastfeedbacks_form' ) );
 	}
 
 	/**
 	 * アンケートフォームの受け取り処理
 	 */
-	public function beastfeedbacks_survey_form() {
-		check_ajax_referer( 'beastfeedbacks_survey_form' );
+	public function register_beastfeedbacks_form() {
+		check_ajax_referer( 'register_beastfeedbacks_form' );
 
 		$params     = wp_unslash( $_POST );
 		$id         = esc_attr( $params['id'] );

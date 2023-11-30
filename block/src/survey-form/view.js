@@ -32,7 +32,7 @@ const submit = (e) => {
 
 // 複数フォームを設定した場合に考慮
 const forms = document.querySelectorAll(
-	'form[name="beastfeedbacks_survey_form"]',
+	'form[name="beastfeedbacks_form"]',
 );
 for (const form of forms) {
 	form.addEventListener("submit", submit);

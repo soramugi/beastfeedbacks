@@ -19,9 +19,9 @@ $form_action        = admin_url( 'admin-ajax.php' );
 <div
 	<?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 >
-	<form action="<?php echo esc_url( $form_action ); ?>" name="beastfeedbacks_survey_form" method="POST">
-		<?php wp_nonce_field( 'beastfeedbacks_survey_form' ); ?>
-		<input type="hidden" name="action" value="beastfeedbacks_survey_form" />
+	<form action="<?php echo esc_url( $form_action ); ?>" name="beastfeedbacks_form" method="POST">
+		<?php wp_nonce_field( 'register_beastfeedbacks_form' ); ?>
+		<input type="hidden" name="action" value="register_beastfeedbacks_form" />
 		<input type="hidden" name="beastfeedbacks_type" value="survey" />
 		<input type="hidden" name="id" value="<?php echo esc_attr( get_the_ID() ); ?>" />
 		<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
