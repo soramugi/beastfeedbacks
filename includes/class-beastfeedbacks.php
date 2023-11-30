@@ -79,6 +79,6 @@ class BeastFeedbacks {
 			'post_status' => 'publish',
 		);
 		$query = new WP_Query( $args );
-		return $query->post_count;
+		return $query->found_posts;
 	}
 }

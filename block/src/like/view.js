@@ -1,12 +1,14 @@
 const addMessage = (form, message) => {
-	const messageElement = document.createElement("span");
+	const messageElement = document.createElement("p");
 	messageElement.textContent = message;
 	form.parentElement.insertBefore(messageElement, form.nextSibling);
+	setTimeout(function () {
+		messageElement.style.display = 'none'
+	}, 3000);
 };
 
 const submit = (e) => {
 	e.preventDefault();
-	e.submitter.setAttribute("disabled", true);
 
 	const form = e.target;
 	const action = form.getAttribute("action");
