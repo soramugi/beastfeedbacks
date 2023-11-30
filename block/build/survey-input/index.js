@@ -35,34 +35,24 @@ __webpack_require__.r(__webpack_exports__);
     const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)();
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
       ...blockProps
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
-      for: "comment"
-    }, "\u30B5\u30F3\u30D7\u30EB\u5165\u529B\u5024 ", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", null, "\u30B5\u30F3\u30D7\u30EB\u5165\u529B\u5024 ", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       class: "required"
     }, "\u203B")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("textarea", {
-      id: "comment",
-      name: "comment",
       cols: "45",
-      rows: "8",
-      maxlength: "65525",
-      required: ""
+      rows: "1",
+      maxlength: "65525"
     }));
   },
   save: props => {
     const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps.save();
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
       ...blockProps
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
-      for: "comment"
-    }, "\u30B5\u30F3\u30D7\u30EB\u5165\u529B\u5024 ", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", null, "\u30B5\u30F3\u30D7\u30EB\u5165\u529B\u5024 ", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       class: "required"
     }, "\u203B")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("textarea", {
-      id: "comment",
-      name: "comment",
       cols: "45",
       rows: "8",
-      maxlength: "65525",
-      required: ""
+      maxlength: "65525"
     }));
   }
 });

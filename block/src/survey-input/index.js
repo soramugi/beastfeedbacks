@@ -14,16 +14,13 @@ registerBlockType(metadata.name, {
 
 		return (
 			<p {...blockProps}>
-				<label for="comment">
+				<label>
 					サンプル入力値 <span class="required">※</span>
 				</label>
 				<textarea
-					id="comment"
-					name="comment"
 					cols="45"
-					rows="8"
+					rows="1"
 					maxlength="65525"
-					required=""
 				/>
 			</p>
 		);
@@ -33,16 +30,13 @@ registerBlockType(metadata.name, {
 
 		return (
 			<p {...blockProps}>
-				<label for="comment">
+				<label>
 					サンプル入力値 <span class="required">※</span>
 				</label>
 				<textarea
-					id="comment"
-					name="comment"
 					cols="45"
 					rows="8"
 					maxlength="65525"
-					required=""
 				/>
 			</p>
 		);
