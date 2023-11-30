@@ -187,6 +187,7 @@ class BeastFeedbacks_Admin {
 			case 'beastfeedbacks_response':
 				$post      = get_post( $post_id );
 				$json_data = json_decode( $post->post_content, true );
+				// TODO: vote の表示が post_params -> selected に変わったので修正する
 				if ( is_array( $json_data ) ) {
 					?>
 					<table>

@@ -66,12 +66,60 @@ class BeastFeedbacks_Public {
 	 */
 	public function beastfeedbacks_survey_form() {
 		check_ajax_referer( 'beastfeedbacks_survey_form' );
+		$params = wp_unslash( $_POST );
 
-		$result = array(
-			'message' => 'success',
+		$id         = esc_attr( $params['id'] );
+		$post       = get_post( $id );
+		$post_id    = $post ? (int) $post->ID : 0; // 存在しているか確認.
+		$ip_address = $this->get_ip_address();
+		$user_agent = $this->get_user_agent();
+		$type       = esc_attr( $params['beastfeedbacks_type'] );
+		$time       = current_time( 'mysql' );
+		$title      = "{$ip_address} - {$time}";
+		$content    = array(
+			'user_agent'  => $user_agent,
+			'ip_address'  => $ip_address,
+			'post_params' => $params,
 		);
 
-		wp_send_json( $result );
+		wp_insert_post(
+			array(
+				'post_date'    => $time,
+				'post_type'    => 'beastfeedbacks',
+				'post_status'  => 'publish',
+				'post_parent'  => $post_id,
+				'post_title'   => addslashes( wp_kses( $title, array() ) ),
+				'post_name'    => md5( $title ),
+				'post_content' => addslashes( wp_kses( wp_json_encode( $content, true ), array() ) ),
+				'meta_input'   => array(
+					'beastfeedbacks_type' => $type,
+				),
+			)
+		);
+
+		$response_data = array(
+			'success' => 1,
+			'message' => '投票ありがとうございました。',
+		);
+
+		if ( 'like' === $type ) {
+			$response_data = array_merge(
+				$response_data,
+				array(
+					'count' => BeastFeedbacks::get_instance()->get_like_count( $post_id ),
+				)
+			);
+		}
+		if ( 'survey' === $type ) {
+			$response_data = array_merge(
+				$response_data,
+				array(
+					'message' => 'アンケートへの回答ありがとうございました。',
+				)
+			);
+		}
+
+		wp_send_json( $response_data );
 		wp_die();
 	}
 
