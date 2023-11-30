@@ -1,35 +1,49 @@
-import apiFetch from "@wordpress/api-fetch";
+const addMessage = (form, message) => {
+	const messageElement = document.createElement("span");
+	messageElement.textContent = message;
+	form.parentElement.insertBefore(messageElement, form.nextSibling);
+};
 
-const elements = document.querySelectorAll(".wp-block-beastfeedbacks-vote");
+const submit = (e) => {
+	e.preventDefault();
+	e.submitter.setAttribute("disabled", true);
 
-elements.forEach((element) => {
-	const nonce = element.dataset.nonce;
-	const id = element.dataset.id;
-	const buttons = element.getElementsByTagName("button");
+	const form = e.target;
+	const action = form.getAttribute("action");
 
+	const buttons = form.getElementsByTagName("button");
+	const select = [];
 	for (const button of buttons) {
-		button.onclick = (event) => {
-			const list = [];
-			for (const b of buttons) {
-				b.setAttribute("disabled", true);
-				list.push(b.textContent);
-			}
-
-			apiFetch({
-				path: "/beastfeedbacks/v1/register",
-				method: "POST",
-				data: {
-					beastfeedbacks_type: "vote",
-					nonce,
-					id,
-					select: list,
-					selected: button.textContent,
-				},
-			}).then((data) => {
-				const messageElement = document.createElement("span");
-				messageElement.textContent = data.message;
-				element.parentElement.insertBefore(messageElement, element.nextSibling);
-			});
-		};
+		select.push(button.textContent);
 	}
-});
+
+	const body = new FormData(form);
+	body.append("selected", e.submitter.textContent);
+	body.append("select", select);
+
+	fetch(action, {
+		method: form.method,
+		body,
+	})
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error(response);
+			}
+			return response.json();
+		})
+		.then((data) => {
+			addMessage(form, data.message);
+		})
+		.catch((error) => {
+			console.error(error);
+			addMessage(form, "おっと！なにか問題が発生しました。");
+		});
+};
+
+// 複数フォームを設定した場合に考慮
+const forms = document.querySelectorAll(
+	'form[name="beastfeedbacks_vote_form"]',
+);
+for (const form of forms) {
+	form.addEventListener("submit", submit);
+}

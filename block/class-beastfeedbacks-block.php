@@ -83,13 +83,4 @@ class BeastFeedbacks_Block {
 		register_block_type( plugin_dir_path( __FILE__ ) . 'build/survey-input/' );
 		register_block_type( plugin_dir_path( __FILE__ ) . 'build/survey-select/' );
 	}
-
-	/**
-	 * Rest APIで使用するnonceキー名を取得
-	 *
-	 * @param integer|string $post_id post ID.
-	 */
-	public function get_rest_api_nonce_key( $post_id ) {
-		return 'beastfeedbacks_' . $post_id . '_nonce';
-	}
 }

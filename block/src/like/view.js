@@ -1,38 +1,46 @@
-import apiFetch from "@wordpress/api-fetch";
+const addMessage = (form, message) => {
+	const messageElement = document.createElement("span");
+	messageElement.textContent = message;
+	form.parentElement.insertBefore(messageElement, form.nextSibling);
+};
 
-const elements = document.querySelectorAll(".wp-block-beastfeedbacks-like");
+const submit = (e) => {
+	e.preventDefault();
+	e.submitter.setAttribute("disabled", true);
 
-elements.forEach((element) => {
-	const nonce = element.dataset.nonce;
-	const id = element.dataset.id;
-	const buttons = element.getElementsByTagName("button");
+	const form = e.target;
+	const action = form.getAttribute("action");
 
-	for (const button of buttons) {
-		button.onclick = (event) => {
-			for (const b of buttons) {
-				b.setAttribute("disabled", true);
+	fetch(action, {
+		method: form.method,
+		body: new FormData(form),
+	})
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error(response);
+			}
+			return response.json();
+		})
+		.then((data) => {
+			if (data.count) {
+				const likeCounts = form.querySelectorAll(".like-count");
+				for (const likeCount of likeCounts) {
+					likeCount.textContent = data.count;
+				}
 			}
 
-			apiFetch({
-				path: "/beastfeedbacks/v1/register",
-				method: "POST",
-				data: {
-					beastfeedbacks_type: "like",
-					nonce,
-					id,
-				},
-			}).then((data) => {
-				if (data.count) {
-					const likeCounts = element.querySelectorAll(".like-count");
-					for (const likeCount of likeCounts) {
-						likeCount.textContent = data.count;
-					}
-				}
+			addMessage(form, data.message);
+		})
+		.catch((error) => {
+			console.error(error);
+			addMessage(form, "おっと！なにか問題が発生しました。");
+		});
+};
 
-				const messageElement = document.createElement("span");
-				messageElement.textContent = data.message;
-				element.parentElement.insertBefore(messageElement, element.nextSibling);
-			});
-		};
-	}
-});
+// 複数フォームを設定した場合に考慮
+const forms = document.querySelectorAll(
+	'form[name="beastfeedbacks_like_form"]',
+);
+for (const form of forms) {
+	form.addEventListener("submit", submit);
+}

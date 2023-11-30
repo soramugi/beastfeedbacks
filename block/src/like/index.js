@@ -28,14 +28,16 @@ registerBlockType(metadata.name, {
 
 		return (
 			<div {...blockProps}>
-				<div className="wp-block-beastfeedbacks-like-balloon">
-					<p className="like-count">0</p>
-				</div>
-				<InnerBlocks
-					allowedBlocks={TEMPLATE}
-					template={TEMPLATE}
-					templateLock="all"
-				/>
+				<form name="beastfeedbacks_like_form">
+					<div className="wp-block-beastfeedbacks-like-balloon">
+						<p className="like-count">0</p>
+					</div>
+					<InnerBlocks
+						allowedBlocks={TEMPLATE}
+						template={TEMPLATE}
+						templateLock="all"
+					/>
+				</form>
 			</div>
 		);
 	},

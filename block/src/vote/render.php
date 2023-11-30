@@ -14,15 +14,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $wrapper_attributes = get_block_wrapper_attributes();
 $_post_id           = get_the_ID();
-$nonce_key          = BeastFeedbacks_Block::get_instance()->get_rest_api_nonce_key( $_post_id );
-$nonce              = wp_create_nonce( $nonce_key );
+$form_action        = admin_url( 'admin-ajax.php' );
 ?>
 
 <div
 	<?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-	data-nonce="<?php echo esc_html( $nonce ); ?>"
-	data-id="<?php echo esc_html( $_post_id ); ?>"
 >
-	<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	<form action="<?php echo esc_url( $form_action ); ?>" name="beastfeedbacks_vote_form" method="POST">
+		<?php wp_nonce_field( 'register_beastfeedbacks_form' ); ?>
+		<input type="hidden" name="action" value="register_beastfeedbacks_form" />
+		<input type="hidden" name="beastfeedbacks_type" value="vote" />
+		<input type="hidden" name="id" value="<?php echo esc_attr( $_post_id ); ?>" />
+		<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	</form>
 </div>
 
