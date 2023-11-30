@@ -7,9 +7,16 @@
 	"category": "beastfeedbacks",
 	"icon": "thumbs-up",
 	"description": "フォームの選択肢",
-	"example": {},
 	"supports": {
 		"html": false
+	},
+	"attributes": {
+		"content": {
+			"type": "string",
+			"source": "text",
+			"selector": "label",
+			"default": "サンプル選択肢"
+		}
 	},
 	"textdomain": "beastfeedbacks",
 	"editorScript": "file:./index.js",

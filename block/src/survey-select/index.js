@@ -1,6 +1,6 @@
 import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
-import { useBlockProps, InnerBlocks } from "@wordpress/block-editor";
+import { useBlockProps, RichText } from "@wordpress/block-editor";
 import metadata from "./block.json";
 import "./style.scss";
 
@@ -9,14 +9,19 @@ import "./style.scss";
  * TODO: 選択肢関連の対応、select,checkbox,radio
  */
 registerBlockType(metadata.name, {
-	edit: () => {
+	edit: (props) => {
+		const {
+			attributes: { content },
+			setAttributes,
+		} = props;
 		const blockProps = useBlockProps();
+		const onChangeContent = (newContent) => {
+			setAttributes({ content: newContent });
+		};
 
 		return (
 			<p {...blockProps}>
-				<label for="comment">
-					サンプル選択肢 <span class="required">※</span>
-				</label>
+				<RichText tagName="label" onChange={onChangeContent} value={content} />
 				<select>
 					<option>1</option>
 					<option>2</option>
@@ -30,10 +35,8 @@ registerBlockType(metadata.name, {
 
 		return (
 			<p {...blockProps}>
-				<label for="comment">
-					サンプル選択肢 <span class="required">※</span>
-				</label>
-				<select>
+				<RichText.Content tagName="label" value={props.attributes.content} />
+				<select name={props.attributes.content}>
 					<option>1</option>
 					<option>2</option>
 					<option>3</option>

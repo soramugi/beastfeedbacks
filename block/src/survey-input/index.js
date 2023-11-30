@@ -1,27 +1,27 @@
 import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
-import { useBlockProps, InnerBlocks } from "@wordpress/block-editor";
+import { useBlockProps, RichText } from "@wordpress/block-editor";
 import metadata from "./block.json";
 import "./style.scss";
 
 /**
  * アンケートフォームの入力値
- * TODO: テキスト入力関連の対応、inputやtextarea
  */
 registerBlockType(metadata.name, {
-	edit: () => {
+	edit: (props) => {
+		const {
+			attributes: { content },
+			setAttributes,
+		} = props;
 		const blockProps = useBlockProps();
+		const onChangeContent = (newContent) => {
+			setAttributes({ content: newContent });
+		};
 
 		return (
 			<p {...blockProps}>
-				<label>
-					サンプル入力値 <span class="required">※</span>
-				</label>
-				<textarea
-					cols="45"
-					rows="1"
-					maxlength="65525"
-				/>
+				<RichText tagName="label" onChange={onChangeContent} value={content} />
+				<textarea cols="45" rows="1" maxlength="65525" />
 			</p>
 		);
 	},
@@ -30,14 +30,8 @@ registerBlockType(metadata.name, {
 
 		return (
 			<p {...blockProps}>
-				<label>
-					サンプル入力値 <span class="required">※</span>
-				</label>
-				<textarea
-					cols="45"
-					rows="8"
-					maxlength="65525"
-				/>
+				<RichText.Content tagName="label" value={props.attributes.content} />
+				<textarea name={props.attributes.content} cols="45" rows="1" maxlength="65525" />
 			</p>
 		);
 	},
