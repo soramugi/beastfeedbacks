@@ -185,36 +185,54 @@ class BeastFeedbacks_Admin {
 				echo esc_html( date_i18n( 'Y/m/d', get_the_time( 'U' ) ) );
 				return;
 			case 'beastfeedbacks_response':
-				$post      = get_post( $post_id );
-				$json_data = json_decode( $post->post_content, true );
-				// TODO: vote の表示が post_params -> selected に変わったので修正する
-				if ( is_array( $json_data ) ) {
-					?>
-					<table>
-						<tbody>
-							<?php if ( isset( $json_data['selected'] ) ) : ?>
-							<tr>
-								<td>選択</td>
-								<td><?php echo esc_html( $json_data['selected'] ); ?></td>
-							</tr>
-							<?php endif ?>
-						</tbody>
-					</table>
-					<table>
-						<tbody>
-							<hr />
-							<tr>
-								<td>IP_Address</td>
-								<td><?php echo esc_html( isset( $json_data['ip_address'] ) ? $json_data['ip_address'] : '' ); ?></td>
-							</tr>
-							<tr>
-								<td>UserAgent</td>
-								<td><?php echo esc_html( isset( $json_data['user_agent'] ) ? $json_data['user_agent'] : '' ); ?></td>
-							</tr>
-						</tbody>
-					</table>
-					<?php
+				$post    = get_post( $post_id );
+				$content = json_decode( $post->post_content, true );
+				if ( ! is_array( $content ) ) {
+					return;
 				}
+
+				$type        = isset( $content['type'] )
+					? $content['type']
+					: '';
+				$post_params = isset( $content['post_params'] )
+					? $content['post_params']
+					: array();
+				?>
+				<table>
+					<tbody>
+						<?php if ( 'vote' === $type ) : ?>
+						<tr>
+							<td>選択</td>
+							<td><?php echo esc_html( $post_params['selected'] ); ?></td>
+						</tr>
+						<?php elseif ( 'survey' === $type ) : ?>
+							<?php foreach ( $post_params as $key => $value ) : ?>
+								<tr>
+									<td><?php echo esc_html( $key ); ?></td>
+									<td><?php echo esc_html( $value ); ?></td>
+								</tr>
+							<?php endforeach; ?>
+						<?php endif ?>
+					</tbody>
+				</table>
+				<table>
+					<tbody>
+						<hr />
+						<?php if ( isset( $content['ip_address'] ) ) : ?>
+						<tr>
+							<td>IP_Address</td>
+							<td><?php echo esc_html( $content['ip_address'] ); ?></td>
+						</tr>
+						<?php endif ?>
+						<?php if ( isset( $content['user_agent'] ) ) : ?>
+						<tr>
+							<td>UserAgent</td>
+							<td><?php echo esc_html( $content['user_agent'] ); ?></td>
+						</tr>
+						<?php endif ?>
+					</tbody>
+				</table>
+				<?php
 				return;
 			case 'beastfeedbacks_source':
 				$post = get_post( $post_id );

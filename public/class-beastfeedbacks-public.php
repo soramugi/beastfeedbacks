@@ -54,6 +54,7 @@ class BeastFeedbacks_Public {
 		);
 		*/
 
+		// TODO: like,vote、ajaxでの保存に変更する
 		add_action( 'rest_api_init', array( $this, 'register_rest_route' ) );
 
 		$form_action = 'beastfeedbacks_survey_form';
@@ -66,20 +67,33 @@ class BeastFeedbacks_Public {
 	 */
 	public function beastfeedbacks_survey_form() {
 		check_ajax_referer( 'beastfeedbacks_survey_form' );
-		$params = wp_unslash( $_POST );
 
+		$params     = wp_unslash( $_POST );
 		$id         = esc_attr( $params['id'] );
+		$type       = esc_attr( $params['beastfeedbacks_type'] );
 		$post       = get_post( $id );
 		$post_id    = $post ? (int) $post->ID : 0; // 存在しているか確認.
 		$ip_address = $this->get_ip_address();
 		$user_agent = $this->get_user_agent();
-		$type       = esc_attr( $params['beastfeedbacks_type'] );
 		$time       = current_time( 'mysql' );
 		$title      = "{$ip_address} - {$time}";
-		$content    = array(
+
+		$post_params = $params;
+		$ignore_keys = array(
+			'id',
+			'beastfeedbacks_type',
+			'action',
+			'_wp_http_referer',
+			'_wpnonce',
+		);
+		foreach ( $ignore_keys as $ignore_key ) {
+			unset( $post_params[ $ignore_key ] );
+		}
+		$content = array(
 			'user_agent'  => $user_agent,
 			'ip_address'  => $ip_address,
-			'post_params' => $params,
+			'type'        => $type,
+			'post_params' => $post_params,
 		);
 
 		wp_insert_post(
@@ -97,27 +111,18 @@ class BeastFeedbacks_Public {
 			)
 		);
 
+		$message = ( 'survey' === $type )
+			? 'アンケートへの回答ありがとうございました。'
+			: '投票ありがとうございました。';
+		$count   = ( 'like' === $type )
+			? BeastFeedbacks::get_instance()->get_like_count( $post_id )
+			: 1;
+
 		$response_data = array(
 			'success' => 1,
-			'message' => '投票ありがとうございました。',
+			'message' => $message,
+			'count'   => $count,
 		);
-
-		if ( 'like' === $type ) {
-			$response_data = array_merge(
-				$response_data,
-				array(
-					'count' => BeastFeedbacks::get_instance()->get_like_count( $post_id ),
-				)
-			);
-		}
-		if ( 'survey' === $type ) {
-			$response_data = array_merge(
-				$response_data,
-				array(
-					'message' => 'アンケートへの回答ありがとうございました。',
-				)
-			);
-		}
 
 		wp_send_json( $response_data );
 		wp_die();
