@@ -28,7 +28,9 @@ registerBlockType(metadata.name, {
 
 		return (
 			<div {...blockProps}>
-				<InnerBlocks template={TEMPLATE} templateLock={false} />
+				<form name="beastfeedbacks_vote_form">
+					<InnerBlocks template={TEMPLATE} templateLock={false} />
+				</form>
 			</div>
 		);
 	},
