@@ -32,11 +32,13 @@ registerBlockType(metadata.name, {
 	},
 	save: (props) => {
 		const blockProps = useBlockProps.save();
+		const content = props.attributes.content;
+		const name = content.replace(/(<([^>]+)>)/ig, "");
 
 		return (
 			<p {...blockProps}>
-				<RichText.Content tagName="label" value={props.attributes.content} />
-				<select name={props.attributes.content}>
+				<RichText.Content tagName="label" value={content} />
+				<select name={name}>
 					<option>1</option>
 					<option>2</option>
 					<option>3</option>
