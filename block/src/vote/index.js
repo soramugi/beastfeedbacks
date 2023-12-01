@@ -5,8 +5,6 @@ import metadata from "./block.json";
 
 import "./style.scss";
 
-// icon @see https://developer.wordpress.org/resource/dashicons/#calculator
-
 const TEMPLATE = [
 	["core/heading", { level: 3, content: "記事の内容には満足しましたか?" }],
 	[

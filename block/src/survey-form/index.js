@@ -5,7 +5,6 @@ import metadata from "./block.json";
 
 import "./style.scss";
 
-// icon @see https://developer.wordpress.org/resource/dashicons/#calculator
 
 const TEMPLATE = [
 	["core/heading", { level: 3, content: "アンケートにご協力ください。" }],
@@ -18,6 +17,12 @@ const TEMPLATE = [
  * アンケートフォーム
  */
 registerBlockType(metadata.name, {
+
+	/**
+	 * @see https://developer.wordpress.org/resource/dashicons/#feedback
+	 */
+	icon: 'feedback',
+
 	edit: () => {
 		const blockProps = useBlockProps();
 

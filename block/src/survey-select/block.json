@@ -5,18 +5,9 @@
 	"version": "0.1.0",
 	"title": "survey-select",
 	"category": "beastfeedbacks",
-	"icon": "thumbs-up",
 	"description": "フォームの選択肢",
 	"supports": {
 		"html": false
-	},
-	"attributes": {
-		"content": {
-			"type": "string",
-			"source": "text",
-			"selector": "label",
-			"default": "サンプル選択肢"
-		}
 	},
 	"textdomain": "beastfeedbacks",
 	"editorScript": "file:./index.js",

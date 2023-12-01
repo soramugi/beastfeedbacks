@@ -1,6 +1,7 @@
 import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
 import { useBlockProps, RichText } from "@wordpress/block-editor";
+import { Icon, text } from "@wordpress/icons";
 import metadata from "./block.json";
 import "./style.scss";
 
@@ -8,6 +9,17 @@ import "./style.scss";
  * アンケートフォームの入力値
  */
 registerBlockType(metadata.name, {
+	icon: 'text',
+
+	attributes: {
+		content: {
+			type: "string",
+			source: "text",
+			selector: "label",
+			default: "サンプル入力値",
+		},
+	},
+
 	edit: (props) => {
 		const {
 			attributes: { content },
@@ -28,7 +40,7 @@ registerBlockType(metadata.name, {
 	save: (props) => {
 		const blockProps = useBlockProps.save();
 		const content = props.attributes.content;
-		const name = content.replace(/(<([^>]+)>)/ig, "");
+		const name = content.replace(/(<([^>]+)>)/gi, "");
 
 		return (
 			<p {...blockProps}>

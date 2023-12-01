@@ -5,18 +5,9 @@
 	"version": "0.1.0",
 	"title": "survey-input",
 	"category": "beastfeedbacks",
-	"icon": "thumbs-up",
 	"description": "アンケート用の入力項目",
 	"supports": {
 		"html": false
-	},
-	"attributes": {
-		"content": {
-			"type": "string",
-			"source": "text",
-			"selector": "label",
-			"default": "サンプル入力値"
-		}
 	},
 	"textdomain": "beastfeedbacks",
 	"editorScript": "file:./index.js",
