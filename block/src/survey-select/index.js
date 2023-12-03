@@ -1,14 +1,10 @@
 import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
-import {
-	useBlockProps,
-	RichText,
-	BlockControls,
-} from "@wordpress/block-editor";
-import { Icon, check } from "@wordpress/icons";
+import { useBlockProps, RichText } from "@wordpress/block-editor";
+
 import metadata from "./block.json";
 import "./style.scss";
-import TagTypeDropdown from "./tag-type-dropdown";
+import FieldControls from "./field-controls";
 
 /**
  * アンケートフォームの選択肢
@@ -18,7 +14,7 @@ registerBlockType(metadata.name, {
 	/**
 	 * @see https://developer.wordpress.org/resource/dashicons/
 	 */
-	icon: 'yes',
+	icon: "yes",
 
 	attributes: {
 		content: {
@@ -33,6 +29,10 @@ registerBlockType(metadata.name, {
 			source: "text",
 			default: "radio",
 		},
+		required: {
+			type: "boolean",
+			default: false,
+		},
 	},
 
 	edit: ({ attributes, setAttributes }) => {
@@ -40,27 +40,20 @@ registerBlockType(metadata.name, {
 
 		return (
 			<>
-				{
-					<BlockControls group="other">
-						<TagTypeDropdown
-							value={attributes.tagType}
-							onChange={(type) => {
-								setAttributes({ tagType: type });
+				<div {...blockProps}>
+					<div style={{ alignItems: "baseline" }}>
+						<RichText
+							tagName="label"
+							onChange={(newContent) => {
+								setAttributes({ content: newContent });
 							}}
-						/>
-					</BlockControls>
-				}
-				<p {...blockProps}>
-					<RichText
-						tagName="label"
-						onChange={(newContent) => {
-							setAttributes({ content: newContent });
-						}}
-						value={attributes.content}
-					/>
+							value={attributes.content}
+						/>{" "}
+						{attributes.required && <span>(必須)</span>}
+					</div>
 
 					<div>
-						<input type="radio" id="huey" name="drone" value="huey" checked />
+						<input type="radio" id="huey" name="drone" value="huey" checked/>
 						<label for="huey">Huey</label>
 					</div>
 					<div>
@@ -71,31 +64,36 @@ registerBlockType(metadata.name, {
 						<input type="radio" id="louie" name="drone" value="louie" />
 						<label for="louie">Louie</label>
 					</div>
-				</p>
+				</div>
+				<FieldControls attributes={attributes} setAttributes={setAttributes} />
 			</>
 		);
 	},
 	save: ({ attributes }) => {
 		const blockProps = useBlockProps.save();
 		const name = attributes.content.replace(/(<([^>]+)>)/gi, "");
+		const required = attributes.required;
 
 		return (
-			<p {...blockProps}>
-				<RichText.Content tagName="label" value={attributes.content} />
+			<div {...blockProps}>
+				<div style={{ alignItems: "baseline" }}>
+					<RichText.Content tagName="label" value={attributes.content} />{" "}
+					{required && <span>(必須)</span>}
+				</div>
 
 				<div>
-					<input type="radio" id="huey" name={name} value="huey" checked />
+					<input type="radio" id="huey" name={name} value="huey" required={ required } />
 					<label for="huey">Huey</label>
 				</div>
 				<div>
-					<input type="radio" id="dewey" name={name} value="dewey" />
+					<input type="radio" id="dewey" name={name} required={ required } value="dewey" />
 					<label for="dewey">Dewey</label>
 				</div>
 				<div>
-					<input type="radio" id="louie" name={name} value="louie" />
+					<input type="radio" id="louie" name={name} required={ required } value="louie" />
 					<label for="louie">Louie</label>
 				</div>
-			</p>
+			</div>
 		);
 	},
 });
