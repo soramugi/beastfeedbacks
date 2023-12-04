@@ -50,7 +50,11 @@ registerBlockType(metadata.name, {
 							}}
 							value={attributes.label}
 						/>
-						{attributes.required && <span className="beastfeedbacks-survey-select_label_required">(必須)</span>}
+						{attributes.required && (
+							<span className="beastfeedbacks-survey-select_label_required">
+								(必須)
+							</span>
+						)}
 					</div>
 
 					<EditListBlock
@@ -72,33 +76,36 @@ registerBlockType(metadata.name, {
 			<div {...blockProps}>
 				<div className="beastfeedbacks-survey-select_label">
 					<RichText.Content tagName="label" value={label} />
-					{required && <span className="beastfeedbacks-survey-select_label_required">(必須)</span>}
+					{required && (
+						<span className="beastfeedbacks-survey-select_label_required">
+							(必須)
+						</span>
+					)}
 				</div>
 
 				<div className="beastfeedbacks-survey-select_items">
 					{"select" === tagType ? (
-						<select name={name} required={required}>
-							<option value="">選択してください</option>
-							{items.map((value) => (
-								<option value={value}>{value}</option>
-							))}
-						</select>
+						<div className="beastfeedbacks-survey-select_item select_wrap">
+							<select name={name} required={required}>
+								<option value="">選択してください</option>
+								{items.map((value) => (
+									<option value={value}>{value}</option>
+								))}
+							</select>
+						</div>
 					) : (
 						items.map((value, index) => (
 							<div className="beastfeedbacks-survey-select_item">
-								<input
-									type={tagType}
-									name={name}
-									id={value}
-									value={value}
-									required={required}
-								/>
-								<RichText.Content
-									tagName="label"
-									key={index}
-									value={value}
-									for={value}
-								/>
+								<label for={value}>
+									<input
+										type={tagType}
+										name={name}
+										id={value}
+										value={value}
+										required={required}
+									/>
+									<RichText.Content tagName="span" value={value} />
+								</label>
 							</div>
 						))
 					)}
