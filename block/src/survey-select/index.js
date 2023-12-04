@@ -40,7 +40,7 @@ registerBlockType(metadata.name, {
 		},
 	},
 
-	edit: ({ attributes, setAttributes }) => {
+	edit: ({ attributes, setAttributes, isSelected }) => {
 		const blockProps = useBlockProps();
 
 		return (
@@ -58,6 +58,7 @@ registerBlockType(metadata.name, {
 					</div>
 
 					<EditListBlock
+						isSelected={isSelected}
 						attributes={attributes}
 						setAttributes={setAttributes}
 					/>
@@ -79,9 +80,17 @@ registerBlockType(metadata.name, {
 				</div>
 
 				<div>
-					{items.map((value, index) => (
-						<div>
-							{"select" !== tagType && (
+					{"select" === tagType && (
+						<select>
+							<option>選択してください</option>
+							{items.map((value, index) => (
+								<RichText.Content tagName="option" key={index} value={value} />
+							))}
+						</select>
+					)}
+					{"select" !== tagType &&
+						items.map((value, index) => (
+							<div>
 								<input
 									type={tagType}
 									name={name}
@@ -89,15 +98,14 @@ registerBlockType(metadata.name, {
 									value={value}
 									required={required}
 								/>
-							)}
-							<RichText.Content
-								tagName="label"
-								key={index}
-								value={value}
-								for={value}
-							/>
-						</div>
-					))}
+								<RichText.Content
+									tagName="label"
+									key={index}
+									value={value}
+									for={value}
+								/>
+							</div>
+						))}
 				</div>
 			</div>
 		);

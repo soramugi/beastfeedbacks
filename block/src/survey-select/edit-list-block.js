@@ -24,7 +24,7 @@ const setFocus = (wrapper, selector, index, cursorToEnd) => {
 	}, 0);
 };
 
-export default function EditListBlock({ attributes, setAttributes }) {
+export default function EditListBlock({ attributes, setAttributes, isSelected }) {
 	const setItems = (items) => setAttributes({ items });
 	const { items, tagType } = attributes;
 
@@ -96,9 +96,16 @@ export default function EditListBlock({ attributes, setAttributes }) {
 
 	return (
 		<div ref={itemsRef}>
-			{items.map((value, index) => (
+			{"select" === tagType && (
+				<select>
+					<option>選択してください</option>
+				</select>
+			)}
+
+			{("select" !== tagType || isSelected) && items.map((value, index) => (
 				<div>
 					{"select" !== tagType && <input type={tagType} />}
+					{"select" === tagType && "・"}
 					<RichText
 						tagName="label"
 						key={index}
