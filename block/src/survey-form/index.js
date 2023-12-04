@@ -83,13 +83,38 @@ const TEMPLATE = [
 				"店頭",
 				"テレビ、ラジオ広告",
 				"その他",
-			]
+			],
 		},
 	],
 	[
 		"beastfeedbacks/survey-input",
 		{
-			label: "製品について、改善点や良かった所など、感想をお願いいたします",
+			label: "製品を購入する決め手は",
+			tagType: "textarea",
+			required: true,
+		},
+	],
+	[
+		"beastfeedbacks/survey-input",
+		{
+			label: "製品の改善すべき点はありますか",
+			tagType: "textarea",
+			required: true,
+		},
+	],
+	[
+		"beastfeedbacks/survey-select",
+		{
+			label: "製品に対しての評価をお願いします",
+			tagType: "radio",
+			required: true,
+			items: ["とても満足", "満足", "普通", "不満", "とても不満"],
+		},
+	],
+	[
+		"beastfeedbacks/survey-input",
+		{
+			label: "最後に感想があればご記入ください",
 			tagType: "textarea",
 			required: true,
 		},
