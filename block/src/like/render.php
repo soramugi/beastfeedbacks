@@ -22,7 +22,7 @@ $form_action        = admin_url( 'admin-ajax.php' );
 	<?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 >
 	<form action="<?php echo esc_url( $form_action ); ?>" name="beastfeedbacks_like_form" method="POST">
-		<div class="wp-block-beastfeedbacks-like-balloon">
+		<div class="beastfeedbacks-like_balloon">
 			<p class="like-count"><?php echo esc_html( $like_count ); ?></p>
 		</div>
 		<?php wp_nonce_field( 'register_beastfeedbacks_form' ); ?>

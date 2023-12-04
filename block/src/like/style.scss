@@ -5,45 +5,53 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-beastfeedbacks-like form,
-.wp-block-beastfeedbacks-like .wp-block-button {
-	width: fit-content;
-}
-
-.wp-block-beastfeedbacks-like-balloon {
-	position: relative;
-	display: inline-block;
-	margin-bottom: 1.5rem;
-	padding: 7px 10px;
-	width: 100%;
-	color: #555;
-	font-size: 16px;
-	background: #fff;
-	border: 2px solid #ccc;
-
-	&:before {
-		content: "";
-		position: absolute;
-		left: calc(50% - 15px);
-		bottom: -15px;
-		border-style: solid;
-		border-color: #ccc transparent transparent transparent;
-		border-width: 15px 15px 0 15px;
+.wp-block-beastfeedbacks-like {
+	form,
+	.wp-block-button {
+		width: fit-content;
 	}
 
-	&:after {
-		content: "";
-		position: absolute;
-		left: calc(50% - 13px);
-		bottom: -13px;
-		border-style: solid;
-		border-color: #fff transparent transparent transparent;
-		border-width: 13px 13px 0 13px;
-	}
-
-	p {
+	form {
 		text-align: center;
-		margin: 0;
-		padding: 0;
+
+		.beastfeedbacks-like_balloon {
+			position: relative;
+			display: inline-block;
+			margin-bottom: 1.5rem;
+			padding: 7px 0;
+			width: 4em;
+			color: #555;
+			font-size: 16px;
+			background: #fff;
+			border: 1px solid #ccc;
+
+			&:before {
+				$size: 15px;
+				content: "";
+				position: absolute;
+				left: calc(50% - $size);
+				bottom: -$size;
+				border-style: solid;
+				border-color: #ccc transparent transparent transparent;
+				border-width: $size $size 0 $size;
+			}
+
+			&:after {
+				$size: 14px;
+				content: "";
+				position: absolute;
+				left: calc(50% - $size);
+				bottom: -$size;
+				border-style: solid;
+				border-color: #fff transparent transparent transparent;
+				border-width: $size $size 0 $size;
+			}
+
+			p {
+				text-align: center;
+				margin: 0;
+				padding: 0;
+			}
+		}
 	}
 }

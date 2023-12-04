@@ -29,7 +29,7 @@ registerBlockType(metadata.name, {
 		return (
 			<div {...blockProps}>
 				<form name="beastfeedbacks_like_form">
-					<div className="wp-block-beastfeedbacks-like-balloon">
+					<div className="beastfeedbacks-like_balloon">
 						<p className="like-count">0</p>
 					</div>
 					<InnerBlocks
