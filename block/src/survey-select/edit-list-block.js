@@ -102,12 +102,9 @@ export default function EditListBlock({
 		<div ref={itemsRef} className="beastfeedbacks-survey-select_items">
 			{"select" === tagType && (
 				<div className="beastfeedbacks-survey-select_item select_wrap">
-					<select>
-						<option>選択してください</option>
-						{items.map((value) => (
-							<option>{value}</option>
-						))}
-					</select>
+					<div className="dummy-select">
+						選択してください
+					</div>
 				</div>
 			)}
 
