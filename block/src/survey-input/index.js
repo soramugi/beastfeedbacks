@@ -4,49 +4,75 @@ import { useBlockProps, RichText } from "@wordpress/block-editor";
 import { Icon, text } from "@wordpress/icons";
 import metadata from "./block.json";
 import "./style.scss";
+import FieldControls from "./field-controls";
 
 /**
  * アンケートフォームの入力値
  */
 registerBlockType(metadata.name, {
-	icon: 'text',
+	icon: "text",
 
 	attributes: {
-		content: {
+		label: {
 			type: "string",
-			source: "text",
-			selector: "label",
 			default: "サンプル入力値",
+		},
+		tagType: {
+			type: "string",
+			default: "text",
+		},
+		required: {
+			type: "boolean",
+			default: false,
 		},
 	},
 
-	edit: (props) => {
-		const {
-			attributes: { content },
-			setAttributes,
-		} = props;
+	edit: ({ attributes, setAttributes }) => {
+		const { label, required, tagType } = attributes;
 		const blockProps = useBlockProps();
-		const onChangeContent = (newContent) => {
-			setAttributes({ content: newContent });
-		};
 
 		return (
-			<p {...blockProps}>
-				<RichText tagName="label" onChange={onChangeContent} value={content} />
-				<textarea cols="45" rows="1" maxlength="65525" />
-			</p>
+			<>
+				<div {...blockProps}>
+					<div>
+						<RichText
+							tagName="label"
+							onChange={(value) => setAttributes({ label: value })}
+							value={label}
+						/>{" "}
+						{required && <span>(必須)</span>}
+					</div>
+					<div>
+						{tagType === "textarea" ? (
+							<textarea rows="3" />
+						) : (
+							<input type={tagType} />
+						)}
+					</div>
+				</div>
+				<FieldControls attributes={attributes} setAttributes={setAttributes} />
+			</>
 		);
 	},
-	save: (props) => {
+	save: ({ attributes }) => {
+		const { label, required, tagType } = attributes;
 		const blockProps = useBlockProps.save();
-		const content = props.attributes.content;
-		const name = content.replace(/(<([^>]+)>)/gi, "");
+		const name = label.replace(/(<([^>]+)>)/gi, "");
 
 		return (
-			<p {...blockProps}>
-				<RichText.Content tagName="label" value={content} />
-				<textarea name={name} cols="45" rows="1" maxlength="65525" />
-			</p>
+			<div {...blockProps}>
+				<div>
+					<RichText.Content tagName="label" value={label} />{" "}
+					{required && <span>(必須)</span>}
+				</div>
+				<div>
+					{tagType === "textarea" ? (
+						<textarea name={name} rows="3" required={required} />
+					) : (
+						<input name={name} type={tagType} required={required} />
+					)}
+				</div>
+			</div>
 		);
 	},
 });
