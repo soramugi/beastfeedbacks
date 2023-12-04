@@ -6,6 +6,7 @@
 	"title": "survey-input",
 	"category": "beastfeedbacks",
 	"description": "アンケート用の入力項目",
+	"example": {},
 	"supports": {
 		"html": false
 	},

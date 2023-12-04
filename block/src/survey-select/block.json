@@ -6,6 +6,7 @@
 	"title": "survey-select",
 	"category": "beastfeedbacks",
 	"description": "フォームの選択肢",
+	"example": {},
 	"supports": {
 		"html": false
 	},
