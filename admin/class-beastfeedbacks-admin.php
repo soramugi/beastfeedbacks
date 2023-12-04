@@ -209,7 +209,15 @@ class BeastFeedbacks_Admin {
 							<?php foreach ( $post_params as $key => $value ) : ?>
 								<tr>
 									<td><?php echo esc_html( $key ); ?></td>
-									<td><?php echo esc_html( $value ); ?></td>
+									<td>
+										<?php if ( is_array( $value ) ) : ?>
+											<?php foreach ( $value as $v ) : ?>
+												<?php echo esc_html( $v ); ?><br />
+											<?php endforeach; ?>
+										<?php else : ?>
+											<?php echo esc_html( $value ); ?>
+										<?php endif ?>
+									</td>
 								</tr>
 							<?php endforeach; ?>
 						<?php endif ?>
