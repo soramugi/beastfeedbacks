@@ -34,15 +34,15 @@ registerBlockType(metadata.name, {
 		return (
 			<>
 				<div {...blockProps}>
-					<div>
+					<div className="beastfeedbacks-survey-input_label">
 						<RichText
 							tagName="label"
 							onChange={(value) => setAttributes({ label: value })}
 							value={label}
 						/>{" "}
-						{required && <span>(必須)</span>}
+						{required && <span className="beastfeedbacks-survey-input_label_required">(必須)</span>}
 					</div>
-					<div>
+					<div className="beastfeedbacks-survey-input_item">
 						{tagType === "textarea" ? (
 							<textarea rows="3" />
 						) : (
@@ -61,11 +61,11 @@ registerBlockType(metadata.name, {
 
 		return (
 			<div {...blockProps}>
-				<div>
+				<div className="beastfeedbacks-survey-input_label">
 					<RichText.Content tagName="label" value={label} />{" "}
-					{required && <span>(必須)</span>}
+					{required && <span className="beastfeedbacks-survey-input_label_required">(必須)</span>}
 				</div>
-				<div>
+				<div className="beastfeedbacks-survey-input_item">
 					{tagType === "textarea" ? (
 						<textarea name={name} rows="3" required={required} />
 					) : (

@@ -42,15 +42,15 @@ registerBlockType(metadata.name, {
 		return (
 			<>
 				<div {...blockProps}>
-					<div style={{ alignItems: "baseline" }}>
+					<div className="beastfeedbacks-survey-select_label">
 						<RichText
 							tagName="label"
 							onChange={(value) => {
 								setAttributes({ label: value });
 							}}
 							value={attributes.label}
-						/>{" "}
-						{attributes.required && <span>(必須)</span>}
+						/>
+						{attributes.required && <span className="beastfeedbacks-survey-select_label_required">(必須)</span>}
 					</div>
 
 					<EditListBlock
@@ -70,23 +70,22 @@ registerBlockType(metadata.name, {
 
 		return (
 			<div {...blockProps}>
-				<div style={{ alignItems: "baseline" }}>
-					<RichText.Content tagName="label" value={label} />{" "}
-					{required && <span>(必須)</span>}
+				<div className="beastfeedbacks-survey-select_label">
+					<RichText.Content tagName="label" value={label} />
+					{required && <span className="beastfeedbacks-survey-select_label_required">(必須)</span>}
 				</div>
 
-				<div>
-					{"select" === tagType && (
+				<div className="beastfeedbacks-survey-select_items">
+					{"select" === tagType ? (
 						<select name={name} required={required}>
 							<option value="">選択してください</option>
-							{items.map((value, index) => (
+							{items.map((value) => (
 								<option value={value}>{value}</option>
 							))}
 						</select>
-					)}
-					{"select" !== tagType &&
+					) : (
 						items.map((value, index) => (
-							<div>
+							<div className="beastfeedbacks-survey-select_item">
 								<input
 									type={tagType}
 									name={name}
@@ -101,7 +100,8 @@ registerBlockType(metadata.name, {
 									for={value}
 								/>
 							</div>
-						))}
+						))
+					)}
 				</div>
 			</div>
 		);

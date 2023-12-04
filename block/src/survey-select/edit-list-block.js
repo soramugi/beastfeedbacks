@@ -24,7 +24,11 @@ const setFocus = (wrapper, selector, index, cursorToEnd) => {
 	}, 0);
 };
 
-export default function EditListBlock({ attributes, setAttributes, isSelected }) {
+export default function EditListBlock({
+	attributes,
+	setAttributes,
+	isSelected,
+}) {
 	const setItems = (items) => setAttributes({ items });
 	const { items, tagType } = attributes;
 
@@ -95,30 +99,33 @@ export default function EditListBlock({ attributes, setAttributes, isSelected })
 	};
 
 	return (
-		<div ref={itemsRef}>
+		<div ref={itemsRef} className="beastfeedbacks-survey-select_items">
 			{"select" === tagType && (
 				<select>
 					<option>選択してください</option>
+					{items.map((value) => (
+						<option>{value}</option>
+					))}
 				</select>
 			)}
 
-			{("select" !== tagType || isSelected) && items.map((value, index) => (
-				<div>
-					{"select" !== tagType && <input type={tagType} />}
-					{"select" === tagType && "・"}
-					<RichText
-						tagName="label"
-						key={index}
-						value={value}
-						onChange={handleChange(index)}
-						onSplit={handleSplit(index)}
-						onRemove={handleDelete(index)}
-						onReplace={noop}
-						placeholder={"項目追加"}
-						__unstableDisableFormats
-					/>
-				</div>
-			))}
+			{("select" !== tagType || isSelected) &&
+				items.map((value, index) => (
+					<div className="beastfeedbacks-survey-select_item">
+						{"select" === tagType ? "・" : <input type={tagType} />}
+						<RichText
+							tagName="label"
+							key={index}
+							value={value}
+							onChange={handleChange(index)}
+							onSplit={handleSplit(index)}
+							onRemove={handleDelete(index)}
+							onReplace={noop}
+							placeholder={"項目追加"}
+							__unstableDisableFormats
+						/>
+					</div>
+				))}
 		</div>
 	);
 }
