@@ -5,9 +5,10 @@ import {
 	ToggleControl,
 	ToolbarGroup,
 	ToolbarButton,
-	Path,
+	ToolbarDropdownMenu,
 } from "@wordpress/components";
-import TagTypeDropdown from "./tag-type-dropdown";
+
+const TAG_TYPES = ["radio", "checkbox", "select"];
 
 export default function FieldControls({ attributes, setAttributes }) {
 	return (
@@ -29,11 +30,22 @@ export default function FieldControls({ attributes, setAttributes }) {
 
 			<BlockControls>
 				<ToolbarGroup>
-					<TagTypeDropdown
-						value={attributes.tagType}
-						onChange={(type) => {
-							setAttributes({ tagType: type });
-						}}
+					<ToolbarDropdownMenu
+						label={attributes.tagType}
+						text={attributes.tagType}
+						icon={null}
+						controls={TAG_TYPES.map((targetTagType) => {
+							const isActive = targetTagType === attributes.tagType;
+
+							return {
+								title: targetTagType,
+								isActive,
+								onClick() {
+									setAttributes({ tagType: targetTagType });
+								},
+								role: "menuitemradio",
+							};
+						})}
 					/>
 				</ToolbarGroup>
 				<ToolbarGroup>
