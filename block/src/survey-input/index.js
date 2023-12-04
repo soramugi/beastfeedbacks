@@ -25,6 +25,10 @@ registerBlockType(metadata.name, {
 			type: "boolean",
 			default: false,
 		},
+		placeholder: {
+			type: "string",
+			default: "",
+		}
 	},
 
 	edit: ({ attributes, setAttributes }) => {
@@ -55,7 +59,7 @@ registerBlockType(metadata.name, {
 		);
 	},
 	save: ({ attributes }) => {
-		const { label, required, tagType } = attributes;
+		const { label, required, tagType, placeholder } = attributes;
 		const blockProps = useBlockProps.save();
 		const name = label.replace(/(<([^>]+)>)/gi, "");
 
@@ -69,7 +73,7 @@ registerBlockType(metadata.name, {
 					{tagType === "textarea" ? (
 						<textarea name={name} rows="3" required={required} />
 					) : (
-						<input name={name} type={tagType} required={required} />
+						<input name={name} type={tagType} required={required} placeholder={placeholder} />
 					)}
 				</div>
 			</div>

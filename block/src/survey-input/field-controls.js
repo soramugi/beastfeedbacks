@@ -8,7 +8,7 @@ import {
 	ToolbarDropdownMenu,
 } from "@wordpress/components";
 
-const TAG_TYPES = ["text", "textarea", "email", "url"];
+const TAG_TYPES = ["text", "textarea", "email", "url", "number"];
 
 export default function FieldControls({ attributes, setAttributes }) {
 	return (

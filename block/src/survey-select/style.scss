@@ -7,6 +7,10 @@
 
 .wp-block-beastfeedbacks-survey-select {
 	.beastfeedbacks-survey-select_label {
+		label {
+			font-weight: 700;
+		}
+
 		span.beastfeedbacks-survey-select_label_required {
 			font-size: 0.7em;
 			color: rgb(182, 182, 182);

@@ -70,7 +70,10 @@ registerBlockType(metadata.name, {
 	save: ({ attributes }) => {
 		const blockProps = useBlockProps.save();
 		const { label, items, required, tagType } = attributes;
-		const name = label.replace(/(<([^>]+)>)/gi, "");
+		let name = label.replace(/(<([^>]+)>)/gi, "");
+		if (tagType === "checkbox") {
+			name += "[]";
+		}
 
 		return (
 			<div {...blockProps}>
