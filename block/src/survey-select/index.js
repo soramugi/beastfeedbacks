@@ -18,16 +18,12 @@ registerBlockType(metadata.name, {
 	icon: "yes",
 
 	attributes: {
-		content: {
+		label: {
 			type: "string",
-			source: "text",
-			selector: "label",
 			default: "サンプル選択肢",
 		},
 		tagType: {
 			type: "string",
-			selector: "radio,checkbox,select",
-			source: "text",
 			default: "radio",
 		},
 		required: {
@@ -49,10 +45,10 @@ registerBlockType(metadata.name, {
 					<div style={{ alignItems: "baseline" }}>
 						<RichText
 							tagName="label"
-							onChange={(newContent) => {
-								setAttributes({ content: newContent });
+							onChange={(value) => {
+								setAttributes({ label: value });
 							}}
-							value={attributes.content}
+							value={attributes.label}
 						/>{" "}
 						{attributes.required && <span>(必須)</span>}
 					</div>
@@ -69,22 +65,22 @@ registerBlockType(metadata.name, {
 	},
 	save: ({ attributes }) => {
 		const blockProps = useBlockProps.save();
-		const { content, items, required, tagType } = attributes;
-		const name = content.replace(/(<([^>]+)>)/gi, "");
+		const { label, items, required, tagType } = attributes;
+		const name = label.replace(/(<([^>]+)>)/gi, "");
 
 		return (
 			<div {...blockProps}>
 				<div style={{ alignItems: "baseline" }}>
-					<RichText.Content tagName="label" value={content} />{" "}
+					<RichText.Content tagName="label" value={label} />{" "}
 					{required && <span>(必須)</span>}
 				</div>
 
 				<div>
 					{"select" === tagType && (
-						<select>
-							<option>選択してください</option>
+						<select name={name} required={required}>
+							<option value="">選択してください</option>
 							{items.map((value, index) => (
-								<RichText.Content tagName="option" key={index} value={value} />
+								<option value={value}>{value}</option>
 							))}
 						</select>
 					)}
