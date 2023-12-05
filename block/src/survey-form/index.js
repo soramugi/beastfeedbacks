@@ -3,6 +3,7 @@ import { __ } from "@wordpress/i18n";
 import {
 	useBlockProps,
 	useInnerBlocksProps,
+	InnerBlocks,
 } from "@wordpress/block-editor";
 
 import variations from "./variations";
@@ -61,6 +62,6 @@ registerBlockType(metadata.name, {
 		);
 	},
 	save: () => {
-		return useInnerBlocksProps.save();
+		return <InnerBlocks.Content />;
 	},
 });
