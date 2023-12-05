@@ -28,23 +28,30 @@ registerBlockType(metadata.name, {
 		placeholder: {
 			type: "string",
 			default: "",
-		}
+		},
+		width: {
+			type: "number",
+		},
 	},
 
 	edit: ({ attributes, setAttributes }) => {
-		const { label, required, tagType, placeholder } = attributes;
+		const { label, required, tagType, placeholder, width } = attributes;
 		const blockProps = useBlockProps();
 
 		return (
 			<>
-				<div {...blockProps}>
+				<div {...blockProps} style={{ width: width ? width + '%' : null }}>
 					<div className="beastfeedbacks-survey-input_label">
 						<RichText
 							tagName="label"
 							onChange={(value) => setAttributes({ label: value })}
 							value={label}
 						/>{" "}
-						{required && <span className="beastfeedbacks-survey-input_label_required">(必須)</span>}
+						{required && (
+							<span className="beastfeedbacks-survey-input_label_required">
+								(必須)
+							</span>
+						)}
 					</div>
 					<div className="beastfeedbacks-survey-input_item">
 						{tagType === "textarea" ? (
@@ -61,7 +68,6 @@ registerBlockType(metadata.name, {
 								onChange={(value) => setAttributes({ placeholder: value })}
 								value={placeholder}
 							/>
-
 						)}
 					</div>
 				</div>
@@ -70,21 +76,35 @@ registerBlockType(metadata.name, {
 		);
 	},
 	save: ({ attributes }) => {
-		const { label, required, tagType, placeholder } = attributes;
+		const { label, required, tagType, placeholder, width } = attributes;
 		const blockProps = useBlockProps.save();
 		const name = label.replace(/(<([^>]+)>)/gi, "");
 
 		return (
-			<div {...blockProps}>
+			<div {...blockProps} style={{ width: width ? width + '%' : null }}>
 				<div className="beastfeedbacks-survey-input_label">
 					<RichText.Content tagName="label" value={label} />{" "}
-					{required && <span className="beastfeedbacks-survey-input_label_required">(必須)</span>}
+					{required && (
+						<span className="beastfeedbacks-survey-input_label_required">
+							(必須)
+						</span>
+					)}
 				</div>
 				<div className="beastfeedbacks-survey-input_item">
 					{tagType === "textarea" ? (
-						<textarea name={name} rows="3" required={required} placeholder={placeholder} />
+						<textarea
+							name={name}
+							rows="3"
+							required={required}
+							placeholder={placeholder}
+						/>
 					) : (
-						<input name={name} type={tagType} required={required} placeholder={placeholder} />
+						<input
+							name={name}
+							type={tagType}
+							required={required}
+							placeholder={placeholder}
+						/>
 					)}
 				</div>
 			</div>

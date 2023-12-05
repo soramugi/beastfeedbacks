@@ -8,7 +8,16 @@
 	"description": "アンケートフォーム",
 	"example": {},
 	"supports": {
-		"html": false
+		"color": {
+			"link": true,
+			"gradients": true
+		},
+		"html": false,
+		"spacing": {
+			"padding": true,
+			"margin": true
+		},
+		"align": [ "wide", "full" ]
 	},
 	"textdomain": "beastfeedbacks",
 	"editorScript": "file:./index.js",

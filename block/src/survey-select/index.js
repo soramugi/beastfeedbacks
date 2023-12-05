@@ -34,14 +34,18 @@ registerBlockType(metadata.name, {
 			type: "array",
 			default: [""],
 		},
+		width: {
+			type: "number",
+		},
 	},
 
 	edit: ({ attributes, setAttributes, isSelected }) => {
+		const { width } = attributes;
 		const blockProps = useBlockProps();
 
 		return (
 			<>
-				<div {...blockProps}>
+				<div {...blockProps} style={{ width: width ? width + '%' : null }}>
 					<div className="beastfeedbacks-survey-select_label">
 						<RichText
 							tagName="label"
@@ -69,14 +73,14 @@ registerBlockType(metadata.name, {
 	},
 	save: ({ attributes }) => {
 		const blockProps = useBlockProps.save();
-		const { label, items, required, tagType } = attributes;
+		const { label, items, required, tagType, width } = attributes;
 		let name = label.replace(/(<([^>]+)>)/gi, "");
 		if (tagType === "checkbox") {
 			name += "[]";
 		}
 
 		return (
-			<div {...blockProps}>
+			<div {...blockProps} style={{ width: width ? width + '%' : null }}>
 				<div className="beastfeedbacks-survey-select_label">
 					<RichText.Content tagName="label" value={label} />
 					{required && (

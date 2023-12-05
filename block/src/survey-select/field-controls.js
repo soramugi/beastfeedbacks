@@ -1,6 +1,8 @@
 import { __ } from "@wordpress/i18n";
 import { BlockControls, InspectorControls } from "@wordpress/block-editor";
 import {
+	Button,
+	ButtonGroup,
 	PanelBody,
 	ToggleControl,
 	ToolbarGroup,
@@ -10,10 +12,41 @@ import {
 
 const TAG_TYPES = ["radio", "checkbox", "select"];
 
+function WidthPanel({ selectedWidth, setAttributes }) {
+	function handleChange(newWidth) {
+		const width = selectedWidth === newWidth ? undefined : newWidth;
+
+		setAttributes({ width });
+	}
+
+	return (
+		<PanelBody title={__("Width settings")}>
+			<ButtonGroup aria-label={__("Button width")}>
+				{[25, 50, 75, 100].map((widthValue) => {
+					return (
+						<Button
+							key={widthValue}
+							size="small"
+							variant={widthValue === selectedWidth ? "primary" : undefined}
+							onClick={() => handleChange(widthValue)}
+						>
+							{widthValue}%
+						</Button>
+					);
+				})}
+			</ButtonGroup>
+		</PanelBody>
+	);
+}
+
 export default function FieldControls({ attributes, setAttributes }) {
+	const { width } = attributes;
+
 	return (
 		<>
 			<InspectorControls>
+				<WidthPanel selectedWidth={width} setAttributes={setAttributes} />
+
 				<PanelBody title={"フィールド設定"}>
 					<ToggleControl
 						label={"必須入力"}
