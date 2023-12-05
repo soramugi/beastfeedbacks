@@ -66,7 +66,9 @@ class BeastFeedbacks_Admin {
 		add_action( 'manage_posts_custom_column', array( $this, 'manage_posts_custom_column' ), 10, 2 );
 
 		add_action( 'restrict_manage_posts', array( $this, 'add_type_filter' ) );
+		add_action( 'restrict_manage_posts', array( $this, 'add_source_filter' ) );
 		add_action( 'pre_get_posts', array( $this, 'type_filter_result' ) );
+		add_action( 'pre_get_posts', array( $this, 'source_filter_result' ) );
 	}
 
 	/**
@@ -342,6 +344,53 @@ class BeastFeedbacks_Admin {
 	}
 
 	/**
+	 * Add a post filter dropdown at the top of the admin page.
+	 *
+	 * @return void
+	 */
+	public function add_source_filter() {
+		$screen = get_current_screen();
+
+		if ( 'edit-beastfeedbacks' !== $screen->id ) {
+			return;
+		}
+
+		$selected_parent_id = intval( isset( $_GET['beastfeedbacks_parent_id'] ) ? sanitize_key( $_GET['beastfeedbacks_parent_id'] ) : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		$args = array(
+			'fields'           => 'id=>parent',
+			'posts_per_page'   => 100000, // phpcs:ignore WordPress.WP.PostsPerPage.posts_per_page_posts_per_page
+			'post_type'        => 'beastfeedbacks',
+			'post_status'      => 'publish',
+			'suppress_filters' => false,
+		);
+
+		$posts      = get_posts( $args );
+		$parent_ids = array_values( array_unique( array_values( $posts ) ) );
+
+		$options = '';
+		foreach ( $parent_ids as $parent_id ) {
+			$parent_url    = get_permalink( $parent_id );
+			$parsed_url    = wp_parse_url( $parent_url );
+			$select_source = esc_html( $parsed_url['path'] );
+
+			$options .= sprintf(
+				'<option value="%s" %s>%s</option>',
+				$parent_id,
+				$selected_parent_id === $parent_id ? 'selected' : '',
+				$select_source,
+			);
+		}
+
+		?>
+		<select name="beastfeedbacks_parent_id">
+			<option value=""><?php esc_html_e( 'All Sources', 'beastfeedbacks' ); ?></option>
+			<?php echo $options; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		</select>
+		<?php
+	}
+
+	/**
 	 * Type フィルターの表示に対応
 	 *
 	 * @param WP_Query $query Current query.
@@ -368,5 +417,26 @@ class BeastFeedbacks_Admin {
 		}
 
 		$query->set( 'meta_query', $meta_query );
+	}
+
+	/**
+	 * Source フィルターの表示に対応
+	 *
+	 * @param WP_Query $query Current query.
+	 *
+	 * @return void
+	 */
+	public function source_filter_result( $query ) {
+		$selected_parent_id = intval( isset( $_GET['beastfeedbacks_parent_id'] ) ? sanitize_key( $_GET['beastfeedbacks_parent_id'] ) : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		if ( ! $selected_parent_id || 'beastfeedbacks' !== $query->query_vars['post_type'] ) {
+			return;
+		}
+
+		if ( 'id=>parent' === $query->query_vars['fields'] ) {
+			return;
+		}
+
+		$query->query_vars['post_parent'] = $selected_parent_id;
 	}
 }
