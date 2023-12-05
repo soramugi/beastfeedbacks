@@ -4,6 +4,7 @@
 	"name": "beastfeedbacks/survey-input",
 	"version": "0.1.0",
 	"title": "survey-input",
+	"parent": [ "beastfeedbacks/survey-form" ],
 	"category": "beastfeedbacks",
 	"description": "アンケート用の入力項目",
 	"example": {},
