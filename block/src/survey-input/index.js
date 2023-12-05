@@ -32,7 +32,7 @@ registerBlockType(metadata.name, {
 	},
 
 	edit: ({ attributes, setAttributes }) => {
-		const { label, required, tagType } = attributes;
+		const { label, required, tagType, placeholder } = attributes;
 		const blockProps = useBlockProps();
 
 		return (
@@ -48,9 +48,20 @@ registerBlockType(metadata.name, {
 					</div>
 					<div className="beastfeedbacks-survey-input_item">
 						{tagType === "textarea" ? (
-							<textarea rows="3" />
+							<RichText
+								className="dummy-textarea"
+								tagName="span"
+								onChange={(value) => setAttributes({ placeholder: value })}
+								value={placeholder}
+							/>
 						) : (
-							<input type={tagType} />
+							<RichText
+								className="dummy-input"
+								tagName="span"
+								onChange={(value) => setAttributes({ placeholder: value })}
+								value={placeholder}
+							/>
+
 						)}
 					</div>
 				</div>
@@ -71,7 +82,7 @@ registerBlockType(metadata.name, {
 				</div>
 				<div className="beastfeedbacks-survey-input_item">
 					{tagType === "textarea" ? (
-						<textarea name={name} rows="3" required={required} />
+						<textarea name={name} rows="3" required={required} placeholder={placeholder} />
 					) : (
 						<input name={name} type={tagType} required={required} placeholder={placeholder} />
 					)}

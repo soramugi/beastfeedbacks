@@ -24,6 +24,8 @@
 		gap: 12px;
 		margin: 10px 0;
 
+		.dummy-textarea,
+		.dummy-input,
 		textarea,
 		input {
 			font-size: 1em;
@@ -33,6 +35,17 @@
 			display: block;
 			width: 100%;
 			padding: 1em;
+		}
+
+		.dummy-input {
+			color:rgb(120, 120, 120);
+			background-color: white;
+		}
+
+		.dummy-textarea {
+			color:rgb(120, 120, 120);
+			background-color: white;
+			height: 7em;
 		}
 	}
 }
