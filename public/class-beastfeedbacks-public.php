@@ -101,7 +101,7 @@ class BeastFeedbacks_Public {
 				'post_parent'  => $post_id,
 				'post_title'   => addslashes( wp_kses( $title, array() ) ),
 				'post_name'    => md5( $title ),
-				'post_content' => addslashes( wp_kses( wp_json_encode( $content, true ), array() ) ),
+				'post_content' => addslashes( wp_kses( wp_json_encode( $content, JSON_UNESCAPED_UNICODE ), array() ) ),
 				'meta_input'   => array(
 					'beastfeedbacks_type' => $type,
 				),
