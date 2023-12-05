@@ -69,6 +69,11 @@ class BeastFeedbacks_Admin {
 		add_action( 'restrict_manage_posts', array( $this, 'add_source_filter' ) );
 		add_action( 'pre_get_posts', array( $this, 'type_filter_result' ) );
 		add_action( 'pre_get_posts', array( $this, 'source_filter_result' ) );
+
+		$hook_suffix = 'edit.php';
+		add_action( "admin_footer-{$hook_suffix}", array( $this, 'print_export_button' ) );
+		$action = 'beastfeedbacks_export';
+		add_action( "wp_ajax_{$action}", array( $this, 'download_csv' ) );
 	}
 
 	/**
@@ -438,5 +443,174 @@ class BeastFeedbacks_Admin {
 		}
 
 		$query->query_vars['post_parent'] = $selected_parent_id;
+	}
+
+	/**
+	 * データダウンロードのボタン
+	 */
+	public function print_export_button() {
+		$screen = get_current_screen();
+		if ( 'edit-beastfeedbacks' !== $screen->id ) {
+			return;
+		}
+
+		$button = sprintf( "<button type='button' class='button button-primary' onclick='exportSubmit(this)'>%s</button>", esc_html__( 'Export', 'beastfeedbacks' ) );
+
+		?>
+		<script type="text/javascript">
+			jQuery( function( $ ) {
+				$( '#posts-filter #post-query-submit' )
+					.after( <?php echo wp_json_encode( $button ); ?> );
+			} );
+
+			const exportSubmit = () => {
+				jQuery( function( $ ) {
+					$.post("<?php echo esc_js( admin_url( 'admin-ajax.php' ) ); ?>",
+					{
+						action: 'beastfeedbacks_export',
+						// year: date ? date[ 2 ].substr( 0, 4 ) : '',
+						// month: date ? date[ 2 ].substr( 4, 2 ) : '',
+						// post: post ? parseInt( post[ 2 ], 10 ) : 'all',
+						// selected: selected,
+						_wpnonce: '<?php echo esc_js( wp_create_nonce( 'beastfeedbacks_csv_export' ) ); ?>',
+					},
+					function ( response, status, xhr ) {
+						const blob = new Blob( [ response ], { type: 'application/octetstream' } );
+
+						const a = document.createElement( 'a' );
+						a.href = window.URL.createObjectURL( blob );
+
+						var contentDispositionHeader = xhr.getResponseHeader( 'content-disposition' );
+						a.download =
+							contentDispositionHeader.split( 'filename=' )[ 1 ] || 'Beastfeedbacks-Export.csv';
+
+						document.body.appendChild( a );
+						a.click();
+						document.body.removeChild( a );
+						window.URL.revokeObjectURL( a.href );
+					});
+				});
+			}
+		</script>
+		<?php
+	}
+
+	/**
+	 * Download exported data as CSV
+	 */
+	public function download_csv() {
+		check_admin_referer( 'beastfeedbacks_csv_export' );
+
+		// TODO: POST情報にフィルター設定を載せて検索する.
+		$args = array(
+			'posts_per_page'   => -1,
+			'post_type'        => 'beastfeedbacks',
+			'post_status'      => array( 'publish' ),
+			'order'            => 'ASC',
+			'suppress_filters' => false,
+			'date_query'       => array(),
+		);
+
+		$posts      = get_posts( $args );
+		$post_datas = array();
+		foreach ( $posts as $post ) {
+			$id = $post->ID;
+
+			$source = '';
+			if ( $post->post_parent ) {
+				$form_url   = get_permalink( $post->post_parent );
+				$parsed_url = wp_parse_url( $form_url );
+				$source     = esc_html( $parsed_url['path'] );
+			}
+
+			$content = json_decode( $post->post_content, true );
+			if ( ! is_array( $content ) ) {
+				$content = array();
+			}
+
+			$type        = isset( $content['type'] )
+				? $content['type']
+				: '';
+			$post_params = isset( $content['post_params'] )
+				? $content['post_params']
+				: array();
+
+			$ip_address = isset( $content['ip_address'] ) ? $content['ip_address'] : '';
+			$user_agent = isset( $content['user_agent'] ) ? $content['user_agent'] : '';
+
+			$add_data = array(
+				'source'     => $source,
+				'date'       => $post->post_date,
+				'type'       => $type,
+				'ip_address' => $ip_address,
+				'user_agent' => $user_agent,
+			);
+
+			$add_data = array_merge( $add_data, $post_params );
+
+			foreach ( $add_data as $key => $value ) {
+				$data = $value;
+				if ( is_array( $value ) ) {
+					$data = implode( ',', $value );
+				}
+				if ( ! isset( $post_datas[ $key ] ) ) {
+					$post_datas[ $key ] = array();
+				}
+				$post_datas[ $key ][ $id ] = $data;
+			}
+		}
+
+		$filename = sprintf(
+			'beastfeedbacks-%s.csv',
+			gmdate( 'Y-m-d_H:i' )
+		);
+
+		$fields = array_keys( $post_datas );
+
+		header( 'Content-Disposition: attachment; filename=' . $filename );
+		header( 'Pragma: no-cache' );
+		header( 'Expires: 0' );
+		header( 'Content-Type: text/csv; charset=utf-8' );
+
+		$output = fopen( 'php://output', 'w' );
+
+		fputcsv( $output, $fields );
+		foreach ( $posts as $post ) {
+			$current_row = array();
+
+			foreach ( $fields as $single_field_name ) {
+				$current_row[] = $this->esc_csv(
+					$post_datas[ $single_field_name ][ $post->ID ]
+				);
+			}
+			fputcsv( $output, $current_row );
+		}
+
+		fclose( $output ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
+		exit();
+	}
+
+	/**
+	 * Escape a string to be used in a CSV context
+	 *
+	 * Malicious input can inject formulas into CSV files, opening up the possibility for phishing attacks and
+	 * disclosure of sensitive information.
+	 *
+	 * Additionally, Excel exposes the ability to launch arbitrary commands through the DDE protocol.
+	 *
+	 * @see https://www.contextis.com/en/blog/comma-separated-vulnerabilities
+	 *
+	 * @param string $field - the CSV field.
+	 *
+	 * @return string
+	 */
+	public function esc_csv( $field ) {
+		$active_content_triggers = array( '=', '+', '-', '@' );
+
+		if ( in_array( mb_substr( $field, 0, 1 ), $active_content_triggers, true ) ) {
+			$field = "'" . $field;
+		}
+
+		return $field;
 	}
 }
