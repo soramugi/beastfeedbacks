@@ -6,12 +6,15 @@
 .widefat .column-beastfeedbacks_date {
 	width: 5em;
 }
+
 .widefat .column-beastfeedbacks_type {
 	width: 3em;
 }
+
 .widefat .column-beastfeedbacks_source {
 	width: 10em;
 }
+
 .widefat .column-beastfeedbacks_response {
 	width: 100%;
 }

@@ -6,6 +6,7 @@
  */
 
 .wp-block-beastfeedbacks-like {
+
 	form,
 	.wp-block-button {
 		width: fit-content;
@@ -25,7 +26,7 @@
 			background: #fff;
 			border: 1px solid #ccc;
 
-			&:before {
+			&::before {
 				$size: 15px;
 				content: "";
 				position: absolute;
@@ -36,7 +37,7 @@
 				border-width: $size $size 0 $size;
 			}
 
-			&:after {
+			&::after {
 				$size: 14px;
 				content: "";
 				position: absolute;
