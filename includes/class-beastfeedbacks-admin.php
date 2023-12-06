@@ -6,7 +6,7 @@
  * @since      0.1.0
  *
  * @package    BeastFeedbacks
- * @subpackage BeastFeedbacks/admin
+ * @subpackage BeastFeedbacks/includes
  */
 
 /**
@@ -20,6 +20,13 @@ class BeastFeedbacks_Admin {
 	 * @var self|null
 	 */
 	private static $instance = null;
+
+	/**
+	 * 追加する投稿タイプ、フィードバックの入力値の保存に活用
+	 *
+	 * @var string ポストタイプ.
+	 */
+	public $post_type = 'beastfeedbacks';
 
 	/**
 	 * Instance
@@ -37,22 +44,7 @@ class BeastFeedbacks_Admin {
 	 * Init
 	 */
 	public function init() {
-		wp_enqueue_style(
-			BEASTFEEDBACKS_DOMAIN,
-			plugin_dir_url( __FILE__ ) . 'css/beastfeedbacks-admin.css',
-			array(),
-			BEASTFEEDBACKS_VERSION,
-			'all'
-		);
-		/* phpcs:ignore
-		wp_enqueue_script(
-			BEASTFEEDBACKS_DOMAIN,
-			plugin_dir_url( __FILE__ ) . 'js/beastfeedbacks-admin.js',
-			array( 'jquery' ),
-			BEASTFEEDBACKS_VERSION,
-			false
-		);
-		 */
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 
 		// フィードバックの管理ページの構築.
 		add_action( 'admin_menu', array( $this, 'add_menu_page' ) );
@@ -77,11 +69,17 @@ class BeastFeedbacks_Admin {
 	}
 
 	/**
-	 * 追加する投稿タイプ、フィードバックの入力値の保存に活用
-	 *
-	 * @var string ポストタイプ.
+	 * 静的ファイルのcssやjsを読み込む
 	 */
-	public $post_type = 'beastfeedbacks';
+	public function admin_enqueue_scripts() {
+		wp_enqueue_style(
+			BEASTFEEDBACKS_DOMAIN,
+			plugin_dir_url( __DIR__ ) . 'public/css/beastfeedbacks-admin.css',
+			array(),
+			BEASTFEEDBACKS_VERSION,
+			'all'
+		);
+	}
 
 	/**
 	 * メニューページの登録
