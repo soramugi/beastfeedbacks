@@ -69,4 +69,4 @@ intermediate
 .idea
 cache
 
-block/build/
+build/

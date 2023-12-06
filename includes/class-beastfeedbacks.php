@@ -57,7 +57,7 @@ class BeastFeedbacks {
 		require_once plugin_dir_path( __DIR__ ) . 'includes/class-beastfeedbacks-i18n.php';
 		require_once plugin_dir_path( __DIR__ ) . 'admin/class-beastfeedbacks-admin.php';
 		require_once plugin_dir_path( __DIR__ ) . 'public/class-beastfeedbacks-public.php';
-		require_once plugin_dir_path( __DIR__ ) . 'block/class-beastfeedbacks-block.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-beastfeedbacks-block.php';
 	}
 
 	/**
