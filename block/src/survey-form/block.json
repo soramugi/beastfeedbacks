@@ -17,10 +17,7 @@
 			"padding": true,
 			"margin": true
 		},
-		"align": [
-			"wide",
-			"full"
-		]
+		"align": [ "wide", "full" ]
 	},
 	"textdomain": "beastfeedbacks",
 	"editorScript": "file:./index.js",

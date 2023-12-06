@@ -1,20 +1,17 @@
-import { registerBlockType } from "@wordpress/blocks";
-import { __ } from "@wordpress/i18n";
-import {
-	useBlockProps,
-	InnerBlocks,
-} from "@wordpress/block-editor";
-import metadata from "./block.json";
+import { registerBlockType } from '@wordpress/blocks';
+import { __ } from '@wordpress/i18n';
+import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
+import metadata from './block.json';
 
-import "./style.scss";
+import './style.scss';
 
 const TEMPLATE = [
 	[
-		"core/button",
+		'core/button',
 		{
-			text: "いいね",
-			tagName: "button",
-			type: "submit",
+			text: 'いいね',
+			tagName: 'button',
+			type: 'submit',
 		},
 	],
 ];
@@ -22,26 +19,26 @@ const TEMPLATE = [
 /**
  * Likeボタン
  */
-registerBlockType(metadata.name, {
+registerBlockType( metadata.name, {
 	edit: () => {
 		const blockProps = useBlockProps();
 
 		return (
-			<div {...blockProps}>
+			<div { ...blockProps }>
 				<form name="beastfeedbacks_like_form">
 					<div className="beastfeedbacks-like_balloon">
 						<p className="like-count">0</p>
 					</div>
 					<InnerBlocks
-						allowedBlocks={TEMPLATE}
-						template={TEMPLATE}
+						allowedBlocks={ TEMPLATE }
+						template={ TEMPLATE }
 						templateLock="all"
 					/>
 				</form>
 			</div>
 		);
 	},
-	save: props => {
-		return <InnerBlocks.Content />
-	}
-});
+	save: ( props ) => {
+		return <InnerBlocks.Content />;
+	},
+} );

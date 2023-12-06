@@ -1,5 +1,5 @@
-import { __ } from "@wordpress/i18n";
-import { BlockControls, InspectorControls } from "@wordpress/block-editor";
+import { __ } from '@wordpress/i18n';
+import { BlockControls, InspectorControls } from '@wordpress/block-editor';
 import {
 	Button,
 	ButtonGroup,
@@ -8,55 +8,64 @@ import {
 	ToolbarGroup,
 	ToolbarButton,
 	ToolbarDropdownMenu,
-} from "@wordpress/components";
+} from '@wordpress/components';
 
-const TAG_TYPES = ["radio", "checkbox", "select"];
+const TAG_TYPES = [ 'radio', 'checkbox', 'select' ];
 
-function WidthPanel({ selectedWidth, setAttributes }) {
-	function handleChange(newWidth) {
+function WidthPanel( { selectedWidth, setAttributes } ) {
+	function handleChange( newWidth ) {
 		const width = selectedWidth === newWidth ? undefined : newWidth;
 
-		setAttributes({ width });
+		setAttributes( { width } );
 	}
 
 	return (
-		<PanelBody title={__("Width settings")}>
-			<ButtonGroup aria-label={__("Button width")}>
-				{[25, 50, 75, 100].map((widthValue) => {
+		<PanelBody title={ __( 'Width settings' ) }>
+			<ButtonGroup aria-label={ __( 'Button width' ) }>
+				{ [ 25, 50, 75, 100 ].map( ( widthValue ) => {
 					return (
 						<Button
-							key={widthValue}
+							key={ widthValue }
 							size="small"
-							variant={widthValue === selectedWidth ? "primary" : undefined}
-							onClick={() => handleChange(widthValue)}
+							variant={
+								widthValue === selectedWidth
+									? 'primary'
+									: undefined
+							}
+							onClick={ () => handleChange( widthValue ) }
 						>
-							{widthValue}%
+							{ widthValue }%
 						</Button>
 					);
-				})}
+				} ) }
 			</ButtonGroup>
 		</PanelBody>
 	);
 }
 
-export default function FieldControls({ attributes, setAttributes }) {
+export default function FieldControls( { attributes, setAttributes } ) {
 	const { width } = attributes;
 
 	return (
 		<>
 			<InspectorControls>
-				<WidthPanel selectedWidth={width} setAttributes={setAttributes} />
+				<WidthPanel
+					selectedWidth={ width }
+					setAttributes={ setAttributes }
+				/>
 
-				<PanelBody title={"フィールド設定"}>
+				<PanelBody title={ 'フィールド設定' }>
 					<ToggleControl
-						label={"必須入力"}
+						label={ '必須入力' }
 						className="label__required"
-						checked={attributes.required}
-						onChange={(value) => setAttributes({ required: value })}
-						help={__(
+						checked={ attributes.required }
+						onChange={ ( value ) =>
+							setAttributes( { required: value } )
+						}
+						help={ __(
 							'You can edit the "required" label in the editor',
-							"beastfeedbacks",
-						)}
+							'beastfeedbacks'
+						) }
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -64,33 +73,38 @@ export default function FieldControls({ attributes, setAttributes }) {
 			<BlockControls>
 				<ToolbarGroup>
 					<ToolbarDropdownMenu
-						label={attributes.tagType}
-						text={attributes.tagType}
-						icon={null}
-						controls={TAG_TYPES.map((targetTagType) => {
-							const isActive = targetTagType === attributes.tagType;
+						label={ attributes.tagType }
+						text={ attributes.tagType }
+						icon={ null }
+						controls={ TAG_TYPES.map( ( targetTagType ) => {
+							const isActive =
+								targetTagType === attributes.tagType;
 
 							return {
 								title: targetTagType,
 								isActive,
 								onClick() {
-									setAttributes({ tagType: targetTagType });
+									setAttributes( { tagType: targetTagType } );
 								},
-								role: "menuitemradio",
+								role: 'menuitemradio',
 							};
-						})}
+						} ) }
 					/>
 				</ToolbarGroup>
 				<ToolbarGroup>
 					<ToolbarButton
-						title={"必須"}
-						label={"必須"}
-						text={"必須"}
-						icon={null}
-						onClick={() => {
-							setAttributes({ required: !attributes.required });
-						}}
-						className={attributes.required ? "is-pressed" : undefined}
+						title={ '必須' }
+						label={ '必須' }
+						text={ '必須' }
+						icon={ null }
+						onClick={ () => {
+							setAttributes( {
+								required: ! attributes.required,
+							} );
+						} }
+						className={
+							attributes.required ? 'is-pressed' : undefined
+						}
 					/>
 				</ToolbarGroup>
 			</BlockControls>

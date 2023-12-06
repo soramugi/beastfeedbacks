@@ -1,14 +1,13 @@
-import { registerBlockType } from "@wordpress/blocks";
-import { __ } from "@wordpress/i18n";
-import { useBlockProps, RichText } from "@wordpress/block-editor";
+import { registerBlockType } from '@wordpress/blocks';
+import { __ } from '@wordpress/i18n';
+import { useBlockProps, RichText } from '@wordpress/block-editor';
 
-import metadata from "./block.json";
-import "./style.scss";
-import FieldControls from "./field-controls";
-import EditListBlock from "./edit-list-block";
+import metadata from './block.json';
+import './style.scss';
+import FieldControls from './field-controls';
+import EditListBlock from './edit-list-block';
 
-
-function GenerateStyle({layout}) {
+function GenerateStyle( { layout } ) {
 	const display = layout?.type ?? 'flex';
 	const flexFlow = layout?.orientation === 'vertical' ? 'column' : null;
 	const justifyContent = layout?.justifyContent;
@@ -21,7 +20,7 @@ function GenerateStyle({layout}) {
 		flexWrap,
 	};
 
-	if ('space-between' === justifyContent) {
+	if ( 'space-between' === justifyContent ) {
 		style.width = '100%';
 	}
 
@@ -31,117 +30,132 @@ function GenerateStyle({layout}) {
 /**
  * アンケートフォームの選択肢
  */
-registerBlockType(metadata.name, {
+registerBlockType( metadata.name, {
 	/**
 	 * @see https://developer.wordpress.org/resource/dashicons/
 	 */
-	icon: "yes",
+	icon: 'yes',
 
 	attributes: {
 		label: {
-			type: "string",
-			default: "サンプル選択肢",
+			type: 'string',
+			default: 'サンプル選択肢',
 		},
 		tagType: {
-			type: "string",
-			default: "radio",
+			type: 'string',
+			default: 'radio',
 		},
 		required: {
-			type: "boolean",
+			type: 'boolean',
 			default: false,
 		},
 		items: {
-			type: "array",
-			default: [""],
+			type: 'array',
+			default: [ '' ],
 		},
 		width: {
-			type: "number",
+			type: 'number',
 		},
 	},
 
-	edit: ({ attributes, setAttributes, isSelected }) => {
+	edit: ( { attributes, setAttributes, isSelected } ) => {
 		const { width } = attributes;
 		const blockProps = useBlockProps();
-		const childStyle = GenerateStyle(attributes);
+		const childStyle = GenerateStyle( attributes );
 
 		return (
 			<>
-				<div {...blockProps} style={{ width: width ? width + '%' : null }}>
+				<div
+					{ ...blockProps }
+					style={ { width: width ? width + '%' : null } }
+				>
 					<div className="beastfeedbacks-survey-select_label">
 						<RichText
 							tagName="label"
-							onChange={(value) => {
-								setAttributes({ label: value });
-							}}
-							value={attributes.label}
+							onChange={ ( value ) => {
+								setAttributes( { label: value } );
+							} }
+							value={ attributes.label }
 						/>
-						{attributes.required && (
+						{ attributes.required && (
 							<span className="beastfeedbacks-survey-select_label_required">
 								(必須)
 							</span>
-						)}
+						) }
 					</div>
 
 					<EditListBlock
-						style={childStyle}
-						isSelected={isSelected}
-						attributes={attributes}
-						setAttributes={setAttributes}
+						style={ childStyle }
+						isSelected={ isSelected }
+						attributes={ attributes }
+						setAttributes={ setAttributes }
 					/>
 				</div>
-				<FieldControls attributes={attributes} setAttributes={setAttributes} />
+				<FieldControls
+					attributes={ attributes }
+					setAttributes={ setAttributes }
+				/>
 			</>
 		);
 	},
-	save: ({ attributes }) => {
+	save: ( { attributes } ) => {
 		const { label, items, required, tagType, width } = attributes;
-		const childStyle = GenerateStyle(attributes);
+		const childStyle = GenerateStyle( attributes );
 
 		const blockProps = useBlockProps.save();
-		let name = label.replace(/(<([^>]+)>)/gi, "");
-		if (tagType === "checkbox") {
-			name += "[]";
+		let name = label.replace( /(<([^>]+)>)/gi, '' );
+		if ( tagType === 'checkbox' ) {
+			name += '[]';
 		}
 
 		return (
-			<div {...blockProps} style={{ width: width ? width + '%' : null }}>
+			<div
+				{ ...blockProps }
+				style={ { width: width ? width + '%' : null } }
+			>
 				<div className="beastfeedbacks-survey-select_label">
-					<RichText.Content tagName="label" value={label} />
-					{required && (
+					<RichText.Content tagName="label" value={ label } />
+					{ required && (
 						<span className="beastfeedbacks-survey-select_label_required">
 							(必須)
 						</span>
-					)}
+					) }
 				</div>
 
-				<div className="beastfeedbacks-survey-select_items" style={childStyle}>
-					{"select" === tagType ? (
+				<div
+					className="beastfeedbacks-survey-select_items"
+					style={ childStyle }
+				>
+					{ 'select' === tagType ? (
 						<div className="beastfeedbacks-survey-select_item select_wrap">
-							<select name={name} required={required}>
+							<select name={ name } required={ required }>
 								<option value="">選択してください</option>
-								{items.map((value) => (
-									<option value={value}>{value}</option>
-								))}
+								{ items.map( ( value ) => (
+									<option value={ value }>{ value }</option>
+								) ) }
 							</select>
 						</div>
 					) : (
-						items.map((value, index) => (
+						items.map( ( value, index ) => (
 							<div className="beastfeedbacks-survey-select_item">
-								<label for={value}>
+								<label for={ value }>
 									<input
-										type={tagType}
-										name={name}
-										id={value}
-										value={value}
-										required={required}
+										type={ tagType }
+										name={ name }
+										id={ value }
+										value={ value }
+										required={ required }
 									/>
-									<RichText.Content tagName="span" value={value} />
+									<RichText.Content
+										tagName="span"
+										value={ value }
+									/>
 								</label>
 							</div>
-						))
-					)}
+						) )
+					) }
 				</div>
 			</div>
 		);
 	},
-});
+} );
