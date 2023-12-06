@@ -28,7 +28,7 @@ define( 'BEASTFEEDBACKS_DOMAIN', $plugin_data['TextDomain'] );
 /**
  * プラグイン有効化
  */
-function activate_beastfeedbacks() {
+function beastfeedbacks_activate() {
 	include_once plugin_dir_path( __FILE__ ) . 'includes/class-beastfeedbacks-activator.php';
 	BeastFeedbacks_Activator::activate();
 }
@@ -36,13 +36,13 @@ function activate_beastfeedbacks() {
 /**
  * プラグイン無効化
  */
-function deactivate_beastfeedbacks() {
+function beastfeedbacks_deactivate() {
 	include_once plugin_dir_path( __FILE__ ) . 'includes/class-beastfeedbacks-deactivator.php';
 	BeastFeedbacks_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_beastfeedbacks' );
-register_deactivation_hook( __FILE__, 'deactivate_beastfeedbacks' );
+register_activation_hook( __FILE__, 'beastfeedbacks_activate' );
+register_deactivation_hook( __FILE__, 'beastfeedbacks_deactivate' );
 
 require plugin_dir_path( __FILE__ ) . 'includes/class-beastfeedbacks.php';
 BeastFeedbacks::get_instance()->init();

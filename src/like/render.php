@@ -12,23 +12,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-$wrapper_attributes = get_block_wrapper_attributes();
-$_post_id           = get_the_ID();
-$like_count         = BeastFeedbacks::get_instance()->get_like_count( $_post_id );
-$form_action        = admin_url( 'admin-ajax.php' );
+$beastfeedbacks_post_id    = get_the_ID();
+$beastfeedbacks_like_count = BeastFeedbacks::get_instance()->get_like_count( $beastfeedbacks_post_id );
 ?>
 
 <div
-	<?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	<?php echo get_block_wrapper_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 >
-	<form action="<?php echo esc_url( $form_action ); ?>" name="beastfeedbacks_like_form" method="POST">
+	<form action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" name="beastfeedbacks_like_form" method="POST">
 		<div class="beastfeedbacks-like_balloon">
-			<p class="like-count"><?php echo esc_html( $like_count ); ?></p>
+			<p class="like-count"><?php echo esc_html( $beastfeedbacks_like_count ); ?></p>
 		</div>
 		<?php wp_nonce_field( 'register_beastfeedbacks_form' ); ?>
 		<input type="hidden" name="action" value="register_beastfeedbacks_form" />
 		<input type="hidden" name="beastfeedbacks_type" value="like" />
-		<input type="hidden" name="id" value="<?php echo esc_attr( $_post_id ); ?>" />
+		<input type="hidden" name="id" value="<?php echo esc_attr( $beastfeedbacks_post_id ); ?>" />
 		<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 	</form>
 </div>

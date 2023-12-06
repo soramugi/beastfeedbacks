@@ -62,7 +62,7 @@ class BeastFeedbacks {
 
 	/**
 	 * Like数の取得
-	 * TODO: 共通化クラスを作成して移行する
+	 * NOTE: 共通化クラスを作成して移行する
 	 *
 	 * @param integer $post_id Like登録に使用したpostを渡す.
 	 */
@@ -70,7 +70,7 @@ class BeastFeedbacks {
 		$args  = array(
 			'post_type'   => 'beastfeedbacks',
 			'post_parent' => $post_id,
-			'meta_query'  => array( // TODO: クエリ効率化.
+			'meta_query'  => array( // NOTE: クエリ効率化.
 				array(
 					'key'   => 'beastfeedbacks_type',
 					'value' => 'like',

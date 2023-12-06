@@ -499,7 +499,7 @@ class BeastFeedbacks_Admin {
 	public function download_csv() {
 		check_admin_referer( 'beastfeedbacks_csv_export' );
 
-		// TODO: POST情報にフィルター設定を載せて検索する.
+		// NOTE: POST情報にフィルター設定を載せて検索する.
 		$args = array(
 			'posts_per_page'   => -1,
 			'post_type'        => 'beastfeedbacks',
