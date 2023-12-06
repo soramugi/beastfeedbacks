@@ -4,12 +4,20 @@
 	"name": "beastfeedbacks/survey-select",
 	"version": "0.1.0",
 	"title": "survey-select",
-	"parent": [ "beastfeedbacks/survey-form" ],
+	"parent": [
+		"beastfeedbacks/survey-form"
+	],
 	"category": "beastfeedbacks",
 	"description": "フォームの選択肢",
 	"example": {},
 	"supports": {
-		"html": false
+		"html": false,
+		"layout": {
+			"allowSwitching": false,
+			"default": {
+				"type": "flex"
+			}
+		}
 	},
 	"textdomain": "beastfeedbacks",
 	"editorScript": "file:./index.js",

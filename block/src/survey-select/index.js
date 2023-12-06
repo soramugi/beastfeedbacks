@@ -7,9 +7,29 @@ import "./style.scss";
 import FieldControls from "./field-controls";
 import EditListBlock from "./edit-list-block";
 
+
+function GenerateStyle({layout}) {
+	const display = layout?.type ?? 'flex';
+	const flexFlow = layout?.orientation === 'vertical' ? 'column' : null;
+	const justifyContent = layout?.justifyContent;
+	const flexWrap = layout?.flexWrap ?? 'wrap';
+
+	const style = {
+		display,
+		flexFlow,
+		justifyContent,
+		flexWrap,
+	};
+
+	if ('space-between' === justifyContent) {
+		style.width = '100%';
+	}
+
+	return style;
+}
+
 /**
  * アンケートフォームの選択肢
- * TODO: 選択肢関連の対応、select,checkbox,radio
  */
 registerBlockType(metadata.name, {
 	/**
@@ -42,6 +62,7 @@ registerBlockType(metadata.name, {
 	edit: ({ attributes, setAttributes, isSelected }) => {
 		const { width } = attributes;
 		const blockProps = useBlockProps();
+		const childStyle = GenerateStyle(attributes);
 
 		return (
 			<>
@@ -62,6 +83,7 @@ registerBlockType(metadata.name, {
 					</div>
 
 					<EditListBlock
+						style={childStyle}
 						isSelected={isSelected}
 						attributes={attributes}
 						setAttributes={setAttributes}
@@ -72,8 +94,10 @@ registerBlockType(metadata.name, {
 		);
 	},
 	save: ({ attributes }) => {
-		const blockProps = useBlockProps.save();
 		const { label, items, required, tagType, width } = attributes;
+		const childStyle = GenerateStyle(attributes);
+
+		const blockProps = useBlockProps.save();
 		let name = label.replace(/(<([^>]+)>)/gi, "");
 		if (tagType === "checkbox") {
 			name += "[]";
@@ -90,7 +114,7 @@ registerBlockType(metadata.name, {
 					)}
 				</div>
 
-				<div className="beastfeedbacks-survey-select_items">
+				<div className="beastfeedbacks-survey-select_items" style={childStyle}>
 					{"select" === tagType ? (
 						<div className="beastfeedbacks-survey-select_item select_wrap">
 							<select name={name} required={required}>

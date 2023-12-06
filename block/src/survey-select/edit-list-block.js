@@ -1,6 +1,7 @@
 import { isEmpty, tap, noop, split, trim } from "lodash";
 import { useRef } from "@wordpress/element";
 import { RichText } from "@wordpress/block-editor";
+import { useBlockProps, useInnerBlocksProps } from "@wordpress/block-editor";
 
 const setFocus = (wrapper, selector, index, cursorToEnd) => {
 	setTimeout(() => {
@@ -25,6 +26,7 @@ const setFocus = (wrapper, selector, index, cursorToEnd) => {
 };
 
 export default function EditListBlock({
+	style,
 	attributes,
 	setAttributes,
 	isSelected,
@@ -98,13 +100,17 @@ export default function EditListBlock({
 		changeFocus(Math.max(index - 1, 0), true);
 	};
 
+	console.log(style);
+
 	return (
-		<div ref={itemsRef} className="beastfeedbacks-survey-select_items">
+		<div
+			ref={itemsRef}
+			className="beastfeedbacks-survey-select_items"
+			style={style}
+		>
 			{"select" === tagType && (
 				<div className="beastfeedbacks-survey-select_item select_wrap">
-					<div className="dummy-select">
-						選択してください
-					</div>
+					<div className="dummy-select">選択してください</div>
 				</div>
 			)}
 

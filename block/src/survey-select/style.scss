@@ -6,7 +6,13 @@
  */
 
 .wp-block-beastfeedbacks-survey-select {
+	margin-top: 1.5em;
+	display: block !important; // .is-layout がeditorでは設定されない? のでデフォでblockに指定して表示統一
+
 	.beastfeedbacks-survey-select_label {
+		width: 100%;
+		padding-bottom: 1.2rem;
+
 		label {
 			font-weight: 700;
 		}
@@ -18,14 +24,11 @@
 	}
 
 	.beastfeedbacks-survey-select_items {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 12px;
-		margin: 10px 0;
 
 		.select_wrap {
+			width: 100% !important;
 			position: relative;
+			padding-right: 0 !important;
 
 			&::after {
 				position: absolute;
@@ -41,14 +44,12 @@
 		}
 
 		.beastfeedbacks-survey-select_item {
-			width: 100%;
+			width: fit-content;
+			padding-right: 1rem;
 
 			label {
 				margin-bottom: 0;
-				float: none;
 				font-weight: normal;
-				display: inline-flex;
-				align-items: center;
 				line-height: 1;
 			}
 
@@ -71,11 +72,11 @@
 			}
 
 			input {
-				width: 1.3em;
-				height: 1.3em;
-				margin: 0 10px 0 0;
+				width: 1.4em;
+				height: 1.4em;
+				margin: 0 8px;
 
-				position: relative;
+				vertical-align: middle;
 			}
 		}
 	}
