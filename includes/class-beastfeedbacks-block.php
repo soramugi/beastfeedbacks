@@ -77,10 +77,10 @@ class BeastFeedbacks_Block {
 	 * ブロックエディタの登録
 	 */
 	public function register_block_type() {
-		register_block_type( plugin_dir_path( __DIR__ ) . 'build/like/' );
-		register_block_type( plugin_dir_path( __DIR__ ) . 'build/vote/' );
-		register_block_type( plugin_dir_path( __DIR__ ) . 'build/survey-form/' );
-		register_block_type( plugin_dir_path( __DIR__ ) . 'build/survey-input/' );
-		register_block_type( plugin_dir_path( __DIR__ ) . 'build/survey-select/' );
+		register_block_type( BEASTFEEDBACKS_DIR . 'build/like/' );
+		register_block_type( BEASTFEEDBACKS_DIR . 'build/vote/' );
+		register_block_type( BEASTFEEDBACKS_DIR . 'build/survey-form/' );
+		register_block_type( BEASTFEEDBACKS_DIR . 'build/survey-input/' );
+		register_block_type( BEASTFEEDBACKS_DIR . 'build/survey-select/' );
 	}
 }

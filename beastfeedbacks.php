@@ -18,18 +18,16 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! function_exists( 'get_plugin_data' ) ) {
-	include_once ABSPATH . 'wp-admin/includes/plugin.php';
-}
-
-define( 'BEASTFEEDBACKS_VERSION', $plugin_data['Version'] );
-define( 'BEASTFEEDBACKS_DOMAIN', $plugin_data['TextDomain'] );
+define( 'BEASTFEEDBACKS_VERSION', '0.1.0' );
+define( 'BEASTFEEDBACKS_DOMAIN', 'beastfeedbacks' );
+define( 'BEASTFEEDBACKS_DIR', plugin_dir_path( __FILE__ ) );
+define( 'BEASTFEEDBACKS_URL', plugin_dir_url( __FILE__ ) );
 
 /**
  * プラグイン有効化
  */
 function beastfeedbacks_activate() {
-	include_once plugin_dir_path( __FILE__ ) . 'includes/class-beastfeedbacks-activator.php';
+	include_once BEASTFEEDBACKS_DIR . 'includes/class-beastfeedbacks-activator.php';
 	BeastFeedbacks_Activator::activate();
 }
 
@@ -37,12 +35,12 @@ function beastfeedbacks_activate() {
  * プラグイン無効化
  */
 function beastfeedbacks_deactivate() {
-	include_once plugin_dir_path( __FILE__ ) . 'includes/class-beastfeedbacks-deactivator.php';
+	include_once BEASTFEEDBACKS_DIR . 'includes/class-beastfeedbacks-deactivator.php';
 	BeastFeedbacks_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'beastfeedbacks_activate' );
 register_deactivation_hook( __FILE__, 'beastfeedbacks_deactivate' );
 
-require plugin_dir_path( __FILE__ ) . 'includes/class-beastfeedbacks.php';
+require BEASTFEEDBACKS_DIR . 'includes/class-beastfeedbacks.php';
 BeastFeedbacks::get_instance()->init();

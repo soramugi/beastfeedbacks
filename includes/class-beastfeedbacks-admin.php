@@ -74,7 +74,7 @@ class BeastFeedbacks_Admin {
 	public function admin_enqueue_scripts() {
 		wp_enqueue_style(
 			BEASTFEEDBACKS_DOMAIN,
-			plugin_dir_url( __DIR__ ) . 'public/css/beastfeedbacks-admin.css',
+			BEASTFEEDBACKS_URL . 'public/css/beastfeedbacks-admin.css',
 			array(),
 			BEASTFEEDBACKS_VERSION,
 			'all'

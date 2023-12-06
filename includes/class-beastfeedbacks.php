@@ -54,10 +54,10 @@ class BeastFeedbacks {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-		require_once plugin_dir_path( __DIR__ ) . 'includes/class-beastfeedbacks-i18n.php';
-		require_once plugin_dir_path( __DIR__ ) . 'includes/class-beastfeedbacks-admin.php';
-		require_once plugin_dir_path( __DIR__ ) . 'includes/class-beastfeedbacks-public.php';
-		require_once plugin_dir_path( __DIR__ ) . 'includes/class-beastfeedbacks-block.php';
+		require_once BEASTFEEDBACKS_DIR . 'includes/class-beastfeedbacks-i18n.php';
+		require_once BEASTFEEDBACKS_DIR . 'includes/class-beastfeedbacks-admin.php';
+		require_once BEASTFEEDBACKS_DIR . 'includes/class-beastfeedbacks-public.php';
+		require_once BEASTFEEDBACKS_DIR . 'includes/class-beastfeedbacks-block.php';
 	}
 
 	/**
