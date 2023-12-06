@@ -2,7 +2,7 @@
 /**
  * ブロックエディタ
  *
- * @link       http://example.com
+ * @link       https://beastfeedbacks.com
  * @since      0.1.0
  *
  * @package    BeastFeedbacks

@@ -10,7 +10,7 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       beastfeedbacks
  *
- * @package create-block
+ * @package BeastFeedbacks
  */
 
 // If this file is called directly, abort.

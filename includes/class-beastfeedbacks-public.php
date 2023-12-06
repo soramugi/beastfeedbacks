@@ -2,7 +2,7 @@
 /**
  * 公開用設定
  *
- * @link       http://example.com
+ * @link       https://beastfeedbacks.com
  * @since      0.1.0
  *
  * @package    BeastFeedbacks
@@ -116,7 +116,7 @@ class BeastFeedbacks_Public {
 	public function get_user_agent() {
 		return isset( $_SERVER['HTTP_USER_AGENT'] )
 			? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) )
-		   : ''; // @codingStandardsIgnoreLine
+			: ''; // @codingStandardsIgnoreLine
 	}
 
 	/**
@@ -126,7 +126,7 @@ class BeastFeedbacks_Public {
 	 */
 	public function get_ip_address() {
 		return isset( $_SERVER['REMOTE_ADDR'] )
-		? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) )
-		: '';
+			? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) )
+			: '';
 	}
 }

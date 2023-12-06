@@ -2,7 +2,7 @@
 /**
  * 管理画面
  *
- * @link       http://example.com
+ * @link       https://beastfeedbacks.com
  * @since      0.1.0
  *
  * @package    BeastFeedbacks
@@ -206,10 +206,10 @@ class BeastFeedbacks_Admin {
 				<table>
 					<tbody>
 						<?php if ( 'vote' === $type ) : ?>
-						<tr>
-							<td>選択</td>
-							<td><?php echo esc_html( $post_params['selected'] ); ?></td>
-						</tr>
+							<tr>
+								<td>選択</td>
+								<td><?php echo esc_html( $post_params['selected'] ); ?></td>
+							</tr>
 						<?php elseif ( 'survey' === $type ) : ?>
 							<?php foreach ( $post_params as $key => $value ) : ?>
 								<tr>
@@ -232,16 +232,16 @@ class BeastFeedbacks_Admin {
 					<tbody>
 						<hr />
 						<?php if ( isset( $content['ip_address'] ) ) : ?>
-						<tr>
-							<td>IP_Address</td>
-							<td><?php echo esc_html( $content['ip_address'] ); ?></td>
-						</tr>
+							<tr>
+								<td>IP_Address</td>
+								<td><?php echo esc_html( $content['ip_address'] ); ?></td>
+							</tr>
 						<?php endif ?>
 						<?php if ( isset( $content['user_agent'] ) ) : ?>
-						<tr>
-							<td>UserAgent</td>
-							<td><?php echo esc_html( $content['user_agent'] ); ?></td>
-						</tr>
+							<tr>
+								<td>UserAgent</td>
+								<td><?php echo esc_html( $content['user_agent'] ); ?></td>
+							</tr>
 						<?php endif ?>
 					</tbody>
 				</table>
@@ -341,7 +341,9 @@ class BeastFeedbacks_Admin {
 		?>
 		<select name="beastfeedbacks_type">
 			<option value=""><?php esc_html_e( 'All Types', 'beastfeedbacks' ); ?></option>
-			<?php echo $options; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			<?php
+			echo $options; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			?>
 		</select>
 		<?php
 	}
@@ -388,7 +390,9 @@ class BeastFeedbacks_Admin {
 		?>
 		<select name="beastfeedbacks_parent_id">
 			<option value=""><?php esc_html_e( 'All Sources', 'beastfeedbacks' ); ?></option>
-			<?php echo $options; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			<?php
+			echo $options; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			?>
 		</select>
 		<?php
 	}
@@ -456,37 +460,38 @@ class BeastFeedbacks_Admin {
 
 		?>
 		<script type="text/javascript">
-			jQuery( function( $ ) {
-				$( '#posts-filter #post-query-submit' )
-					.after( <?php echo wp_json_encode( $button ); ?> );
-			} );
+			jQuery(function($) {
+				$('#posts-filter #post-query-submit')
+					.after(<?php echo wp_json_encode( $button ); ?>);
+			});
 
 			const exportSubmit = () => {
-				jQuery( function( $ ) {
-					$.post("<?php echo esc_js( admin_url( 'admin-ajax.php' ) ); ?>",
-					{
-						action: 'beastfeedbacks_export',
-						// year: date ? date[ 2 ].substr( 0, 4 ) : '',
-						// month: date ? date[ 2 ].substr( 4, 2 ) : '',
-						// post: post ? parseInt( post[ 2 ], 10 ) : 'all',
-						// selected: selected,
-						_wpnonce: '<?php echo esc_js( wp_create_nonce( 'beastfeedbacks_csv_export' ) ); ?>',
-					},
-					function ( response, status, xhr ) {
-						const blob = new Blob( [ response ], { type: 'application/octetstream' } );
+				jQuery(function($) {
+					$.post("<?php echo esc_js( admin_url( 'admin-ajax.php' ) ); ?>", {
+							action: 'beastfeedbacks_export',
+							// year: date ? date[ 2 ].substr( 0, 4 ) : '',
+							// month: date ? date[ 2 ].substr( 4, 2 ) : '',
+							// post: post ? parseInt( post[ 2 ], 10 ) : 'all',
+							// selected: selected,
+							_wpnonce: '<?php echo esc_js( wp_create_nonce( 'beastfeedbacks_csv_export' ) ); ?>',
+						},
+						function(response, status, xhr) {
+							const blob = new Blob([response], {
+								type: 'application/octetstream'
+							});
 
-						const a = document.createElement( 'a' );
-						a.href = window.URL.createObjectURL( blob );
+							const a = document.createElement('a');
+							a.href = window.URL.createObjectURL(blob);
 
-						var contentDispositionHeader = xhr.getResponseHeader( 'content-disposition' );
-						a.download =
-							contentDispositionHeader.split( 'filename=' )[ 1 ] || 'Beastfeedbacks-Export.csv';
+							var contentDispositionHeader = xhr.getResponseHeader('content-disposition');
+							a.download =
+								contentDispositionHeader.split('filename=')[1] || 'Beastfeedbacks-Export.csv';
 
-						document.body.appendChild( a );
-						a.click();
-						document.body.removeChild( a );
-						window.URL.revokeObjectURL( a.href );
-					});
+							document.body.appendChild(a);
+							a.click();
+							document.body.removeChild(a);
+							window.URL.revokeObjectURL(a.href);
+						});
 				});
 			}
 		</script>
