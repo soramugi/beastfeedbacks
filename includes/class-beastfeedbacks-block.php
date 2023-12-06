@@ -55,11 +55,11 @@ class BeastFeedbacks_Block {
 	/**
 	 * ブロックのカテゴリを追加
 	 *
-	 * @param array[]                 $block_categories     Array of categories for block types.
-	 * @param WP_Block_Editor_Context $block_editor_context The current block editor context.
+	 * @param array[] $block_categories     Array of categories for block types.
+	 * @param object  $block_editor_context `WP_Block_Editor_Context` object.
 	 * @see https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#block_categories_all
 	 */
-	public function block_categories_all( array $block_categories, WP_Block_Editor_Context $block_editor_context ) {
+	public function block_categories_all( array $block_categories, object $block_editor_context ) {
 		if ( ! empty( $block_editor_context->post ) ) {
 			array_push(
 				$block_categories,

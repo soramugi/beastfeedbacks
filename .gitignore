@@ -70,3 +70,5 @@ intermediate
 cache
 
 build/
+.vscode
+vendor/

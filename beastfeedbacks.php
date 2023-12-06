@@ -10,7 +10,7 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       beastfeedbacks
  *
- * @package           create-block
+ * @package create-block
  */
 
 // If this file is called directly, abort.
@@ -18,14 +18,18 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'BEASTFEEDBACKS_VERSION', '0.1.0' );
-define( 'BEASTFEEDBACKS_DOMAIN', 'beastfeedbacks' );
+if ( ! function_exists( 'get_plugin_data' ) ) {
+	include_once ABSPATH . 'wp-admin/includes/plugin.php';
+}
+
+define( 'BEASTFEEDBACKS_VERSION', $plugin_data['Version'] );
+define( 'BEASTFEEDBACKS_DOMAIN', $plugin_data['TextDomain'] );
 
 /**
  * プラグイン有効化
  */
 function activate_beastfeedbacks() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-beastfeedbacks-activator.php';
+	include_once plugin_dir_path( __FILE__ ) . 'includes/class-beastfeedbacks-activator.php';
 	BeastFeedbacks_Activator::activate();
 }
 
@@ -33,7 +37,7 @@ function activate_beastfeedbacks() {
  * プラグイン無効化
  */
 function deactivate_beastfeedbacks() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-beastfeedbacks-deactivator.php';
+	include_once plugin_dir_path( __FILE__ ) . 'includes/class-beastfeedbacks-deactivator.php';
 	BeastFeedbacks_Deactivator::deactivate();
 }
 
