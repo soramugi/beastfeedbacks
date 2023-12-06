@@ -6,7 +6,7 @@
  * @since      0.1.0
  *
  * @package    BeastFeedbacks
- * @subpackage BeastFeedbacks/public
+ * @subpackage BeastFeedbacks/includes
  */
 
 /**
@@ -37,23 +37,6 @@ class BeastFeedbacks_Public {
 	 * Init
 	 */
 	public function init() {
-		/* phpcs:ignore
-		wp_enqueue_style(
-			BEASTFEEDBACKS_DOMAIN,
-			plugin_dir_url( __FILE__ ) . 'css/beastfeedbacks-public.css',
-			array(),
-			BEASTFEEDBACKS_VERSION,
-			'all'
-		);
-		wp_enqueue_script(
-			BEASTFEEDBACKS_DOMAIN,
-			plugin_dir_url( __FILE__ ) . 'js/beastfeedbacks-public.js',
-			array( 'jquery' ),
-			BEASTFEEDBACKS_VERSION,
-			false
-		);
-		*/
-
 		$form_action = 'register_beastfeedbacks_form';
 		add_action( 'wp_ajax_' . $form_action, array( $this, 'register_beastfeedbacks_form' ) );
 		add_action( 'wp_ajax_nopriv_' . $form_action, array( $this, 'register_beastfeedbacks_form' ) );
