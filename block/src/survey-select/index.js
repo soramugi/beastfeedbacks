@@ -1,5 +1,4 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
 import { useBlockProps, RichText } from '@wordpress/block-editor';
 
 import metadata from './block.json';
@@ -130,15 +129,20 @@ registerBlockType( metadata.name, {
 						<div className="beastfeedbacks-survey-select_item select_wrap">
 							<select name={ name } required={ required }>
 								<option value="">選択してください</option>
-								{ items.map( ( value ) => (
-									<option value={ value }>{ value }</option>
+								{ items.map( ( value, index ) => (
+									<option key={ index } value={ value }>
+										{ value }
+									</option>
 								) ) }
 							</select>
 						</div>
 					) : (
 						items.map( ( value, index ) => (
-							<div className="beastfeedbacks-survey-select_item">
-								<label for={ value }>
+							<div
+								className="beastfeedbacks-survey-select_item"
+								key={ index }
+							>
+								<label htmlFor={ value }>
 									<input
 										type={ tagType }
 										name={ name }

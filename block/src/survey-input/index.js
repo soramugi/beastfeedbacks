@@ -1,7 +1,5 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
 import { useBlockProps, RichText } from '@wordpress/block-editor';
-import { Icon, text } from '@wordpress/icons';
 import metadata from './block.json';
 import './style.scss';
 import FieldControls from './field-controls';

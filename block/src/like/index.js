@@ -1,5 +1,4 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import metadata from './block.json';
 
@@ -38,7 +37,7 @@ registerBlockType( metadata.name, {
 			</div>
 		);
 	},
-	save: ( props ) => {
+	save: () => {
 		return <InnerBlocks.Content />;
 	},
 } );

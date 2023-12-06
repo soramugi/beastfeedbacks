@@ -1,7 +1,6 @@
 import { isEmpty, tap, noop, split, trim } from 'lodash';
 import { useRef } from '@wordpress/element';
 import { RichText } from '@wordpress/block-editor';
-import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 
 const setFocus = ( wrapper, selector, index, cursorToEnd ) => {
 	setTimeout( () => {
@@ -102,8 +101,6 @@ export default function EditListBlock( {
 		changeFocus( Math.max( index - 1, 0 ), true );
 	};
 
-	console.log( style );
-
 	return (
 		<div
 			ref={ itemsRef }
@@ -118,7 +115,10 @@ export default function EditListBlock( {
 
 			{ ( 'select' !== tagType || isSelected ) &&
 				items.map( ( value, index ) => (
-					<div className="beastfeedbacks-survey-select_item">
+					<div
+						className="beastfeedbacks-survey-select_item"
+						key={ index }
+					>
 						{ 'select' === tagType ? (
 							'・'
 						) : (
@@ -126,7 +126,6 @@ export default function EditListBlock( {
 						) }
 						<RichText
 							tagName="label"
-							key={ index }
 							value={ value }
 							onChange={ handleChange( index ) }
 							onSplit={ handleSplit( index ) }

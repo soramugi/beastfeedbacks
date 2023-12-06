@@ -34,8 +34,7 @@ const submit = ( e ) => {
 		.then( ( data ) => {
 			addMessage( form, data.message );
 		} )
-		.catch( ( error ) => {
-			console.error( error );
+		.catch( () => {
 			addMessage( form, 'おっと！なにか問題が発生しました。' );
 		} );
 };
