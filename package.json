@@ -1,10 +1,10 @@
 {
 	"name": "beastfeedbacks",
 	"version": "0.1.0",
-	"description": "Example block scaffolded with Create Block tool.",
-	"author": "The WordPress Contributors",
+	"description": "Provides a block-editor form for receiving powerful user feedback.",
+	"author": "ytsuyuzaki",
 	"license": "GPL-2.0-or-later",
-	"main": "block/build/",
+	"main": "block/",
 	"scripts": {
 		"build": "wp-scripts build",
 		"format": "wp-scripts format",

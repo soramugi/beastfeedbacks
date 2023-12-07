@@ -1,16 +1,25 @@
 <?php
 /**
+ * BeastFeedbacks
+ *
+ * @package           BeastFeedbacks
+ * @author            ytsuyuzaki
+ * @copyright         2023 muchuu.net
+ * @license           GPL-2.0-or-later
+ *
+ * @wordpress-plugin
  * Plugin Name:       BeastFeedbacks
- * Description:       Example block scaffolded with Create Block tool.
+ * Plugin URL:        https://beastfeedbacks.com
+ * Description:       Provides a block-editor form for receiving powerful user feedback.
  * Requires at least: 6.1
  * Requires PHP:      7.0
  * Version:           0.1.0
- * Author:            The WordPress Contributors
+ * Author:            ytsuyuzaki
+ * Author URI:        https://muchuu.net
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       beastfeedbacks
- *
- * @package BeastFeedbacks
+ * Domain Path:       /languages
  */
 
 // If this file is called directly, abort.

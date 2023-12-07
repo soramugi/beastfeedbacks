@@ -17,7 +17,6 @@
  * @since      0.1.0
  * @package    BeastFeedbacks
  * @subpackage BeastFeedbacks/includes
- * @author     Your Name <email@example.com>
  */
 class BeastFeedbacks_Activator {
 
