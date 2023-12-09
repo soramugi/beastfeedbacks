@@ -105,11 +105,11 @@ export default function EditListBlock( {
 	return (
 		<div
 			ref={ itemsRef }
-			className="beastfeedbacks-survey-select_items"
+			className="beastfeedbacks-survey-choice_items"
 			style={ style }
 		>
 			{ 'select' === tagType && (
-				<div className="beastfeedbacks-survey-select_item select_wrap">
+				<div className="beastfeedbacks-survey-choice_item select_wrap">
 					<div className="dummy-select">
 						{ __( 'Please select', 'beastfeedbacks' ) }
 					</div>
@@ -119,7 +119,7 @@ export default function EditListBlock( {
 			{ ( 'select' !== tagType || isSelected ) &&
 				items.map( ( value, index ) => (
 					<div
-						className="beastfeedbacks-survey-select_item"
+						className="beastfeedbacks-survey-choice_item"
 						key={ index }
 					>
 						{ 'select' === tagType ? (

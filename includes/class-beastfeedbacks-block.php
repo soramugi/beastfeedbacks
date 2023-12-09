@@ -81,6 +81,6 @@ class BeastFeedbacks_Block {
 		register_block_type( BEASTFEEDBACKS_DIR . 'build/vote/' );
 		register_block_type( BEASTFEEDBACKS_DIR . 'build/survey-form/' );
 		register_block_type( BEASTFEEDBACKS_DIR . 'build/survey-input/' );
-		register_block_type( BEASTFEEDBACKS_DIR . 'build/survey-select/' );
+		register_block_type( BEASTFEEDBACKS_DIR . 'build/survey-choice/' );
 	}
 }

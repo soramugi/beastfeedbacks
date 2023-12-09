@@ -23,7 +23,7 @@ const variations = [
 				},
 			],
 			[
-				'beastfeedbacks/survey-select',
+				'beastfeedbacks/survey-choice',
 				{
 					label: __( 'Gender', 'beastfeedbacks' ),
 					tagType: 'radio',
@@ -36,7 +36,7 @@ const variations = [
 				},
 			],
 			[
-				'beastfeedbacks/survey-select',
+				'beastfeedbacks/survey-choice',
 				{
 					label: __( 'Age', 'beastfeedbacks' ),
 					tagType: 'select',
@@ -54,7 +54,7 @@ const variations = [
 				},
 			],
 			[
-				'beastfeedbacks/survey-select',
+				'beastfeedbacks/survey-choice',
 				{
 					label: __(
 						'Please select your occupation',
@@ -116,7 +116,7 @@ const variations = [
 				},
 			],
 			[
-				'beastfeedbacks/survey-select',
+				'beastfeedbacks/survey-choice',
 				{
 					label: __(
 						'Where did you hear about the product?',
@@ -158,7 +158,7 @@ const variations = [
 				},
 			],
 			[
-				'beastfeedbacks/survey-select',
+				'beastfeedbacks/survey-choice',
 				{
 					label: __( 'Please rate the product', 'beastfeedbacks' ),
 					tagType: 'radio',

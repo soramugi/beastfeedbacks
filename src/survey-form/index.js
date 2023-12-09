@@ -39,7 +39,7 @@ registerBlockType( metadata.name, {
 						},
 					],
 					[
-						'beastfeedbacks/survey-select',
+						'beastfeedbacks/survey-choice',
 						{
 							label: __(
 								'Satisfaction with this site',

@@ -69,7 +69,7 @@ registerBlockType( metadata.name, {
 					{ ...blockProps }
 					style={ { width: width ? width + '%' : null } }
 				>
-					<div className="beastfeedbacks-survey-select_label">
+					<div className="beastfeedbacks-survey-choice_label">
 						<RichText
 							tagName="label"
 							onChange={ ( value ) => {
@@ -78,7 +78,7 @@ registerBlockType( metadata.name, {
 							value={ attributes.label }
 						/>
 						{ attributes.required && (
-							<span className="beastfeedbacks-survey-select_label_required">
+							<span className="beastfeedbacks-survey-choice_label_required">
 								({ __( 'Required', 'beastfeedbacks' ) })
 							</span>
 						) }
@@ -113,21 +113,21 @@ registerBlockType( metadata.name, {
 				{ ...blockProps }
 				style={ { width: width ? width + '%' : null } }
 			>
-				<div className="beastfeedbacks-survey-select_label">
+				<div className="beastfeedbacks-survey-choice_label">
 					<RichText.Content tagName="label" value={ label } />
 					{ required && (
-						<span className="beastfeedbacks-survey-select_label_required">
+						<span className="beastfeedbacks-survey-choice_label_required">
 							({ __( 'Required', 'beastfeedbacks' ) })
 						</span>
 					) }
 				</div>
 
 				<div
-					className="beastfeedbacks-survey-select_items"
+					className="beastfeedbacks-survey-choice_items"
 					style={ childStyle }
 				>
 					{ 'select' === tagType ? (
-						<div className="beastfeedbacks-survey-select_item select_wrap">
+						<div className="beastfeedbacks-survey-choice_item select_wrap">
 							<select name={ name } required={ required }>
 								<option value="">
 									{ __( 'Please select', 'beastfeedbacks' ) }
@@ -142,7 +142,7 @@ registerBlockType( metadata.name, {
 					) : (
 						items.map( ( value, index ) => (
 							<div
-								className="beastfeedbacks-survey-select_item"
+								className="beastfeedbacks-survey-choice_item"
 								key={ index }
 							>
 								<label htmlFor={ value }>

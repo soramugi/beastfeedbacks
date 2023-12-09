@@ -5,11 +5,11 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-beastfeedbacks-survey-select {
+.wp-block-beastfeedbacks-survey-choice {
 	margin-top: 1.5em;
 	display: block !important; // .is-layout がeditorでは設定されない? のでデフォでblockに指定して表示統一
 
-	.beastfeedbacks-survey-select_label {
+	.beastfeedbacks-survey-choice_label {
 		width: 100%;
 		padding-bottom: 1.2rem;
 
@@ -17,13 +17,13 @@
 			font-weight: 700;
 		}
 
-		span.beastfeedbacks-survey-select_label_required {
+		span.beastfeedbacks-survey-choice_label_required {
 			font-size: 0.7em;
 			color: rgb(182, 182, 182);
 		}
 	}
 
-	.beastfeedbacks-survey-select_items {
+	.beastfeedbacks-survey-choice_items {
 
 		.select_wrap {
 			width: 100% !important;
@@ -43,7 +43,7 @@
 			}
 		}
 
-		.beastfeedbacks-survey-select_item {
+		.beastfeedbacks-survey-choice_item {
 			width: fit-content;
 			padding-right: 1rem;
 
