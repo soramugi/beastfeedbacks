@@ -92,8 +92,8 @@ class BeastFeedbacks_Public {
 		);
 
 		$message = ( 'survey' === $type )
-			? 'アンケートへの回答ありがとうございました。'
-			: '投票ありがとうございました。';
+			? __('Thank you for your responses to the questionnaire. ', 'beastfeedbacks')
+			: __('Thank you for the vote. ', 'beastfeedbacks');
 		$count   = ( 'like' === $type )
 			? BeastFeedbacks::get_instance()->get_like_count( $post_id )
 			: 1;

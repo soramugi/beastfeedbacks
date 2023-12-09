@@ -65,7 +65,7 @@ class BeastFeedbacks_Block {
 				$block_categories,
 				array(
 					'slug'  => 'beastfeedbacks',
-					'title' => __( 'BeastFeedbacks', 'beastfeedbacks' ),
+					'title' => 'BeastFeedbacks',
 					'icon'  => null,
 				)
 			);

@@ -3,9 +3,9 @@
 	"apiVersion": 3,
 	"name": "beastfeedbacks/survey-form",
 	"version": "0.1.0",
-	"title": "survey-form",
+	"title": "Survey Form",
 	"category": "beastfeedbacks",
-	"description": "アンケートフォーム",
+	"description": "Creating a survey form to conduct a survey",
 	"example": {},
 	"supports": {
 		"color": {

@@ -1,4 +1,5 @@
 import { registerBlockType } from '@wordpress/blocks';
+import { __ } from '@wordpress/i18n';
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import metadata from './block.json';
 
@@ -8,7 +9,7 @@ const TEMPLATE = [
 	[
 		'core/button',
 		{
-			text: 'いいね',
+			text: __( 'Like', 'beastfeedbacks' ),
 			tagName: 'button',
 			type: 'submit',
 		},

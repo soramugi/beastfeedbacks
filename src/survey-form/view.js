@@ -1,3 +1,5 @@
+import { __ } from '@wordpress/i18n';
+
 const addMessage = ( form, message ) => {
 	const messageElement = document.createElement( 'span' );
 	messageElement.textContent = message;
@@ -25,7 +27,10 @@ const submit = ( e ) => {
 			addMessage( form, data.message );
 		} )
 		.catch( () => {
-			addMessage( form, 'おっと！なにか問題が発生しました。' );
+			addMessage(
+				form,
+				__( 'Oops! Something went wrong.', 'beastfeedbacks' )
+			);
 		} );
 };
 

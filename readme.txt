@@ -12,7 +12,7 @@ Provides a block-editor form for receiving powerful user feedback.
 
 Provides a way to get actionable user feedback on your website.
 
-- Questionnaire
+- Survey Form
 - Like button
 - Choice voting
 

@@ -207,7 +207,7 @@ class BeastFeedbacks_Admin {
 					<tbody>
 						<?php if ( 'vote' === $type ) : ?>
 							<tr>
-								<td>選択</td>
+								<td><?php echo esc_html_e('Select', 'beastfeedbacks'); ?></td>
 								<td><?php echo esc_html( $post_params['selected'] ); ?></td>
 							</tr>
 						<?php elseif ( 'survey' === $type ) : ?>

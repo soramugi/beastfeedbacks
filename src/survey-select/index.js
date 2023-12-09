@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, RichText } from '@wordpress/block-editor';
 
@@ -38,7 +39,7 @@ registerBlockType( metadata.name, {
 	attributes: {
 		label: {
 			type: 'string',
-			default: 'サンプル選択肢',
+			default: __( 'Sample choices', 'beastfeedbacks' ),
 		},
 		tagType: {
 			type: 'string',
@@ -78,7 +79,7 @@ registerBlockType( metadata.name, {
 						/>
 						{ attributes.required && (
 							<span className="beastfeedbacks-survey-select_label_required">
-								(必須)
+								({ __( 'Required', 'beastfeedbacks' ) })
 							</span>
 						) }
 					</div>
@@ -116,7 +117,7 @@ registerBlockType( metadata.name, {
 					<RichText.Content tagName="label" value={ label } />
 					{ required && (
 						<span className="beastfeedbacks-survey-select_label_required">
-							(必須)
+							({ __( 'Required', 'beastfeedbacks' ) })
 						</span>
 					) }
 				</div>
@@ -128,7 +129,9 @@ registerBlockType( metadata.name, {
 					{ 'select' === tagType ? (
 						<div className="beastfeedbacks-survey-select_item select_wrap">
 							<select name={ name } required={ required }>
-								<option value="">選択してください</option>
+								<option value="">
+									{ __( 'Please select', 'beastfeedbacks' ) }
+								</option>
 								{ items.map( ( value, index ) => (
 									<option key={ index } value={ value }>
 										{ value }

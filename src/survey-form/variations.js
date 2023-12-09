@@ -1,3 +1,5 @@
+import { __ } from '@wordpress/i18n';
+
 /** @typedef {import('@wordpress/blocks').WPBlockVariation} WPBlockVariation */
 
 /**
@@ -8,95 +10,138 @@
 const variations = [
 	{
 		name: 'product',
-		title: '製品アンケート',
+		title: __( 'Product survey', 'beastfeedbacks' ),
 		innerBlocks: [
 			[
 				'core/heading',
-				{ level: 3, content: '製品アンケートにご協力ください。' },
-			],
-			[
-				'beastfeedbacks/survey-select',
 				{
-					label: 'あなたの性別は',
-					tagType: 'radio',
-					required: true,
-					items: [ '男', '女', 'その他' ],
+					level: 3,
+					content: __(
+						'Please take part in our product survey.',
+						'beastfeedbacks'
+					),
 				},
 			],
 			[
 				'beastfeedbacks/survey-select',
 				{
-					label: '年齢を選択してください',
-					tagType: 'select',
+					label: __( 'Gender', 'beastfeedbacks' ),
+					tagType: 'radio',
 					required: true,
 					items: [
-						'15歳以下',
-						'16~20歳',
-						'21~25歳',
-						'26~30歳',
-						'31~39歳',
-						'40~49歳',
-						'50~59歳',
-						'60歳以上',
+						__( 'Man', 'beastfeedbacks' ),
+						__( 'Woman', 'beastfeedbacks' ),
+						__( 'Others', 'beastfeedbacks' ),
 					],
 				},
 			],
 			[
 				'beastfeedbacks/survey-select',
 				{
-					label: 'あなたの職種を選択してください',
+					label: __( 'Age', 'beastfeedbacks' ),
 					tagType: 'select',
 					required: true,
 					items: [
-						'経営者・役員',
-						'会社員（総合職）',
-						'会社員（一般職）',
-						'契約社員・派遣社員',
-						'パート・アルバイト',
-						'公務員（教職員除く）',
-						'教職員',
-						'医療関係者',
-						'自営業・自由業',
-						'専業主婦・主夫',
-						'大学生・大学院生',
-						'専門学校生・短大生',
-						'高校生',
-						'士業（公認会計士・弁護士・税理士・司法書士）',
-						'無職',
-						'定年退職',
-						'その他',
+						__( 'Under 15 years old', 'beastfeedbacks' ),
+						__( '16~20 years old', 'beastfeedbacks' ),
+						__( '21~25 years old', 'beastfeedbacks' ),
+						__( '26~30 years old', 'beastfeedbacks' ),
+						__( '31~39 years old', 'beastfeedbacks' ),
+						__( '40~49 years old', 'beastfeedbacks' ),
+						__( '50~59 years old', 'beastfeedbacks' ),
+						__( 'Over 60 years old', 'beastfeedbacks' ),
+					],
+				},
+			],
+			[
+				'beastfeedbacks/survey-select',
+				{
+					label: __(
+						'Please select your occupation',
+						'beastfeedbacks'
+					),
+					tagType: 'select',
+					required: true,
+					items: [
+						__( 'Managers/Officers', 'beastfeedbacks' ),
+						__(
+							'Company employee (Comprehensive work)',
+							'beastfeedbacks'
+						),
+						__(
+							'Company employee (General staff)',
+							'beastfeedbacks'
+						),
+						__(
+							'Contract employees/temporary employees',
+							'beastfeedbacks'
+						),
+						__( 'part-time job', 'beastfeedbacks' ),
+						__(
+							'Civil servants (excluding teachers)',
+							'beastfeedbacks'
+						),
+						__( 'Faculty', 'beastfeedbacks' ),
+						__( 'Medical personnel', 'beastfeedbacks' ),
+						__( 'Self-employed/freelance', 'beastfeedbacks' ),
+						__( 'Housewife/househusband', 'beastfeedbacks' ),
+						__( 'University/graduate students', 'beastfeedbacks' ),
+						__(
+							'Vocational school/junior college student',
+							'beastfeedbacks'
+						),
+						__( 'High school student', 'beastfeedbacks' ),
+						__(
+							'Professional profession (certified accountant, lawyer, tax accountant, judicial scrivener)',
+							'beastfeedbacks'
+						),
+						__( 'Unemployed', 'beastfeedbacks' ),
+						__( 'Retirement', 'beastfeedbacks' ),
+						__( 'Others', 'beastfeedbacks' ),
 					],
 				},
 			],
 			[
 				'beastfeedbacks/survey-input',
 				{
-					label: 'あなたの性格はどんなタイプですか?',
+					label: __(
+						'What type of personality do you have?',
+						'beastfeedbacks'
+					),
 					tagType: 'text',
-					placeholder: '例: 怒りっぽい、短期 or 冷静、内気',
+					placeholder: __(
+						'Examples: angry, short-term or calm, shy',
+						'beastfeedbacks'
+					),
 				},
 			],
 			[
 				'beastfeedbacks/survey-select',
 				{
-					label: '製品はどこで知りましたか',
+					label: __(
+						'Where did you hear about the product?',
+						'beastfeedbacks'
+					),
 					tagType: 'checkbox',
 					items: [
-						'インターネット広告',
-						'ホームページ',
-						'SNS',
-						'メールマガジン',
-						'知人',
-						'店頭',
-						'テレビ、ラジオ広告',
-						'その他',
+						__( 'Internet advertising', 'beastfeedbacks' ),
+						__( 'Home page', 'beastfeedbacks' ),
+						__( 'SNS', 'beastfeedbacks' ),
+						__( 'Email magazine', 'beastfeedbacks' ),
+						__( 'Acquaintance', 'beastfeedbacks' ),
+						__( 'Over the counter', 'beastfeedbacks' ),
+						__( 'TV and radio advertising', 'beastfeedbacks' ),
+						__( 'Others', 'beastfeedbacks' ),
 					],
 				},
 			],
 			[
 				'beastfeedbacks/survey-input',
 				{
-					label: '製品を購入する決め手は',
+					label: __(
+						'What makes you decide to buy a product?',
+						'beastfeedbacks'
+					),
 					tagType: 'textarea',
 					required: true,
 				},
@@ -104,7 +149,10 @@ const variations = [
 			[
 				'beastfeedbacks/survey-input',
 				{
-					label: '製品の改善すべき点はありますか',
+					label: __(
+						'Is there anything that could be improved about the product?',
+						'beastfeedbacks'
+					),
 					tagType: 'textarea',
 					required: true,
 				},
@@ -112,29 +160,36 @@ const variations = [
 			[
 				'beastfeedbacks/survey-select',
 				{
-					label: '製品に対しての評価をお願いします',
+					label: __( 'Please rate the product', 'beastfeedbacks' ),
 					tagType: 'radio',
 					required: true,
 					items: [
-						'とても満足',
-						'満足',
-						'普通',
-						'不満',
-						'とても不満',
+						__( 'Very satisfied', 'beastfeedbacks' ),
+						__( 'Satisfaction', 'beastfeedbacks' ),
+						__( 'Usually', 'beastfeedbacks' ),
+						__( 'Dissatisfaction', 'beastfeedbacks' ),
+						__( 'Very dissatisfied', 'beastfeedbacks' ),
 					],
 				},
 			],
 			[
 				'beastfeedbacks/survey-input',
 				{
-					label: '最後に感想があればご記入ください',
+					label: __(
+						'If you have any final thoughts, please write them down.',
+						'beastfeedbacks'
+					),
 					tagType: 'textarea',
 					required: true,
 				},
 			],
 			[
 				'core/button',
-				{ text: '送信', tagName: 'button', type: 'submit' },
+				{
+					text: __( 'Submit', 'beastfeedbacks' ),
+					tagName: 'button',
+					type: 'submit',
+				},
 			],
 		],
 	},

@@ -1,22 +1,40 @@
 import { registerBlockType } from '@wordpress/blocks';
+import { __ } from '@wordpress/i18n';
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import metadata from './block.json';
 
 import './style.scss';
 
 const TEMPLATE = [
-	[ 'core/heading', { level: 3, content: '記事の内容には満足しましたか?' } ],
+	[
+		'core/heading',
+		{
+			level: 3,
+			content: __(
+				'Were you satisfied with the content of the article?',
+				'beastfeedbacks'
+			),
+		},
+	],
 	[
 		'core/buttons',
 		{},
 		[
 			[
 				'core/button',
-				{ text: 'はい', tagName: 'button', type: 'submit' },
+				{
+					text: __( 'Yes', 'beastfeedbacks' ),
+					tagName: 'button',
+					type: 'submit',
+				},
 			],
 			[
 				'core/button',
-				{ text: 'いいえ', tagName: 'button', type: 'submit' },
+				{
+					text: __( 'No', 'beastfeedbacks' ),
+					tagName: 'button',
+					type: 'submit',
+				},
 			],
 		],
 	],

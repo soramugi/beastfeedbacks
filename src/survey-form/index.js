@@ -1,4 +1,5 @@
 import { registerBlockType } from '@wordpress/blocks';
+import { __ } from '@wordpress/i18n';
 import {
 	useBlockProps,
 	useInnerBlocksProps,
@@ -29,33 +30,46 @@ registerBlockType( metadata.name, {
 				template: [
 					[
 						'core/heading',
-						{ level: 3, content: 'お客様の声をお聞かせください' },
+						{
+							level: 3,
+							content: __(
+								'Please tell us what your customers have to say',
+								'beastfeedbacks'
+							),
+						},
 					],
 					[
 						'beastfeedbacks/survey-select',
 						{
-							label: '当サイトの満足度',
+							label: __(
+								'Satisfaction with this site',
+								'beastfeedbacks'
+							),
 							tagType: 'radio',
 							required: true,
 							items: [
-								'とても満足',
-								'満足',
-								'普通',
-								'不満',
-								'とても不満',
+								__( 'Very satisfied', 'beastfeedbacks' ),
+								__( 'Satisfaction', 'beastfeedbacks' ),
+								__( 'Normal', 'beastfeedbacks' ),
+								__( 'Dissatisfaction', 'beastfeedbacks' ),
+								__( 'Very dissatisfied', 'beastfeedbacks' ),
 							],
 						},
 					],
 					[
 						'beastfeedbacks/survey-input',
 						{
-							label: '詳細',
+							label: __( 'Description', 'beastfeedbacks' ),
 							tagType: 'textarea',
 						},
 					],
 					[
 						'core/button',
-						{ text: '送信', tagName: 'button', type: 'submit' },
+						{
+							text: __( 'Submit', 'beastfeedbacks' ),
+							tagName: 'button',
+							type: 'submit',
+						},
 					],
 				],
 			}

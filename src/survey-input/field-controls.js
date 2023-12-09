@@ -54,9 +54,9 @@ export default function FieldControls( { attributes, setAttributes } ) {
 					setAttributes={ setAttributes }
 				/>
 
-				<PanelBody title={ 'フィールド設定' }>
+				<PanelBody title={ __( 'Field settings', 'beastfeedbacks' ) }>
 					<ToggleControl
-						label={ '必須入力' }
+						label={ __( 'Required input', 'beastfeedbacks' ) }
 						className="label__required"
 						checked={ attributes.required }
 						onChange={ ( value ) =>
@@ -90,9 +90,9 @@ export default function FieldControls( { attributes, setAttributes } ) {
 				</ToolbarGroup>
 				<ToolbarGroup>
 					<ToolbarButton
-						title={ '必須' }
-						label={ '必須' }
-						text={ '必須' }
+						title={ __( 'Required', 'beastfeedbacks' ) }
+						label={ __( 'Required', 'beastfeedbacks' ) }
+						text={ __( 'Required', 'beastfeedbacks' ) }
 						icon={ null }
 						onClick={ () =>
 							setAttributes( { required: ! attributes.required } )

@@ -3,10 +3,10 @@
 	"apiVersion": 3,
 	"name": "beastfeedbacks/survey-input",
 	"version": "0.1.0",
-	"title": "survey-input",
+	"title": "Survey Input",
 	"parent": [ "beastfeedbacks/survey-form" ],
 	"category": "beastfeedbacks",
-	"description": "アンケート用の入力項目",
+	"description": "Input forms that can be used with Survey Form",
 	"example": {},
 	"supports": {
 		"html": false

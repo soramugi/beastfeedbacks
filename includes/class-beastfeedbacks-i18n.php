@@ -37,7 +37,8 @@ class BeastFeedbacks_I18n {
 	 * Init
 	 */
 	public function init() {
-		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'init', array( $this, 'wp_set_script_translations' ) );
 	}
 
 	/**
@@ -49,7 +50,18 @@ class BeastFeedbacks_I18n {
 		load_plugin_textdomain(
 			BEASTFEEDBACKS_DOMAIN,
 			false,
-			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
+			BEASTFEEDBACKS_DIR . 'languages'
+		);
+	}
+
+	/**
+	 * ブロックエディタ用の翻訳
+	 */
+	function wp_set_script_translations() {
+		wp_set_script_translations(
+			BEASTFEEDBACKS_DOMAIN . '-script',
+			BEASTFEEDBACKS_DOMAIN,
+			BEASTFEEDBACKS_DIR . 'languages',
 		);
 	}
 }

@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, RichText } from '@wordpress/block-editor';
 import metadata from './block.json';
@@ -13,7 +14,7 @@ registerBlockType( metadata.name, {
 	attributes: {
 		label: {
 			type: 'string',
-			default: 'サンプル入力値',
+			default: __( 'Sample input value', 'beastfeedbacks' ),
 		},
 		tagType: {
 			type: 'string',
@@ -52,7 +53,7 @@ registerBlockType( metadata.name, {
 						/>{ ' ' }
 						{ required && (
 							<span className="beastfeedbacks-survey-input_label_required">
-								(必須)
+								({ __( 'Required', 'beastfeedbacks' ) })
 							</span>
 						) }
 					</div>
@@ -99,7 +100,7 @@ registerBlockType( metadata.name, {
 					<RichText.Content tagName="label" value={ label } />{ ' ' }
 					{ required && (
 						<span className="beastfeedbacks-survey-input_label_required">
-							(必須)
+							({ __( 'Required', 'beastfeedbacks' ) })
 						</span>
 					) }
 				</div>

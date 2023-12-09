@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import { isEmpty, tap, noop, split, trim } from 'lodash';
 import { useRef } from '@wordpress/element';
 import { RichText } from '@wordpress/block-editor';
@@ -109,7 +110,9 @@ export default function EditListBlock( {
 		>
 			{ 'select' === tagType && (
 				<div className="beastfeedbacks-survey-select_item select_wrap">
-					<div className="dummy-select">選択してください</div>
+					<div className="dummy-select">
+						{ __( 'Please select', 'beastfeedbacks' ) }
+					</div>
 				</div>
 			) }
 
@@ -131,7 +134,7 @@ export default function EditListBlock( {
 							onSplit={ handleSplit( index ) }
 							onRemove={ handleDelete( index ) }
 							onReplace={ noop }
-							placeholder={ '項目追加' }
+							placeholder={ __( 'Add item', 'beastfeedbacks' ) }
 							__unstableDisableFormats
 						/>
 					</div>
