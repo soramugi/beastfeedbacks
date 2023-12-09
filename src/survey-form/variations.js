@@ -76,7 +76,7 @@ const variations = [
 							'Contract employees/temporary employees',
 							'beastfeedbacks'
 						),
-						__( 'part-time job', 'beastfeedbacks' ),
+						__( 'Part-time job', 'beastfeedbacks' ),
 						__(
 							'Civil servants (excluding teachers)',
 							'beastfeedbacks'

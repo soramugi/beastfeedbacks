@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-12-09T07:39:15+00:00\n"
+"POT-Creation-Date: 2023-12-09T11:42:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: beastfeedbacks\n"
@@ -62,77 +62,443 @@ msgstr ""
 msgid "Export"
 msgstr ""
 
-#: build/like/index.js:29
+#: includes/class-beastfeedbacks-public.php:95
+msgid "Thank you for your responses to the questionnaire. "
+msgstr ""
+
+#: includes/class-beastfeedbacks-public.php:96
+msgid "Thank you for the vote. "
+msgstr ""
+
+#: build/like/index.js:1
 #: src/like/index.js:12
-#: build/like/index.js:12
 msgid "Like"
 msgstr ""
 
-#: build/survey-input/index.js:70
-#: build/survey-choice/index.js:201
-#: src/survey-input/field-controls.js:65
+#: build/like/view.js:1
+#: build/survey-form/view.js:1
+#: build/vote/view.js:1
+#: src/like/view.js:41
+#: src/survey-form/view.js:32
+#: src/vote/view.js:42
+msgid "Oops! Something went wrong."
+msgstr ""
+
+#: build/survey-choice/index.js:1
+#: build/survey-input/index.js:1
+#: src/survey-choice/field-controls.js:57
+#: src/survey-input/field-controls.js:57
+msgid "Field settings"
+msgstr ""
+
+#: build/survey-choice/index.js:1
+#: build/survey-input/index.js:1
+#: src/survey-choice/field-controls.js:59
+#: src/survey-input/field-controls.js:59
+msgid "Required input"
+msgstr ""
+
+#: build/survey-choice/index.js:1
+#: build/survey-input/index.js:1
 #: src/survey-choice/field-controls.js:65
-#: build/survey-input/index.js:65
-#: build/survey-choice/index.js:207
+#: src/survey-input/field-controls.js:65
 msgid "You can edit the \"required\" label in the editor"
 msgstr ""
 
-#: build/like/block.json
-#: src/like/block.json
-msgctxt "block title"
-msgid "like"
+#: build/survey-choice/index.js:1
+#: build/survey-input/index.js:1
+#: src/survey-choice/field-controls.js:96
+#: src/survey-choice/field-controls.js:97
+#: src/survey-choice/field-controls.js:98
+#: src/survey-choice/index.js:82
+#: src/survey-choice/index.js:120
+#: src/survey-input/field-controls.js:93
+#: src/survey-input/field-controls.js:94
+#: src/survey-input/field-controls.js:95
+#: src/survey-input/index.js:56
+#: src/survey-input/index.js:103
+msgid "Required"
+msgstr ""
+
+#: build/survey-choice/index.js:1
+#: src/survey-choice/edit-list-block.js:114
+#: src/survey-choice/index.js:133
+msgid "Please select"
+msgstr ""
+
+#: build/survey-choice/index.js:1
+#: src/survey-choice/edit-list-block.js:137
+msgid "Add item"
+msgstr ""
+
+#: build/survey-choice/index.js:1
+#: src/survey-choice/index.js:42
+msgid "Sample choices"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:13
+msgid "Product survey"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:19
+msgid "Please take part in our product survey."
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:28
+msgid "Gender"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:32
+msgid "Man"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:33
+msgid "Woman"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:34
+#: src/survey-form/variations.js:100
+#: src/survey-form/variations.js:134
+msgid "Others"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:41
+msgid "Age"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:45
+msgid "Under 15 years old"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:46
+msgid "16~20 years old"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:47
+msgid "21~25 years old"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:48
+msgid "26~30 years old"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:49
+msgid "31~39 years old"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:50
+msgid "40~49 years old"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:51
+msgid "50~59 years old"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:52
+msgid "Over 60 years old"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:59
+msgid "Please select your occupation"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:66
+msgid "Managers/Officers"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:67
+msgid "Company employee (Comprehensive work)"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:71
+msgid "Company employee (General staff)"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:75
+msgid "Contract employees/temporary employees"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:79
+msgid "Part-time job"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:80
+msgid "Civil servants (excluding teachers)"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:84
+msgid "Faculty"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:85
+msgid "Medical personnel"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:86
+msgid "Self-employed/freelance"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:87
+msgid "Housewife/househusband"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:88
+msgid "University/graduate students"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:89
+msgid "Vocational school/junior college student"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:93
+msgid "High school student"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:94
+msgid "Professional profession (certified accountant, lawyer, tax accountant, judicial scrivener)"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:98
+msgid "Unemployed"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:99
+msgid "Retirement"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:107
+msgid "What type of personality do you have?"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:112
+msgid "Examples: angry, short-term or calm, shy"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:121
+msgid "Where did you hear about the product?"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:127
+msgid "Internet advertising"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:128
+msgid "Home page"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:129
+msgid "SNS"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:130
+msgid "Email magazine"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:131
+msgid "Acquaintance"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:132
+msgid "Over the counter"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:133
+msgid "TV and radio advertising"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:141
+msgid "What makes you decide to buy a product?"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:152
+msgid "Is there anything that could be improved about the product?"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:163
+msgid "Please rate the product"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/index.js:51
+#: src/survey-form/variations.js:167
+msgid "Very satisfied"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/index.js:52
+#: src/survey-form/variations.js:168
+msgid "Satisfaction"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:169
+msgid "Usually"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/index.js:54
+#: src/survey-form/variations.js:170
+msgid "Dissatisfaction"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/index.js:55
+#: src/survey-form/variations.js:171
+msgid "Very dissatisfied"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/variations.js:178
+msgid "If you have any final thoughts, please write them down."
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/index.js:69
+#: src/survey-form/variations.js:189
+msgid "Submit"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/index.js:35
+msgid "Please tell us what your customers have to say"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/index.js:44
+msgid "Satisfaction with this site"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/index.js:53
+msgid "Normal"
+msgstr ""
+
+#: build/survey-form/index.js:1
+#: src/survey-form/index.js:62
+msgid "Description"
+msgstr ""
+
+#: build/survey-input/index.js:1
+#: src/survey-input/index.js:17
+msgid "Sample input value"
+msgstr ""
+
+#: build/vote/index.js:1
+#: src/vote/index.js:13
+msgid "Were you satisfied with the content of the article?"
+msgstr ""
+
+#: build/vote/index.js:1
+#: src/vote/index.js:26
+msgid "Yes"
+msgstr ""
+
+#: build/vote/index.js:1
+#: src/vote/index.js:34
+msgid "No"
 msgstr ""
 
 #: build/like/block.json
 #: src/like/block.json
-msgctxt "block description"
-msgid "Example block scaffolded with Create Block tool."
-msgstr ""
-
-#: build/survey-form/block.json
-#: src/survey-form/block.json
 msgctxt "block title"
-msgid "survey-form"
+msgid "Like button"
 msgstr ""
 
-#: build/survey-form/block.json
-#: src/survey-form/block.json
+#: build/like/block.json
+#: src/like/block.json
 msgctxt "block description"
-msgid "アンケートフォーム"
-msgstr ""
-
-#: build/survey-input/block.json
-#: src/survey-input/block.json
-msgctxt "block title"
-msgid "survey-input"
-msgstr ""
-
-#: build/survey-input/block.json
-#: src/survey-input/block.json
-msgctxt "block description"
-msgid "アンケート用の入力項目"
+msgid "Like button and balloon display of Like count"
 msgstr ""
 
 #: build/survey-choice/block.json
 #: src/survey-choice/block.json
 msgctxt "block title"
-msgid "survey-choice"
+msgid "Survey Choice"
 msgstr ""
 
 #: build/survey-choice/block.json
 #: src/survey-choice/block.json
 msgctxt "block description"
-msgid "フォームの選択肢"
+msgid "Choice forms that can be used with Survey Form"
+msgstr ""
+
+#: build/survey-form/block.json
+#: src/survey-form/block.json
+msgctxt "block title"
+msgid "Survey Form"
+msgstr ""
+
+#: build/survey-form/block.json
+#: src/survey-form/block.json
+msgctxt "block description"
+msgid "Creating a survey form to conduct a survey"
+msgstr ""
+
+#: build/survey-input/block.json
+#: src/survey-input/block.json
+msgctxt "block title"
+msgid "Survey Input"
+msgstr ""
+
+#: build/survey-input/block.json
+#: src/survey-input/block.json
+msgctxt "block description"
+msgid "Input forms that can be used with Survey Form"
 msgstr ""
 
 #: build/vote/block.json
 #: src/vote/block.json
 msgctxt "block title"
-msgid "vote"
+msgid "Choice voting"
 msgstr ""
 
 #: build/vote/block.json
 #: src/vote/block.json
 msgctxt "block description"
-msgid "投票"
+msgid "Collect votes from multiple choice buttons"
 msgstr ""
