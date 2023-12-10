@@ -28,8 +28,8 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'BEASTFEEDBACKS_VERSION', '0.1.0' );
-define( 'BEASTFEEDBACKS_DOMAIN', 'beastfeedbacks' );
 define( 'BEASTFEEDBACKS_DIR', plugin_dir_path( __FILE__ ) );
+define( 'BEASTFEEDBACKS_DOMAIN', basename( BEASTFEEDBACKS_DIR ) );
 define( 'BEASTFEEDBACKS_URL', plugin_dir_url( __FILE__ ) );
 
 /**

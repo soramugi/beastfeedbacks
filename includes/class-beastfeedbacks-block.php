@@ -49,7 +49,7 @@ class BeastFeedbacks_Block {
 	 */
 	public function init() {
 		add_filter( 'block_categories_all', array( $this, 'block_categories_all' ), 10, 2 );
-		add_action( 'init', array( $this, 'register_block_type' ) );
+		add_action( 'init', array( $this, 'init_blocks' ) );
 	}
 
 	/**
@@ -76,11 +76,32 @@ class BeastFeedbacks_Block {
 	/**
 	 * ブロックエディタの登録
 	 */
-	public function register_block_type() {
-		register_block_type( BEASTFEEDBACKS_DIR . 'build/like/' );
-		register_block_type( BEASTFEEDBACKS_DIR . 'build/vote/' );
-		register_block_type( BEASTFEEDBACKS_DIR . 'build/survey-form/' );
-		register_block_type( BEASTFEEDBACKS_DIR . 'build/survey-input/' );
-		register_block_type( BEASTFEEDBACKS_DIR . 'build/survey-choice/' );
+	public function init_blocks() {
+		$names = array(
+			BEASTFEEDBACKS_DIR . 'build/like/',
+			BEASTFEEDBACKS_DIR . 'build/vote/',
+			BEASTFEEDBACKS_DIR . 'build/survey-form/',
+			BEASTFEEDBACKS_DIR . 'build/survey-input/',
+			BEASTFEEDBACKS_DIR . 'build/survey-choice/',
+		);
+
+		foreach ( $names as $name ) {
+			$this->init_block( $name );
+		}
+	}
+
+	/**
+	 * ブロックの登録 & 翻訳ファイルも適応
+	 *
+	 * @param string|WP_Block_Type $name
+	 */
+	public function init_block( $name ) {
+		$type = register_block_type( $name );
+
+		wp_set_script_translations(
+			$type->editor_script,
+			BEASTFEEDBACKS_DOMAIN,
+			BEASTFEEDBACKS_DIR . 'languages',
+		);
 	}
 }
