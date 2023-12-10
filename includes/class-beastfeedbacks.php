@@ -39,12 +39,13 @@ class BeastFeedbacks {
 	public function init() {
 		$this->load_dependencies();
 
-		BeastFeedbacks_I18n::get_instance()->init();
 		if ( is_admin() ) {
 			BeastFeedbacks_Admin::get_instance()->init();
 		}
 		BeastFeedbacks_Public::get_instance()->init();
 		BeastFeedbacks_Block::get_instance()->init();
+
+		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 	}
 
 	/**
@@ -54,10 +55,18 @@ class BeastFeedbacks {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-		require_once BEASTFEEDBACKS_DIR . 'includes/class-beastfeedbacks-i18n.php';
 		require_once BEASTFEEDBACKS_DIR . 'includes/class-beastfeedbacks-admin.php';
 		require_once BEASTFEEDBACKS_DIR . 'includes/class-beastfeedbacks-public.php';
 		require_once BEASTFEEDBACKS_DIR . 'includes/class-beastfeedbacks-block.php';
+	}
+
+	/**
+	 * Load the plugin text domain for translation.
+	 *
+	 * @since    0.1.0
+	 */
+	public function load_plugin_textdomain() {
+		load_plugin_textdomain( BEASTFEEDBACKS_DOMAIN, false, BEASTFEEDBACKS_DOMAIN . '/languages' );
 	}
 
 	/**
