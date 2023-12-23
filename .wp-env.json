@@ -1,6 +1,5 @@
 {
-	"plugins": [
-	],
+	"plugins": [ "." ],
 	"config": {
 		"WP_DEBUG": true
 	}

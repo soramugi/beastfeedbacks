@@ -72,3 +72,5 @@ cache
 build/
 .vscode
 vendor/
+
+artifacts/
