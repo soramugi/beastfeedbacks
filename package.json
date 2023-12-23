@@ -6,6 +6,7 @@
 	"license": "GPL-2.0-or-later",
 	"main": "block/",
 	"scripts": {
+		"env": "wp-env",
 		"build": "wp-scripts build",
 		"format": "wp-scripts format",
 		"lint:css": "wp-scripts lint-style",
@@ -25,6 +26,7 @@
 		"@wordpress/api-fetch": "^6.44.0",
 		"@wordpress/components": "^25.13.0",
 		"@wordpress/data": "^9.17.0",
+		"@wordpress/env": "^8.13.0",
 		"@wordpress/icons": "^9.38.0",
 		"@wordpress/scripts": "^26.18.0",
 		"lodash": "^4.17.21"
