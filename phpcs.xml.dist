@@ -33,6 +33,8 @@
 	<exclude-pattern>/build/*</exclude-pattern>
 	<exclude-pattern>/src/*.js</exclude-pattern>
 
+	<exclude-pattern>/specs/*.js</exclude-pattern>
+
 	<!-- Strip the filepaths down to the relevant bit. -->
 	<arg name="basepath" value="."/>
 
