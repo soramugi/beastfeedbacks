@@ -48,9 +48,8 @@ class BeastFeedbacks_Public {
 	public function register_beastfeedbacks_form() {
 		check_ajax_referer( 'register_beastfeedbacks_form' );
 
-		$params     = wp_unslash( $_POST );
-		$id         = esc_attr( $params['id'] );
-		$type       = esc_attr( $params['beastfeedbacks_type'] );
+		$id         = esc_attr( $_POST['id'] );
+		$type       = esc_attr( $_POST['beastfeedbacks_type'] );
 		$post       = get_post( $id );
 		$post_id    = $post ? (int) $post->ID : 0; // 存在しているか確認.
 		$ip_address = $this->get_ip_address();
@@ -58,7 +57,7 @@ class BeastFeedbacks_Public {
 		$time       = current_time( 'mysql' );
 		$title      = "{$ip_address} - {$time}";
 
-		$post_params = $params;
+		$post_params = array();
 		$ignore_keys = array(
 			'id',
 			'beastfeedbacks_type',
@@ -66,14 +65,25 @@ class BeastFeedbacks_Public {
 			'_wp_http_referer',
 			'_wpnonce',
 		);
-		foreach ( $ignore_keys as $ignore_key ) {
-			unset( $post_params[ $ignore_key ] );
+		foreach ( array_keys( $_POST ) as $post_key ) {
+			if ( in_array( $post_key, $ignore_keys ) ) {
+				continue;
+			}
+			$post_params[ $post_key ] = esc_attr( $_POST[ $post_key ] );
 		}
-		$content = array(
-			'user_agent'  => $user_agent,
-			'ip_address'  => $ip_address,
-			'type'        => $type,
-			'post_params' => $post_params,
+		$content = addslashes(
+			wp_kses(
+				wp_json_encode(
+					array(
+						'user_agent'  => $user_agent,
+						'ip_address'  => $ip_address,
+						'type'        => $type,
+						'post_params' => $post_params,
+					),
+					JSON_UNESCAPED_UNICODE
+				),
+				array()
+			)
 		);
 
 		wp_insert_post(
@@ -84,7 +94,7 @@ class BeastFeedbacks_Public {
 				'post_parent'  => $post_id,
 				'post_title'   => addslashes( wp_kses( $title, array() ) ),
 				'post_name'    => md5( $title ),
-				'post_content' => addslashes( wp_kses( wp_json_encode( $content, JSON_UNESCAPED_UNICODE ), array() ) ),
+				'post_content' => $content,
 				'meta_input'   => array(
 					'beastfeedbacks_type' => $type,
 				),
