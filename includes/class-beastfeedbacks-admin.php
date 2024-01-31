@@ -325,25 +325,18 @@ class BeastFeedbacks_Admin {
 
 		$selected_type = isset( $_GET['beastfeedbacks_type'] ) ? sanitize_key( $_GET['beastfeedbacks_type'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-		$select_types = BeastFeedbacks_Block::TYPES;
-
-		$options = '';
-		foreach ( $select_types as $select_type ) {
-
-			$options .= sprintf(
-				'<option value="%s" %s>%s</option>',
-				$select_type,
-				$selected_type === $select_type ? 'selected' : '',
-				$select_type,
-			);
-		}
-
 		?>
 		<select name="beastfeedbacks_type">
 			<option value=""><?php esc_html_e( 'All Types', 'beastfeedbacks' ); ?></option>
-			<?php
-			echo $options; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			?>
+			<?php foreach ( BeastFeedbacks_Block::TYPES as $select_type ) : ?>
+				<option value="<?php esc_html_e( $select_type ); ?>"
+					<?php if ( $selected_type === $select_type ) : ?>
+						selected
+					<?php endif; ?>
+				>
+					<?php esc_html_e( $select_type ); ?>
+				</option>
+			<?php endforeach; ?>
 		</select>
 		<?php
 	}
@@ -373,26 +366,23 @@ class BeastFeedbacks_Admin {
 		$posts      = get_posts( $args );
 		$parent_ids = array_values( array_unique( array_values( $posts ) ) );
 
-		$options = '';
-		foreach ( $parent_ids as $parent_id ) {
-			$parent_url    = get_permalink( $parent_id );
-			$parsed_url    = wp_parse_url( $parent_url );
-			$select_source = esc_html( $parsed_url['path'] );
-
-			$options .= sprintf(
-				'<option value="%s" %s>%s</option>',
-				$parent_id,
-				$selected_parent_id === $parent_id ? 'selected' : '',
-				$select_source,
-			);
-		}
-
 		?>
 		<select name="beastfeedbacks_parent_id">
 			<option value=""><?php esc_html_e( 'All Sources', 'beastfeedbacks' ); ?></option>
-			<?php
-			echo $options; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			?>
+			<?php foreach ( $parent_ids as $parent_id ) : ?>
+				<?php
+					$parent_url    = get_permalink( $parent_id );
+					$parsed_url    = wp_parse_url( $parent_url );
+					$select_source = esc_html( $parsed_url['path'] );
+				?>
+				<option value="<?php esc_html_e( $parent_id ); ?>"
+				<?php if ( $selected_parent_id === $parent_id ) : ?>
+					selected
+				<?php endif; ?>
+				>
+				<?php esc_html_e( $select_source ); ?>
+				</option>
+			<?php endforeach; ?>
 		</select>
 		<?php
 	}
