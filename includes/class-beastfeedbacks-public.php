@@ -48,8 +48,8 @@ class BeastFeedbacks_Public {
 	public function register_beastfeedbacks_form() {
 		check_ajax_referer( 'register_beastfeedbacks_form' );
 
-		$id         = esc_attr( $_POST['id'] );
-		$type       = esc_attr( $_POST['beastfeedbacks_type'] );
+		$id         = esc_attr( sanitize_text_field( $_POST['id'] ) );
+		$type       = esc_attr( sanitize_text_field( $_POST['beastfeedbacks_type'] ) );
 		$post       = get_post( $id );
 		$post_id    = $post ? (int) $post->ID : 0; // 存在しているか確認.
 		$ip_address = $this->get_ip_address();
@@ -69,7 +69,7 @@ class BeastFeedbacks_Public {
 			if ( in_array( $post_key, $ignore_keys ) ) {
 				continue;
 			}
-			$post_params[ $post_key ] = esc_attr( $_POST[ $post_key ] );
+			$post_params[ $post_key ] = esc_attr( sanitize_text_field( $_POST[ $post_key ] ) );
 		}
 		$content = addslashes(
 			wp_kses(
