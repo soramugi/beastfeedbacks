@@ -62,8 +62,7 @@ class BeastFeedbacks_Admin {
 		add_action( 'pre_get_posts', array( $this, 'type_filter_result' ) );
 		add_action( 'pre_get_posts', array( $this, 'source_filter_result' ) );
 
-		$hook_suffix = 'edit.php';
-		add_action( "admin_footer-{$hook_suffix}", array( $this, 'print_export_button' ) );
+		add_action( 'admin_print_scripts', array( $this, 'print_export_button' ) );
 		$action = 'beastfeedbacks_export';
 		add_action( "wp_ajax_{$action}", array( $this, 'download_csv' ) );
 	}
@@ -450,40 +449,42 @@ class BeastFeedbacks_Admin {
 
 		?>
 		<script type="text/javascript">
-			jQuery(function($) {
-				$('#posts-filter #post-query-submit')
-					.after(<?php echo wp_json_encode( $button ); ?>);
-			});
-
-			const exportSubmit = () => {
+			addLoadEvent(function () {
 				jQuery(function($) {
-					$.post("<?php echo esc_js( admin_url( 'admin-ajax.php' ) ); ?>", {
-							action: 'beastfeedbacks_export',
-							// year: date ? date[ 2 ].substr( 0, 4 ) : '',
-							// month: date ? date[ 2 ].substr( 4, 2 ) : '',
-							// post: post ? parseInt( post[ 2 ], 10 ) : 'all',
-							// selected: selected,
-							_wpnonce: '<?php echo esc_js( wp_create_nonce( 'beastfeedbacks_csv_export' ) ); ?>',
-						},
-						function(response, status, xhr) {
-							const blob = new Blob([response], {
-								type: 'application/octetstream'
-							});
-
-							const a = document.createElement('a');
-							a.href = window.URL.createObjectURL(blob);
-
-							var contentDispositionHeader = xhr.getResponseHeader('content-disposition');
-							a.download =
-								contentDispositionHeader.split('filename=')[1] || 'Beastfeedbacks-Export.csv';
-
-							document.body.appendChild(a);
-							a.click();
-							document.body.removeChild(a);
-							window.URL.revokeObjectURL(a.href);
-						});
+					$('#posts-filter #post-query-submit')
+						.after(<?php echo wp_json_encode( $button ); ?>);
 				});
-			}
+
+				const exportSubmit = () => {
+					jQuery(function($) {
+						$.post("<?php echo esc_js( admin_url( 'admin-ajax.php' ) ); ?>", {
+								action: 'beastfeedbacks_export',
+								// year: date ? date[ 2 ].substr( 0, 4 ) : '',
+								// month: date ? date[ 2 ].substr( 4, 2 ) : '',
+								// post: post ? parseInt( post[ 2 ], 10 ) : 'all',
+								// selected: selected,
+								_wpnonce: '<?php echo esc_js( wp_create_nonce( 'beastfeedbacks_csv_export' ) ); ?>',
+							},
+							function(response, status, xhr) {
+								const blob = new Blob([response], {
+									type: 'application/octetstream'
+								});
+
+								const a = document.createElement('a');
+								a.href = window.URL.createObjectURL(blob);
+
+								var contentDispositionHeader = xhr.getResponseHeader('content-disposition');
+								a.download =
+									contentDispositionHeader.split('filename=')[1] || 'Beastfeedbacks-Export.csv';
+
+								document.body.appendChild(a);
+								a.click();
+								document.body.removeChild(a);
+								window.URL.revokeObjectURL(a.href);
+							});
+					});
+				}
+			});
 		</script>
 		<?php
 	}
