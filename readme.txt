@@ -40,6 +40,31 @@ npm run plugin-zip
 
 == Frequently Asked Questions ==
 
+Q1.
+I want to update the translation file
+
+A1.
+You can help translate WordPress to your language by logging in to the translation platform with your WordPress.org account and suggesting translations (more details).
+https://make.wordpress.org/polyglots/handbook/translating/how-to-translate/
+
+Alternatively, you can include the translation files in a git repository.
+
+```
+git clone git@github.com:soramugi/beastfeedbacks.git
+cd beastfeedbacks
+cd languages
+cp beastfeedbacks.pot beastfeedbacks-{locale}.po # Describe the translation content
+wp i18n make-mo .
+wp i18n make-json beastfeedbacks-{locale}.po --no-purge
+```
+
+Please commit your artifacts and submit a pull request.
+The following documents are available for creating translation files.
+
+https://developer.wordpress.org/cli/commands/i18n/make-mo/
+https://developer.wordpress.org/block-editor/how-to-guides/internationalization/
+
+
 = What does this plugin solve? =
 
 Provide all ways to get user feedback on your project.
