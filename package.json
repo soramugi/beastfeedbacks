@@ -7,7 +7,7 @@
 	"main": "block/",
 	"scripts": {
 		"wp-env": "wp-env",
-		"build": "wp-scripts build",
+		"build": "wp-scripts build --webpack-copy-php",
 		"format": "wp-scripts format",
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",

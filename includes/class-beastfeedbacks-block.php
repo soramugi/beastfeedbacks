@@ -78,11 +78,11 @@ class BeastFeedbacks_Block {
 	 */
 	public function init_blocks() {
 		$names = array(
-			BEASTFEEDBACKS_DIR . 'build/like/',
-			BEASTFEEDBACKS_DIR . 'build/vote/',
-			BEASTFEEDBACKS_DIR . 'build/survey-form/',
-			BEASTFEEDBACKS_DIR . 'build/survey-input/',
-			BEASTFEEDBACKS_DIR . 'build/survey-choice/',
+			'like',
+			'vote',
+			'survey-form',
+			'survey-input',
+			'survey-choice',
 		);
 
 		foreach ( $names as $name ) {
@@ -93,15 +93,9 @@ class BeastFeedbacks_Block {
 	/**
 	 * ブロックの登録 & 翻訳ファイルも適応
 	 *
-	 * @param string|WP_Block_Type $name
+	 * @param string $name 読み込むブロックエディタの対象.
 	 */
 	public function init_block( $name ) {
-		$type = register_block_type( $name );
-
-		wp_set_script_translations(
-			$type->editor_script,
-			BEASTFEEDBACKS_DOMAIN,
-			BEASTFEEDBACKS_DIR . 'languages',
-		);
+		require BEASTFEEDBACKS_DIR . 'build/' . $name . '/init.php';
 	}
 }

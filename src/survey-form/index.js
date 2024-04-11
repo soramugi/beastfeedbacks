@@ -83,7 +83,4 @@ registerBlockType( metadata.name, {
 			</div>
 		);
 	},
-	save: () => {
-		return <InnerBlocks.Content />;
-	},
 } );
